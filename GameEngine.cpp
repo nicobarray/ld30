@@ -6,6 +6,10 @@ GameEngine::GameEngine(void)
 	, last_scene(0)
 	, scenes()
 {
+	Ressource& res = Ressource::getInstance();
+
+	res.load_image("../ld30/res/tileset-garden0.png");
+
 	// Add scenes here
 
 	// Test room (debug only)

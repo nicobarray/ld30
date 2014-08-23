@@ -3,8 +3,10 @@
 #include<SDL.h>
 #include<iostream>
 #include<vector>
+
 #include "Scene.h"
 #include "TestRoom.h"
+#include "Ressource.h"
 
 class GameEngine
 {
