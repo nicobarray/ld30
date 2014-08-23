@@ -19,10 +19,10 @@ void Level::update()
 		var->update();
 }
 
-void Level::draw()
+void Level::draw(SDL_Surface* screen)
 {
 	for(Entity* var : items)
-		var->draw();
+		var->draw(screen);
 }
 
 void Level::addEntity(Entity* e)

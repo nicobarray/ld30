@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Box.h"
 #include "SDL.h"
 
 /*
@@ -11,16 +12,20 @@ class Entity
 {
 public:
 	Entity(void);
-	~Entity(void);
+	virtual ~Entity(void);
 
 	void location_set(int x, int y, int w, int h);
 	void texture_set(SDL_Surface* tex);
 	
 	virtual void update() = 0;
-	virtual void draw() = 0;
+	virtual void draw(SDL_Surface* screen) = 0;
+
+	bool contact(Entity *e);
 
 private:
 	SDL_Rect* location;
 	SDL_Surface* texture;
+	bool solid;
+	Box b;
 };
 
