@@ -3,6 +3,7 @@
 TestRoom::TestRoom(void)
 	: level()
 {
+
 	level.addEntity(new Prop());
 }
 
