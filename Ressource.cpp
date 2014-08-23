@@ -20,3 +20,8 @@ Ressource::~Ressource(void)
 {
 	IMG_Quit();
 }
+
+SDL_Surface* Ressource::texture_get(int i)
+{
+	return textures[i];
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 #include "Box.h"
 #include "SDL.h"
@@ -13,7 +14,7 @@
 class Entity
 {
 public:
-	Entity(SDL_Surface* t, int x, int y, int w, int h);
+	Entity(SDL_Surface* t, int x, int y, int w, int h, bool s);
 	virtual ~Entity(void);
 
 	void location_set(int x, int y, int w, int h);
@@ -30,9 +31,10 @@ public:
 
 private:
 	SDL_Rect* location;
+	SDL_Rect* subrect;
 	SDL_Surface* texture;
 	bool solid;
 	Box b;
-	int move_x, move_y;
+	int move_x, move_y, direction, frame_id, frame_delay;
 };
 

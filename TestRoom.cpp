@@ -1,10 +1,11 @@
 #include "TestRoom.h"
 
-TestRoom::TestRoom(SDL_Surface* tileset)
-	: level("map/Test map ld30.tmx")
-	, tileset(tileset)
+TestRoom::TestRoom(SDL_Surface* t)
+	: level("map/Test map ld30.tmx", t)
 {
-
+	Ressource& res = Ressource::getInstance();
+	level.addEntity(new Imp(res.texture_get((int)IMP), 3*16, 5* 16));
+	level.addEntity(newPotion(res.texture_get((int)DROPHEALTH), 6 * 16, 12 * 16));
 }
 
 
@@ -24,24 +25,10 @@ void TestRoom::transition_out()
 
 void TestRoom::update(const SDL_Event& e, int index)
 {
-
+	level.update();
 }
 
 void TestRoom::draw(SDL_Surface* screen)
 {
-	SDL_Rect rect;
-
-	rect.x = 0;
-	rect.y = 0;
-	rect.w = screen->w;
-	rect.h = screen->h;
-	
-	SDL_Rect srect;
-
-	srect.x = 16;
-	srect.y = 0;
-	srect.w = 16;
-	srect.h = 16;
-
-	SDL_BlitSurface(tileset, &srect, screen, &rect);
+	level.draw(screen);
 }

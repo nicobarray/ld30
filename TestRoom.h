@@ -2,7 +2,9 @@
 
 #include "Scene.h"
 #include "Level.h"
-#include "Prop.h"
+#include "Ressource.h"
+
+#include "AllEntities.h"
 
 class TestRoom : public Scene
 {

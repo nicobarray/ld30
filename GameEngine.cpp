@@ -8,12 +8,14 @@ GameEngine::GameEngine(void)
 {
 	Ressource& res = Ressource::getInstance();
 
-	SDL_Surface* tileset = res.load_image("../ld30/res/tileset-garden0.png");
+	res.load_image("../ld30/res/tileset-garden0.png");
+	res.load_image("../ld30/res/drop-health.png");
+	res.load_image("../ld30/res/imp.png");
 
 	// Add scenes here
 
 	// Test room (debug only)
-	scenes.push_back(new TestRoom(tileset));
+	scenes.push_back(new TestRoom(res.texture_get((int)TILESET1)));
 }
 
 GameEngine::~GameEngine(void)
@@ -41,6 +43,7 @@ void GameEngine::update(const SDL_Event& e)
 void GameEngine::draw(SDL_Surface* screen)
 {
 	scenes.at(index)->draw(screen);
+
 }
 
 bool GameEngine::quit_get()

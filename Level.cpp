@@ -1,9 +1,11 @@
 #include "Level.h"
 
-Level::Level(std::string fileName)
-	: ground(), items()
+Level::Level(std::string fileName, SDL_Surface* tileset)
+	: ground()
+	, items()
+	, tiles(tileset)
 {
-	std::string line = "";
+	/*std::string line = "";
 	std::string text = "";
 	std::ifstream myfile(fileName);
 	if (myfile.is_open())

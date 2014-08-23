@@ -6,6 +6,13 @@
 #include<vector>
 #include<iostream>
 
+enum tex_id
+{
+	TILESET1 = 0,
+	DROPHEALTH,
+	IMP
+};
+
 class Ressource
 {
 public:
@@ -17,6 +24,7 @@ public:
 
 	~Ressource(void);
 	SDL_Surface* load_image(std::string path);
+	SDL_Surface* texture_get(int i);
 
 private:
 	Ressource(void)
