@@ -1,7 +1,7 @@
 #include "Prop.h"
 
 
-Prop::Prop(void)
+Prop::Prop(SDL_Surface* texture, const SDL_Rect& rect)
 {
 }
 

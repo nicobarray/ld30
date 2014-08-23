@@ -18,7 +18,7 @@ public:
 	void texture_set(SDL_Surface* tex);
 	
 	virtual void update() = 0;
-	virtual void draw(SDL_Surface* screen) = 0;
+	virtual void draw(SDL_Surface* screen);
 
 	bool contact(Entity *e);
 

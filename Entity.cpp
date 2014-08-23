@@ -32,3 +32,8 @@ bool Entity::contact(Entity* e)
 {
 	return b.collide(e->b);
 }
+
+void Entity::draw(SDL_Surface* screen)
+{
+	SDL_BlitSurface(texture, nullptr, screen, location);
+}
