@@ -28,7 +28,16 @@ void Entity::texture_set(SDL_Surface* tex)
 	texture = tex;
 }
 
+void Entity::draw(SDL_Surface* screen)
+{
+}
+
 bool Entity::contact(Entity* e)
 {
 	return b.collide(e->b);
+}
+
+void Entity::move(int x, int y)
+{
+	location_set(location->x + x, location->y + y, location->w, location->h);
 }

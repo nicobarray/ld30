@@ -7,7 +7,7 @@
 class Level
 {
 public:
-	Level(void);
+	Level(int w, int h);
 	~Level(void);
 
 	void update();
