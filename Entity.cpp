@@ -1,12 +1,13 @@
 #include "Entity.h"
 
 
-Entity::Entity(void)
+Entity::Entity(SDL_Surface* t, int x, int y)
 	: location(new SDL_Rect())
-	, texture(nullptr)
+	, texture(t)
 	, solid(false)
 	, b(0,0,0,0)
 {
+	location_set(x, y, t->w, t->h);
 }
 
 Entity::~Entity(void)
@@ -28,9 +29,18 @@ void Entity::texture_set(SDL_Surface* tex)
 	texture = tex;
 }
 
+void Entity::draw(SDL_Surface* screen)
+{
+}
+
 bool Entity::contact(Entity* e)
 {
 	return b.collide(e->b);
+}
+
+void Entity::move(int x, int y)
+{
+	location_set(location->x + x, location->y + y, location->w, location->h);
 }
 
 void Entity::draw(SDL_Surface* screen)

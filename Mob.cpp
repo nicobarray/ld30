@@ -1,7 +1,8 @@
 #include "Mob.h"
 
 
-Mob::Mob(void)
+Mob::Mob(SDL_Surface *t, int x, int y)
+	: Entity(t, x, y)
 {
 }
 

@@ -5,7 +5,7 @@ class Mob :
 	public Entity
 {
 public:
-	Mob(void);
+	Mob(SDL_Surface* t, int x, int y);
 	~Mob(void);
 
 private:

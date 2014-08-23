@@ -11,16 +11,17 @@
 class Entity
 {
 public:
-	Entity(void);
+	Entity(SDL_Surface* t, int x, int y);
 	virtual ~Entity(void);
 
 	void location_set(int x, int y, int w, int h);
 	void texture_set(SDL_Surface* tex);
 	
 	virtual void update() = 0;
-	virtual void draw(SDL_Surface* screen);
+	void draw(SDL_Surface* screen);
 
 	bool contact(Entity *e);
+	void move(int x, int y);
 
 private:
 	SDL_Rect* location;

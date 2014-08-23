@@ -1,9 +1,17 @@
 #include "Level.h"
 
 
-Level::Level(void)
+Level::Level(int w, int h)
 	: ground(), items()
 {
+	for (int i = 0; i < w; i++)
+	{
+		ground.push_back(std::vector<bool>());
+		for (int j = 0; j < h; j++)
+		{
+			ground[i].push_back(true);
+		}
+	}
 }
 
 
