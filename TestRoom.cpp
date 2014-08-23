@@ -1,9 +1,10 @@
 #include "TestRoom.h"
 
 TestRoom::TestRoom(SDL_Surface* tileset)
-	: level(20, 20)
+	: level("map/Test map ld30.tmx")
 	, tileset(tileset)
 {
+
 }
 
 

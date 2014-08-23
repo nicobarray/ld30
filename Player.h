@@ -5,7 +5,7 @@ class Player :
 	public Entity
 {
 public:
-	Player(SDL_Surface *t, int x, int y);
+	Player(SDL_Surface *t, int x, int y, int w, int h);
 	~Player(void);
 
 private:

@@ -1,7 +1,7 @@
 #include "Prop.h"
 
-Prop::Prop(SDL_Surface* texture, int x, int y)
-	: Entity(texture, x, y)
+Prop::Prop(SDL_Surface* texture, int x, int y, int w, int h)
+	: Entity(texture, x, y, w, h)
 
 {
 }

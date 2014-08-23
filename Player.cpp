@@ -1,8 +1,8 @@
 #include "Player.h"
 
 
-Player::Player(SDL_Surface *t, int x, int y)
-	: Entity(t, x, y)
+Player::Player(SDL_Surface *t, int x, int y, int w, int h)
+	: Entity(t, x, y, w, h)
 	, life(12)
 	, item(nullptr)
 {
