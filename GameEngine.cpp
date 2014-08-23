@@ -2,8 +2,14 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
+	, index(0)
+	, last_scene(0)
+	, scenes()
 {
+	// Add scenes here
 
+	// Test room (debug only)
+	scenes.push_back(new TestRoom());
 }
 
 GameEngine::~GameEngine(void)
@@ -15,6 +21,16 @@ void GameEngine::update(const SDL_Event& e)
 {
 	if (e.type == SDL_QUIT)
 		quit = true;
+
+	if (last_scene != index)
+	{
+		scenes.at(last_scene)->transition_out();
+		scenes.at(index)->transition_in();
+	}
+
+	scenes.at(index)->update(e, index);
+	
+	last_scene = index;
 }
 
 // Blit sprites and stuffs on the window's surface
@@ -61,6 +77,7 @@ int main(int argc, char** argv)
 	{
 		while (!engine.quit_get())
 		{
+
 			while (SDL_PollEvent(&e) != 0)
 			{
 				engine.update(e);

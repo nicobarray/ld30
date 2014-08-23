@@ -2,7 +2,9 @@
 
 #include<SDL.h>
 #include<iostream>
-#include<chrono>
+#include<vector>
+#include "Scene.h"
+#include "TestRoom.h"
 
 class GameEngine
 {
@@ -17,5 +19,8 @@ public:
 
 private:
 	bool quit;
+	int index;
+	int last_scene;
+	std::vector<Scene*> scenes;
 };
 
