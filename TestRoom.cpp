@@ -1,10 +1,10 @@
 #include "TestRoom.h"
 
 TestRoom::TestRoom(void)
-	: level()
+	: level(20, 20)
 {
 
-	level.addEntity(new Prop());
+	//level.addEntity(new Prop());
 }
 
 

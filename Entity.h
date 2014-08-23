@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Box.h"
 #include "SDL.h"
 
@@ -17,16 +19,20 @@ public:
 	void location_set(int x, int y, int w, int h);
 	void texture_set(SDL_Surface* tex);
 	
-	virtual void update() = 0;
+	void update();
+	void update(std::vector<Entity*>);
 	void draw(SDL_Surface* screen);
 
 	bool contact(Entity *e);
 	void move(int x, int y);
+	void move();
+	void moveBack();
 
 private:
 	SDL_Rect* location;
 	SDL_Surface* texture;
 	bool solid;
 	Box b;
+	int move_x, move_y;
 };
 

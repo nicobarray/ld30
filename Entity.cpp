@@ -6,6 +6,8 @@ Entity::Entity(SDL_Surface* t, int x, int y)
 	, texture(t)
 	, solid(false)
 	, b(0,0,0,0)
+	, move_x(0)
+	, move_y(0)
 {
 	location_set(x, y, t->w, t->h);
 }
@@ -29,8 +31,23 @@ void Entity::texture_set(SDL_Surface* tex)
 	texture = tex;
 }
 
-void Entity::draw(SDL_Surface* screen)
+void Entity::update()
 {
+	move_x = 0;
+	move_y = 0;
+}
+void Entity::update(std::vector<Entity*> v)
+{
+	move();
+	if (solid)
+		for (Entity* item : v)
+		{
+			if (item->solid && b.collide(item->b))
+			{
+				moveBack();
+				break;
+			}
+		}
 }
 
 bool Entity::contact(Entity* e)
@@ -41,6 +58,14 @@ bool Entity::contact(Entity* e)
 void Entity::move(int x, int y)
 {
 	location_set(location->x + x, location->y + y, location->w, location->h);
+}
+void Entity::move()
+{
+	location_set(location->x + move_x, location->y + move_y, location->w, location->h);
+}
+void Entity::moveBack()
+{
+	location_set(location->x - move_x, location->y - move_y, location->w, location->h);
 }
 
 void Entity::draw(SDL_Surface* screen)

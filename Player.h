@@ -10,5 +10,6 @@ public:
 
 private:
 	int life;
+	Entity* item;
 };
 

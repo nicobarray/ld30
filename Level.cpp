@@ -25,6 +25,8 @@ void Level::update()
 {
 	for(Entity* var : items)
 		var->update();
+	for(Entity* var : items)
+		var->update(items);
 }
 
 void Level::draw(SDL_Surface* screen)
