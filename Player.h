@@ -2,7 +2,7 @@
 #include "solidbody.h"
 
 class Player :
-	public SolidBody
+	public Entity
 {
 public:
 	Player(void);
