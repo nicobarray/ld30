@@ -1,12 +1,13 @@
 #include "Entity.h"
 
 
-Entity::Entity(void)
+Entity::Entity(SDL_Surface* t, int x, int y)
 	: location(new SDL_Rect())
-	, texture(nullptr)
+	, texture(t)
 	, solid(false)
 	, b(0,0,0,0)
 {
+	location_set(x, y, t->w, t->h);
 }
 
 Entity::~Entity(void)

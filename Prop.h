@@ -9,7 +9,7 @@ class Prop :
 	public Entity
 {
 public:
-	Prop(SDL_Surface* texture, const SDL_Rect& rect);
+	Prop(SDL_Surface* texture, int x, int y);
 	~Prop(void);
 
 private:
