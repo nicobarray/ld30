@@ -41,3 +41,8 @@ void Entity::move(int x, int y)
 {
 	location_set(location->x + x, location->y + y, location->w, location->h);
 }
+
+void Entity::draw(SDL_Surface* screen)
+{
+	SDL_BlitSurface(texture, nullptr, screen, location);
+}
