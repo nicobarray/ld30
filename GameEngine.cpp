@@ -8,12 +8,12 @@ GameEngine::GameEngine(void)
 {
 	Ressource& res = Ressource::getInstance();
 
-	res.load_image("../ld30/res/tileset-garden0.png");
+	SDL_Surface* tileset = res.load_image("../ld30/res/tileset-garden0.png");
 
 	// Add scenes here
 
 	// Test room (debug only)
-	scenes.push_back(new TestRoom());
+	scenes.push_back(new TestRoom(tileset));
 }
 
 GameEngine::~GameEngine(void)
@@ -40,7 +40,7 @@ void GameEngine::update(const SDL_Event& e)
 // Blit sprites and stuffs on the window's surface
 void GameEngine::draw(SDL_Surface* screen)
 {
-
+	scenes.at(index)->draw(screen);
 }
 
 bool GameEngine::quit_get()

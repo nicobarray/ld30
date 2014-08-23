@@ -8,6 +8,7 @@ class TestRoom : public Scene
 {
 public:
 	TestRoom(void);
+	TestRoom(SDL_Surface* tileset);
 	virtual ~TestRoom(void);
 
 	virtual void transition_in();
@@ -17,5 +18,6 @@ public:
 
 private:
 	Level level;
+	SDL_Surface* tileset;
 };
 

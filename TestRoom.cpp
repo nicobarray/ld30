@@ -1,7 +1,8 @@
 #include "TestRoom.h"
 
-TestRoom::TestRoom(void)
+TestRoom::TestRoom(SDL_Surface* tileset)
 	: level(20, 20)
+	, tileset(tileset)
 {
 }
 
@@ -27,5 +28,19 @@ void TestRoom::update(const SDL_Event& e, int index)
 
 void TestRoom::draw(SDL_Surface* screen)
 {
+	SDL_Rect rect;
 
+	rect.x = 0;
+	rect.y = 0;
+	rect.w = screen->w;
+	rect.h = screen->h;
+	
+	SDL_Rect srect;
+
+	srect.x = 16;
+	srect.y = 0;
+	srect.w = 16;
+	srect.h = 16;
+
+	SDL_BlitSurface(tileset, &srect, screen, &rect);
 }
