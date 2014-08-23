@@ -5,13 +5,12 @@
 #include <iostream>
 #include <fstream>
 
-#include "rapidxml.hpp"
 #include "Entity.h"
 
 class Level
 {
 public:
-	Level(std::string fileName);
+	Level(std::string fileName, SDL_Surface* t);
 	~Level(void);
 
 	void update();
@@ -22,5 +21,6 @@ public:
 private:
 	std::vector<std::vector<bool>> ground;
 	std::vector<Entity*> items;
+	SDL_Surface* tiles;
 };
 

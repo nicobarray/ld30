@@ -2,12 +2,14 @@
 
 #include "Scene.h"
 #include "Level.h"
-#include "Prop.h"
+#include "Ressource.h"
+
+#include "AllEntities.h"
 
 class TestRoom : public Scene
 {
 public:
-	TestRoom(void);
+	TestRoom(SDL_Surface* t);
 	virtual ~TestRoom(void);
 
 	virtual void transition_in();
