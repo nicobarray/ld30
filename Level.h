@@ -11,7 +11,7 @@ public:
 	~Level(void);
 
 	void update();
-	void draw();
+	void draw(SDL_Surface* screen);
 
 	void addEntity(Entity* e);
 
