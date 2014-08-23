@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 
 GameEngine::GameEngine(void)
+	: quit(false)
 {
 
 }
@@ -10,26 +11,26 @@ GameEngine::~GameEngine(void)
 
 }
 
-void GameEngine::update()
+void GameEngine::update(const SDL_Event& e)
 {
-
+	if (e.type == SDL_QUIT)
+		quit = true;
 }
 
 // Blit sprites and stuffs on the window's surface
 void GameEngine::draw(SDL_Surface* screen)
 {
-	
+
 }
 
 bool GameEngine::quit_get()
 {
-	return false;
+	return quit;
 }
 
 int main(int argc, char** argv)
 {
 	bool success = true;
-	bool quit = false;
 	SDL_Window* window = nullptr;
 	SDL_Surface* screen = nullptr;
 	SDL_Event e;
@@ -41,7 +42,7 @@ int main(int argc, char** argv)
 	{
 		std::cerr << "SDL Init error: " << SDL_GetError() << std::endl;
 		success = false;
-	}
+	} 
 	else
 	{
 		GameEngine engine = GameEngine();
@@ -58,13 +59,11 @@ int main(int argc, char** argv)
 
 	if (success)
 	{
-		while (!quit)
+		while (!engine.quit_get())
 		{
 			while (SDL_PollEvent(&e) != 0)
 			{
-				if (e.type == SDL_QUIT)
-					quit = true;
-				engine.update();
+				engine.update(e);
 			}
 
 			engine.draw(screen);
