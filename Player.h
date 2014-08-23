@@ -1,5 +1,5 @@
 #pragma once
-#include "solidbody.h"
+#include "Entity.h"
 
 class Player :
 	public Entity

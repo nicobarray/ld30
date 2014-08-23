@@ -1,12 +1,12 @@
 #pragma once
-#include "solidbody.h"
+#include "Entity.h"
 
 /*
 	L'ensemble des objets inanimes
 */
 
 class Prop :
-	public SolidBody
+	public Entity
 {
 public:
 	Prop(void);

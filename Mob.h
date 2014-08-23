@@ -1,8 +1,8 @@
 #pragma once
-#include "solidbody.h"
+#include "Entity.h"
 
 class Mob :
-	public SolidBody
+	public Entity
 {
 public:
 	Mob(void);
