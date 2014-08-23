@@ -13,7 +13,7 @@
 class Entity
 {
 public:
-	Entity(SDL_Surface* t, int x, int y);
+	Entity(SDL_Surface* t, int x, int y, int w, int h);
 	virtual ~Entity(void);
 
 	void location_set(int x, int y, int w, int h);

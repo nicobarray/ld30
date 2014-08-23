@@ -1,7 +1,7 @@
 #include "TestRoom.h"
 
 TestRoom::TestRoom(void)
-	: level(20, 20)
+	: level("map/Test map ld30.tmx")
 {
 }
 

@@ -1,13 +1,17 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
 
+#include "rapidxml.hpp"
 #include "Entity.h"
 
 class Level
 {
 public:
-	Level(int w, int h);
+	Level(std::string fileName);
 	~Level(void);
 
 	void update();
