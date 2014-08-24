@@ -16,9 +16,10 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
 	//, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*9)/8)
-	, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*3)/2)
+	, box(x * 3+ (w*3) /4+1, y * 3 + (h * 3)/2, (w*3)/2-2, (h*3)/2)
 	, solid(s)
 	, dead(false)
+	, invu(0)
 	, move_x(0)
 	, move_y(0)
 	, direction(0)
@@ -71,10 +72,14 @@ sf::IntRect Entity::box_get()
 {
 	return box;
 }
+animation Entity::anim_get()
+{
+	return anim;
+}
 
 void Entity::update()
 {
-	if (!dead)
+	if (!dead && anim != DEATH)
 	{
 		move_x = 0;
 		move_y = 0;
@@ -89,8 +94,10 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		{
 #pragma region move
 			if (anim == IDLE)
+			{
 				frame_id = 0;
-			anim = RUN;
+				anim = RUN;
+			}
 			if (move_y > 0 && move_y > abs(move_x))
 				direction = SOUTH;
 			else if (move_y < 0 && -move_y > abs(move_x))
@@ -115,6 +122,16 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			updateSubrect();
 			if (frame_id % 8 == 0 && anim == ATTACK)
 				anim = IDLE;
+			if (frame_id % 5 == 0 && anim == DEATH)
+			{
+				move_x = 0;
+				move_y = 0;
+			}
+			if (frame_id % 8 == 0 && anim == DEATH)
+			{
+				anim = IDLE;
+				dead = true;
+			}
 		}
 	}
 }
@@ -156,7 +173,7 @@ void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 		}
 	}
 
-	
+
 	move(0, move_y);
 	for (Entity* tile : ground)
 	{
@@ -184,7 +201,7 @@ void Entity::moveBack()
 
 void Entity::draw(sf::RenderWindow& window)
 {
-	if (!dead)
+	if (!dead && !((invu/7)%2))
 	{
 		window.draw(sprite);
 		if (move_x || move_y)

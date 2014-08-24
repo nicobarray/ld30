@@ -38,6 +38,7 @@ public:
 	void texture_set(sf::Texture& texture);
 	bool dead_get();
 	sf::IntRect box_get();
+	animation anim_get();
 	
 	virtual void update();
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items);
@@ -61,7 +62,7 @@ protected:
 	sf::Sprite sprite;
 	sf::IntRect box;
 	bool solid, dead;
-	int move_x, move_y, direction, frame_id, frame_delay;
+	int move_x, move_y, direction, frame_id, frame_delay, invu;
 	animation anim;
 
 	//DEBUG
