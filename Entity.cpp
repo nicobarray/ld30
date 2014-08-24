@@ -15,8 +15,9 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
-	, box(x * 3 + w/5, y* 3 + (h * 2)/3, (w*3)/5, h/3)
+	, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*3)/8)
 	, solid(s)
+	, dead(false)
 	, move_x(0)
 	, move_y(0)
 	, direction(0)
@@ -24,21 +25,34 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, frame_delay(7)
 	, anim(IDLE)
 {
-	location_set(x * 3, y * 3, w, h);
+	location_set(x*3, y*3);
 	sprite.setScale(3, 3);
+
+	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
+	bb.setFillColor(sf::Color(0,0,0, 0));
+	bb.setOutlineColor(sf::Color(255,0,0, 255));
+	bb.setOutlineThickness(2);
+	bb.setPosition(sf::Vector2f(box.left, box.top));
+
 }
 
 Entity::~Entity(void)
 {
 }
 
-void Entity::location_set(int x, int y, int w, int h)
+void Entity::location_set(int x, int y)
 {
+	box.left = box.left - location.left + x;
+	box.top = box.top - location.top + y;
 	location.left = x;
 	location.top = y;
-	location.width = w;
-	location.height = h;
 	sprite.setPosition(x, y);
+
+	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
+	bb.setFillColor(sf::Color(0,0,0, 0));
+	bb.setOutlineColor(sf::Color(255,0,0, 255));
+	bb.setOutlineThickness(2);
+	bb.setPosition(sf::Vector2f(box.left, box.top));
 }
 sf::IntRect& Entity::location_get()
 {
@@ -48,46 +62,69 @@ void Entity::texture_set(sf::Texture& tex)
 {
 	texture = tex;
 }
+bool Entity::dead_get()
+{
+	return dead;
+}
+sf::IntRect Entity::box_get()
+{
+	return box;
+}
 
 void Entity::update()
 {
-	move_x = 0;
-	move_y = 0;
-
+	if (!dead)
+	{
+		move_x = 0;
+		move_y = 0;
+	}
 }
 
-void Entity::update(std::vector<Entity*> ground)
+void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 {
-	if (move_y != 0 || move_x != 0)
+	if (!dead)
 	{
-		if (anim == IDLE)
-			frame_id = 0;
-		anim = RUN;
-		if (move_y > 0 && move_y > abs(move_x))
-			direction = SOUTH;
-		else if (move_y < 0 && -move_y > abs(move_x))
-			direction = NORTH;
-		else if (move_x > 0 && move_x > abs(move_y))
-			direction = EAST;
-		else if (move_x < 0 && -move_x > abs(move_y))
-			direction = WEST;
-		move();
-		updateSubrect();
-	}
-	else
-		anim = IDLE;
-	if (solid)
-		for (Entity* tile : ground)
+		if (move_y != 0 || move_x != 0)
 		{
-			if (tile->solid && box.intersects(tile->location))
-			{
-				moveBack();
-				anim = IDLE;
+#pragma region move
+			if (anim == IDLE)
 				frame_id = 0;
-				updateSubrect();
-				break;
+			anim = RUN;
+			if (move_y > 0 && move_y > abs(move_x))
+				direction = SOUTH;
+			else if (move_y < 0 && -move_y > abs(move_x))
+				direction = NORTH;
+			else if (move_x > 0 && move_x > abs(move_y))
+				direction = EAST;
+			else if (move_x < 0 && -move_x > abs(move_y))
+				direction = WEST;
+			move();
+			for (Entity* tile : ground)
+			{
+				if (tile->solid && box.intersects(tile->location))
+				{
+					moveBack();
+					anim = IDLE;
+					frame_id = 0;
+					break;
+				}
 			}
+			for (Entity* prop : items)
+			{
+				if (prop->solid && box.intersects(prop->location))
+				{
+					moveBack();
+					anim = IDLE;
+					frame_id = 0;
+					break;
+				}
+			}
+			updateSubrect();  
+#pragma endregion
 		}
+		else if (anim == RUN)
+			anim = IDLE;
+
 		if (frame_delay)
 			frame_delay--;
 		else
@@ -95,7 +132,10 @@ void Entity::update(std::vector<Entity*> ground)
 			frame_delay = 7;
 			frame_id++;
 			updateSubrect();
+			if (frame_id % 8 == 0 && anim == ATTACK)
+				anim = IDLE;
 		}
+	}
 }
 
 void Entity::updateSubrect()
@@ -104,22 +144,32 @@ void Entity::updateSubrect()
 		subrect.height * (direction + 4 * (int)anim), subrect.width, subrect.height));
 }
 
+void Entity::die(int n)
+{
+	dead = true;
+}
+
 void Entity::move(int x, int y)
 {
-	location_set(location.left + x, location.top + y, location.width, location.height);
+	location_set(location.left + x, location.top + y);
 }
 void Entity::move()
 {
-	location_set(location.left + move_x, location.top + move_y, location.width, location.height);
+	location_set(location.left + move_x, location.top + move_y);
 }
 void Entity::moveBack()
 {
-	location_set(location.left - move_x, location.top - move_y, location.width, location.height);
+	location_set(location.left - move_x, location.top - move_y);
 }
 
 void Entity::draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
+	if (!dead)
+	{
+		window.draw(sprite);
+		if (solid || move_x || move_y)
+		window.draw(bb);
+	}
 }
 
 sf::Sprite& Entity::sprite_get()

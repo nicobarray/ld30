@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <SFML\Graphics.hpp>
+#include <SFML\System.hpp>
 
 /*
 	Classe abstraite
@@ -13,7 +14,9 @@
 enum animation
 {
 	IDLE = 0,
-	RUN
+	RUN,
+	ATTACK,
+	DEATH
 };
 
 enum direction_id
@@ -30,12 +33,14 @@ public:
 	Entity(sf::Texture& texture, int x, int y, int w, int h, bool s);
 	virtual ~Entity(void);
 
-	void location_set(int x, int y, int w, int h);
+	void location_set(int x, int y);
 	sf::IntRect& location_get();
 	void texture_set(sf::Texture& texture);
+	bool dead_get();
+	sf::IntRect box_get();
 	
 	virtual void update();
-	void update(std::vector<Entity*>);
+	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items);
 	void draw(sf::RenderWindow& window);
 
 	bool contact(Entity *e);
@@ -46,14 +51,19 @@ public:
 	sf::Sprite& sprite_get();
 	void updateSubrect();
 
+	virtual void die(int n);
+
 protected:
 	sf::IntRect location;
 	sf::IntRect subrect;
 	sf::Texture& texture;
 	sf::Sprite sprite;
 	sf::IntRect box;
-	bool solid;
+	bool solid, dead;
 	int move_x, move_y, direction, frame_id, frame_delay;
 	animation anim;
+
+	//DEBUG
+	sf::RectangleShape bb;
 };
 

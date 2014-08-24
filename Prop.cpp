@@ -16,6 +16,11 @@ Prop::~Prop(void)
 {
 }
 
+int Prop::lifeGain_get()
+{
+	return lifeGain;
+}
+
 Prop* newPotion(sf::Texture& texture, int x, int y)
 {
 	return new Prop(texture, x, y, 16, 16, 2);
