@@ -13,7 +13,8 @@ enum tex_id
 	DROPHEALTH,
 	HERO,
 	IMP,
-	THUG
+	THUG,
+	SWITCH
 };
 
 class Ressource

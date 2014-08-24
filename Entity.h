@@ -6,6 +6,8 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\System.hpp>
 
+#include "Ressource.h"
+
 /*
 	Classe abstraite
 	Represente tous les objets/creatures/drops
@@ -16,7 +18,8 @@ enum animation
 	IDLE = 0,
 	RUN,
 	ATTACK,
-	DEATH
+	DEATH,
+	SWITCHING
 };
 
 enum direction_id
@@ -54,14 +57,15 @@ public:
 	void updateSubrect();
 
 	virtual void die(int n);
+	void switchWorld();
 
 protected:
 	sf::IntRect location;
 	sf::IntRect subrect;
-	sf::Texture& texture;
-	sf::Sprite sprite;
+	sf::Texture& texture, switchTexture;
+	sf::Sprite sprite, switchSprite;
 	sf::IntRect box;
-	bool solid, dead, col_x, col_y;
+	bool solid, dead, col_x, col_y, switched;
 	int move_x, move_y;
 	int direction, frame_id, frame_delay, invu;
 	animation anim;
