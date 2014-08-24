@@ -15,6 +15,7 @@ public:
 	~Prop(void);
 	
 	int lifeGain_get();
+	virtual void update();
 
 private:
 	bool catchable; //Le joueur peut capturer l'objet dans le gant

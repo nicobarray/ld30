@@ -37,7 +37,7 @@ void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 	if (false)
 		quit = true;
 
-	std::cout << "Last : " << last_scene << " Current : " << index << std::endl; 
+	//std::cout << "Last : " << last_scene << " Current : " << index << std::endl; 
 
 	if (last_scene != index)
 	{

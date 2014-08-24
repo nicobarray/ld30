@@ -16,7 +16,6 @@ Game::~Game(void)
 
 void Game::transition_in(sf::RenderWindow& window)
 {
-	std::cout << "YALLLA " << current << std::endl;
 	switch (current)
 	{
 	case LV1:

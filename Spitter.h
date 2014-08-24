@@ -8,5 +8,10 @@ public:
 	~Spitter(void);
 
 	virtual void update() override;
+
+	void shoot();
+
+private:
+	std::vector<Prop*> shots;
 };
 

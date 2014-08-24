@@ -46,7 +46,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	{
 		for (int i = 0; i < width; i++)
 		{
-			Entity* ent = new Entity(real_world, i * 16, j * 16, 16, 16, false);
+			Entity* ent = new Prop(real_world, i * 16, j * 16, 16, 16, false);
 			int index = i + j * width;
 
 			int subindex = tiles.at(index);

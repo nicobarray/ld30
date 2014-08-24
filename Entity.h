@@ -42,8 +42,9 @@ public:
 	bool dead_get();
 	sf::IntRect box_get();
 	animation anim_get();
+	void speed_set(int x, int y);
 	
-	virtual void update();
+	virtual void update() = 0;
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items);
 	void draw(sf::RenderWindow& window);
 

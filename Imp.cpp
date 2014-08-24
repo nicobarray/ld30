@@ -12,7 +12,8 @@ Imp::~Imp(void)
 
 void Imp::update()
 {
-	Entity::update();
+	move_x = 0;
+	move_y = 0;
 
 	if (!dead && anim != DEATH && anim != SWITCHING)
 	{

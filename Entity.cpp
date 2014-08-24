@@ -85,14 +85,10 @@ animation Entity::anim_get()
 {
 	return anim;
 }
-
-void Entity::update()
+void Entity::speed_set(int x, int y)
 {
-	if (!dead && anim != DEATH)
-	{
-		move_x = 0;
-		move_y = 0;
-	}
+	move_x = x;
+	move_y = y;
 }
 
 void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)

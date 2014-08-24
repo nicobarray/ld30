@@ -18,7 +18,8 @@ void Player::update()
 	dead = false;
 	if (invu)
 		invu--;
-	Entity::update();
+	move_x = 0;
+	move_y = 0;
 
 	int speed = 3;
 	if (anim != ATTACK && anim != DEATH)

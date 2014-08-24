@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllEntities.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEngine.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="Prop.h" />
     <ClInclude Include="Ressource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Spitter.h" />
     <ClInclude Include="TestRoom.h" />
   </ItemGroup>
   <ItemGroup>
@@ -45,10 +47,11 @@
     <ClCompile Include="Prop.cpp" />
     <ClCompile Include="Ressource.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Spitter.cpp" />
     <ClCompile Include="TestRoom.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{40071673-5556-45EE-BB29-3E0B71801FA6}</ProjectGuid>
+    <ProjectGuid>{31E7A91F-5EE3-4CA3-BCE0-2BEBF519707B}</ProjectGuid>
     <RootNamespace>ld30</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -80,12 +83,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>E:\boost_1_56_0;E:\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Nicolas\Downloads\boost_1_56_0\boost_1_56_0;C:\Users\Nicolas\Downloads\SFML-2.1-windows-vc11-32bits\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Nicolas\Downloads\SFML-2.1-windows-vc11-32bits\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
