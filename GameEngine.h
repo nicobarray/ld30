@@ -10,6 +10,8 @@
 #include "Scene.h"
 #include "Ressource.h"
 #include "TestRoom.h"
+#include "MenuLevel.h"
+#include "MenuMain.h"
 
 class GameEngine
 {
@@ -24,8 +26,8 @@ public:
 
 private:
 	bool quit;
-	int index;
-	int last_scene;
+	SceneName index;
+	SceneName last_scene;
 	std::vector<Scene*> scenes;
 };
 

@@ -53,7 +53,7 @@ void Game::transition_out(sf::RenderWindow& window)
 
 }
 
-void Game::update(sf::Event& event, sf::RenderWindow& window, int index)
+void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
 	levels.at((int)current)->update();
 

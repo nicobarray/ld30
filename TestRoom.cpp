@@ -24,7 +24,7 @@ void TestRoom::transition_out(sf::RenderWindow& window)
 
 }
 
-void TestRoom::update(sf::Event& event, sf::RenderWindow& window, int index)
+void TestRoom::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
 	level.update();
 }

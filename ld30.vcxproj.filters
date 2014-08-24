@@ -75,6 +75,9 @@
     <ClInclude Include="MenuLevel.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="MenuMain.h">
+      <Filter>Fichiers d%27en-tête\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -120,6 +123,9 @@
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="MenuLevel.cpp">
+      <Filter>Fichiers sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuMain.cpp">
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
   </ItemGroup>
