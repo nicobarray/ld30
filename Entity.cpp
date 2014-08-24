@@ -15,7 +15,8 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
-	, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*3)/8)
+	//, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*9)/8)
+	, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*3)/2)
 	, solid(s)
 	, dead(false)
 	, move_x(0)
@@ -98,27 +99,7 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				direction = EAST;
 			else if (move_x < 0 && -move_x > abs(move_y))
 				direction = WEST;
-			move();
-			for (Entity* tile : ground)
-			{
-				if (tile->solid && box.intersects(tile->location))
-				{
-					moveBack();
-					anim = IDLE;
-					frame_id = 0;
-					break;
-				}
-			}
-			for (Entity* prop : items)
-			{
-				if (prop->solid && box.intersects(prop->location))
-				{
-					moveBack();
-					anim = IDLE;
-					frame_id = 0;
-					break;
-				}
-			}
+			move(ground, items);
 			updateSubrect();  
 #pragma endregion
 		}
@@ -153,9 +134,48 @@ void Entity::move(int x, int y)
 {
 	location_set(location.left + x, location.top + y);
 }
-void Entity::move()
+void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 {
-	location_set(location.left + move_x, location.top + move_y);
+	move(move_x, 0);
+	for (Entity* tile : ground)
+	{
+		if (tile->solid && box.intersects(tile->location))
+		{
+			move(-move_x, 0);
+			move_x = 0;
+			break;
+		}
+	}
+	for (Entity* prop : items)
+	{
+		if (prop->solid && box.intersects(prop->location))
+		{
+			move(-move_x, 0);
+			move_x = 0;
+			break;
+		}
+	}
+
+	
+	move(0, move_y);
+	for (Entity* tile : ground)
+	{
+		if (tile->solid && box.intersects(tile->location))
+		{
+			move(0, -move_y);
+			move_y = 0;
+			break;
+		}
+	}
+	for (Entity* prop : items)
+	{
+		if (prop->solid && box.intersects(prop->location))
+		{
+			move(0, -move_y);
+			move_y = 0;
+			break;
+		}
+	}
 }
 void Entity::moveBack()
 {
@@ -167,12 +187,17 @@ void Entity::draw(sf::RenderWindow& window)
 	if (!dead)
 	{
 		window.draw(sprite);
-		if (solid || move_x || move_y)
-		window.draw(bb);
+		if (move_x || move_y)
+			window.draw(bb);
 	}
 }
 
 sf::Sprite& Entity::sprite_get()
 {
 	return sprite;
+}
+
+void Entity::solid_set(bool b)
+{
+	solid = b;
 }

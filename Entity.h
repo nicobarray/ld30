@@ -45,10 +45,11 @@ public:
 
 	bool contact(Entity *e);
 	void move(int x, int y);
-	void move();
+	void move(std::vector<Entity*> ground, std::vector<Entity*> items);
 	void moveBack();
 
 	sf::Sprite& sprite_get();
+	void solid_set(bool b);
 	void updateSubrect();
 
 	virtual void die(int n);
