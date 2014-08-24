@@ -37,15 +37,17 @@ void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 	if (false)
 		quit = true;
 
+	std::cout << "Last : " << last_scene << " Current : " << index << std::endl; 
+
 	if (last_scene != index)
 	{
 		scenes.at(last_scene)->transition_out(window);
 		scenes.at(index)->transition_in(window);
 	}
+	
+	last_scene = index;
 
 	scenes.at(index)->update(event, window, index);
-
-	last_scene = index;
 }
 
 // Blit sprites and stuffs on the window's surface
