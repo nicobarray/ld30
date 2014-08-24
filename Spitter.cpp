@@ -1,16 +1,16 @@
-#include "Imp.h"
+#include "Spitter.h"
 
-
-Imp::Imp(sf::Texture& t, Level* l, int x, int y)
+Spitter::Spitter(sf::Texture& t, Level* l, int x, int y)
 	: Mob(t, l, x, y, 32, 32)
 {
+	sprite.setColor(sf::Color(255, 0, 0, 255));
 }
 
-Imp::~Imp(void)
+Spitter::~Spitter(void)
 {
 }
 
-void Imp::update()
+void Spitter::update()
 {
 	Entity::update();
 
@@ -24,7 +24,6 @@ void Imp::update()
 		if (parent)
 			for (Entity* e : parent->items_get())
 			{
-				//std::cout << "Checking item at " << e->location_get().left << ";" << e->location_get().top << "\n";
 				if (dynamic_cast<Player*> (e))
 				{
 					x2 = e->box_get().left + e->box_get().width/2;
@@ -50,15 +49,6 @@ void Imp::update()
 					move_x = (speed * m_x) / dist;
 				if (m_y)
 					move_y = (speed * m_y) / dist;
-
-				/*if (col_x && move_y < 0)
-					move_y -= abs(move_x);
-				if (col_x && move_y > 0)
-					move_y += abs(move_x);
-				if (col_y && move_x < 0)
-					move_x -= abs(move_y);
-				if (col_y && move_x > 0)
-					move_x += abs(move_y);*/
 			}
 	}
 }
