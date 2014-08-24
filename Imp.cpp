@@ -15,7 +15,7 @@ void Imp::update()
 {
 	Entity::update();
 
-	if (!dead && anim != DEATH)
+	if (!dead && anim != DEATH && anim != SWITCHING)
 	{
 		float x = box.left + box.width/2;
 		float y = box.top + box.height/2;

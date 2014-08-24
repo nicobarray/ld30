@@ -20,7 +20,6 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	{
 		read_xml(file_name, pt);
 		std::cout << pt.get<std::string>("map.layer.<xmlattr>.name") << std::endl;
-
 	}
 	catch (...)
 	{
