@@ -4,8 +4,8 @@ TestRoom::TestRoom(sf::Texture& t)
 	: level("map/Test map ld30.tmx", t)
 {
 	Ressource& res = Ressource::getInstance();
-	//level.addEntity(new Imp(res.texture_get((int)IMP), 3*16, 5* 16));
-	level.addEntity(newPotion(res.texture_get((int)DROPHEALTH), 6 * 16, 12 * 16));
+	level.addEntity(new Imp(res.texture_get((int)IMP), dynamic_cast<Level *const> (this), 16, 16));
+	level.addEntity(newPotion(res.texture_get((int)DROPHEALTH), 16, 16));
 	level.addEntity(new Player(res.texture_get((int)HERO), 0, 0));
 }
 
