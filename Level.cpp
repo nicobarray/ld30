@@ -86,6 +86,9 @@ void Level::draw(sf::RenderWindow& window)
 {
 	for(Entity* var : ground)
 		var->draw(window);
+
+	std::sort(items.begin(), items.end(), compare);
+
 	for(Entity* var : items)
 		var->draw(window);
 }

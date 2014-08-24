@@ -228,3 +228,8 @@ void Entity::solid_set(bool b)
 {
 	solid = b;
 }
+
+bool compare (Entity *a, Entity *b)
+{
+	return a->location_get().top < b->location_get().top;
+}

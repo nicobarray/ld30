@@ -70,3 +70,5 @@ protected:
 	sf::RectangleShape bb;
 };
 
+bool compare (Entity *a, Entity *b);
+
