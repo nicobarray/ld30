@@ -5,6 +5,8 @@
 #include<iostream>
 #include<vector>
 
+#include "Game.h"
+
 #include "Scene.h"
 #include "Ressource.h"
 #include "TestRoom.h"
@@ -15,7 +17,7 @@ public:
 	GameEngine(void);
 	~GameEngine(void);
  
-	void update(sf::Event& event);
+	void update(sf::Event& event, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 
 	bool quit_get();

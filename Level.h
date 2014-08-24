@@ -18,22 +18,28 @@
 class Level
 {
 public:
-	Level(std::string fileName, sf::Texture& tileset);
+	Level(std::string fileName, sf::Texture& real_world, sf::Texture& fairy_world);
 	~Level(void);
 
 	std::vector<Entity*>& ground_get();
 	std::vector<Entity*>& items_get();
 
-	void update();
-	void draw(sf::RenderWindow& window);
+	virtual void update();
+	virtual void draw(sf::RenderWindow& window);
 
 	void addEntity(Entity* e);
+	void clearEntity();
+
+	void in_the_real_world_set(bool b);
+	bool in_the_real_world_set();
 
 private:
-	std::vector<Entity*> ground;
-	std::vector<Entity*> items;
-	sf::Texture& tileset;
+	std::vector<Entity*> real_ground, fairy_ground;
+	std::vector<Entity*> real_items, fairy_items;
+	sf::Texture& real_world;
+	sf::Texture& fairy_world;
 	int width;
 	int height;
+	bool in_the_real_world;
 };
 

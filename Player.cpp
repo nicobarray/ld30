@@ -5,9 +5,9 @@ Player::Player(sf::Texture& t, int x, int y)
 	: Entity(t, x, y, 32, 32, true)
 	, life(12)
 	, item(nullptr)
+	, view(sf::FloatRect(0, 0, 16 *3 * 16, 16 * 3 * 16))
 {
 }
-
 
 Player::~Player(void)
 {
@@ -69,6 +69,9 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		}
 	}
 
+	view.setCenter(location.left + location.width / 2, location.top + location.height / 2);
+	std::cout << view.getCenter().x << std::endl;
+
 	for (Entity* prop : items)
 	{
 		if (!prop->dead_get() && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))
@@ -99,4 +102,9 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			}
 		}
 	}
+}
+
+sf::View& Player::view_get()
+{
+	return view;
 }

@@ -1,11 +1,15 @@
 #include "Level.h"
 
-Level::Level(std::string file_name, sf::Texture& tileset)
-	: ground()
-	, items()
-	, tileset(tileset)
+Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_world)
+	: real_ground()
+	, fairy_ground()
+	, real_items()
+	, fairy_items()
+	, real_world(real_world)
+	, fairy_world(fairy_world)
 	, width(0)
 	, height(0)
+	, in_the_real_world(true)
 {
 	// Read the xml file @ fileName and create the level from it
 
@@ -30,7 +34,6 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 	std::vector<int> tiles;
 	std::vector<int> solids;
 
-
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.layer.data"))
 	{
 		tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
@@ -38,7 +41,6 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 	
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.solid.data"))
 	{
-		
 		solids.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
 
@@ -46,54 +48,69 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			Entity* ent = new Entity(tileset, i * 16, j * 16, 16, 16, false);
+			Entity* ent = new Entity(real_world, i * 16, j * 16, 16, 16, false);
 			int index = i + j * width;
 
 			int subindex = tiles.at(index);
 			ent->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
 			ent->solid_set(solids.at(index));
 			
-			ground.push_back(ent);
+			real_ground.push_back(ent);
 		}
 	}
 }
 
 Level::~Level(void)
 {
-	for(Entity* var : items)
+	for(Entity* var : real_items)
 		delete var;
 }
 
 std::vector<Entity*>& Level::ground_get()
 {
-	return ground;
+	return real_ground;
 }
 
 std::vector<Entity*>& Level::items_get()
 {
-	return items;
+	return real_items;
 }
 
 void Level::update()
 {
-	for(Entity* var : items)
+	for(Entity* var : real_items)
 		var->update();
-	for(Entity* var : items)
-		var->update(ground, items);
+	for(Entity* var : real_items)
+		var->update(real_ground, real_items);
 }
 
 void Level::draw(sf::RenderWindow& window)
 {
-	for(Entity* var : ground)
+	for(Entity* var : real_ground)
 		var->draw(window);
 
-	std::sort(items.begin(), items.end(), compare);
+	std::sort(real_items.begin(), real_items.end(), compare);
 
-	for(Entity* var : items)
+	for(Entity* var : real_items)
 		var->draw(window);
 }
 
 void Level::addEntity(Entity* e)
 {
-	items.push_back(e);
+	real_items.push_back(e);
+}
+
+void Level::clearEntity()
+{
+	real_items.clear();
+}
+
+void Level::in_the_real_world_set(bool b)
+{
+	in_the_real_world = b;
+}
+
+bool Level::in_the_real_world_set()
+{
+	return in_the_real_world;
 }
