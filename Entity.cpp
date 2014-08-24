@@ -32,12 +32,16 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	location_set(x*3, y*3);
 	sprite.setScale(3, 3);
 
-	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
+	/*bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
 	bb.setFillColor(sf::Color(0,0,0, 0));
 	bb.setOutlineColor(sf::Color(255,0,0, 255));
 	bb.setOutlineThickness(2);
-	bb.setPosition(sf::Vector2f(box.left, box.top));
+	bb.setPosition(sf::Vector2f(box.left, box.top));*/
 
+	Ressource& r = Ressource::getInstance();
+
+	switchTexture = r.texture_get(SWITCH);
+	switchSprite = sf::Sprite(switchTexture, location);
 }
 
 Entity::~Entity(void)
@@ -51,12 +55,13 @@ void Entity::location_set(float x, float y)
 	location.left = x;
 	location.top = y;
 	sprite.setPosition(location.left, location.top);
+	switchSprite.setPosition(location.left, location.top);
 
-	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
+	/*bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
 	bb.setFillColor(sf::Color(0,0,0, 0));
 	bb.setOutlineColor(sf::Color(255,0,0, 255));
 	bb.setOutlineThickness(2);
-	bb.setPosition(sf::Vector2f(box.left, box.top));
+	bb.setPosition(sf::Vector2f(box.left, box.top));*/
 }
 
 sf::IntRect& Entity::location_get()
@@ -136,6 +141,11 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				anim = IDLE;
 				dead = true;
 			}
+			if (frame_id % 8 == 0 && anim == SWITCHING)
+			{
+				anim = IDLE;
+				switched = true;
+			}
 		}
 	}
 }
@@ -144,11 +154,18 @@ void Entity::updateSubrect()
 {
 	sprite.setTextureRect(sf::IntRect(subrect.width * (frame_id % 8),
 		subrect.height * (direction + 4 * (int)anim), subrect.width, subrect.height));
+	switchSprite.setTextureRect(sf::IntRect(subrect.width * (frame_id % 8), 0, subrect.width, subrect.height));
 }
 
 void Entity::die(int n)
 {
 	dead = true;
+}
+void Entity::switchWorld()
+{
+	anim = SWITCHING;
+	frame_delay = 7;
+	frame_id = 0;
 }
 
 void Entity::move(float x, float y)
@@ -213,7 +230,10 @@ void Entity::draw(sf::RenderWindow& window)
 {
 	if (!dead && !((invu/7)%2))
 	{
-		window.draw(sprite);
+		if (anim == SWITCHING)
+			window.draw(switchSprite);
+		else
+			window.draw(sprite);
 		//if (move_x || move_y)
 		//	window.draw(bb);
 	}
