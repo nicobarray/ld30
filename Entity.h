@@ -43,6 +43,7 @@ public:
 	void move();
 	void moveBack();
 
+	sf::Sprite& sprite_get();
 	void updateSubrect();
 
 protected:

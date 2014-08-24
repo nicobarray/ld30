@@ -11,7 +11,7 @@ int abs(int n)
 }
 
 Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
-	: location(x, y, w * 3, h * 3)
+	: location(x * 3, y * 3, w * 3, h * 3)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
@@ -23,8 +23,8 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, frame_delay(7)
 	, anim(IDLE)
 {
-	location_set(x, y, w, h);
-	sprite.setScale(3,3);
+	location_set(x * 3, y * 3, w, h);
+	sprite.setScale(3, 3);
 }
 
 Entity::~Entity(void)
@@ -52,6 +52,7 @@ void Entity::update()
 {
 	move_x = 0;
 	move_y = 0;
+
 }
 
 void Entity::update(std::vector<Entity*> v)
@@ -118,4 +119,9 @@ void Entity::moveBack()
 void Entity::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+sf::Sprite& Entity::sprite_get()
+{
+	return sprite;
 }

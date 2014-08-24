@@ -14,7 +14,7 @@ class GameEngine
 public:
 	GameEngine(void);
 	~GameEngine(void);
-
+ 
 	void update(sf::Event& event);
 	void draw(sf::RenderWindow& window);
 
