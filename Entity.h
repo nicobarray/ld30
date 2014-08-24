@@ -28,6 +28,7 @@ public:
 	void move();
 	void moveBack();
 
+	sf::Sprite& sprite_get();
 private:
 	sf::IntRect location;
 	sf::IntRect subrect;
