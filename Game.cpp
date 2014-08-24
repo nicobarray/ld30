@@ -5,6 +5,7 @@ Game::Game(void)
 	, player(nullptr)
 	, current(LV1)
 {
+	player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 	levels.push_back(new Level1(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	levels.push_back(new Level2(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 }
@@ -15,6 +16,7 @@ Game::~Game(void)
 
 void Game::transition_in(sf::RenderWindow& window)
 {
+	std::cout << "YALLLA " << current << std::endl;
 	switch (current)
 	{
 	case LV1:	
@@ -43,7 +45,6 @@ void Game::transition_out(sf::RenderWindow& window)
 void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
 	levels.at((int)current)->update();
-
 }
 
 void Game::draw(sf::RenderWindow& window)
