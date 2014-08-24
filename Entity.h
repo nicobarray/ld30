@@ -10,6 +10,20 @@
 	Represente tous les objets/creatures/drops
 */
 
+enum animation
+{
+	IDLE = 0,
+	RUN
+};
+
+enum direction_id
+{
+	SOUTH = 0,
+	EAST,
+	NORTH,
+	WEST
+};
+
 class Entity
 {
 public:
@@ -17,9 +31,10 @@ public:
 	virtual ~Entity(void);
 
 	void location_set(int x, int y, int w, int h);
+	sf::IntRect& location_get();
 	void texture_set(sf::Texture& texture);
 	
-	void update();
+	virtual void update();
 	void update(std::vector<Entity*>);
 	void draw(sf::RenderWindow& window);
 
@@ -29,12 +44,15 @@ public:
 	void moveBack();
 
 	sf::Sprite& sprite_get();
-private:
+	void updateSubrect();
+
+protected:
 	sf::IntRect location;
 	sf::IntRect subrect;
 	sf::Texture& texture;
 	sf::Sprite sprite;
 	bool solid;
 	int move_x, move_y, direction, frame_id, frame_delay;
+	animation anim;
 };
 

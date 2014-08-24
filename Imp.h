@@ -5,7 +5,9 @@ class Imp :
 	public Mob
 {
 public:
-	Imp(sf::Texture& t, int x, int y);
+	Imp(sf::Texture& t, Level* l, int x, int y);
 	~Imp(void);
+	
+	virtual void update() override;
 };
 

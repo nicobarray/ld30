@@ -55,6 +55,16 @@ Level::~Level(void)
 		delete var;
 }
 
+std::vector<Entity*>& Level::ground_get()
+{
+	return ground;
+}
+
+std::vector<Entity*>& Level::items_get()
+{
+	return items;
+}
+
 void Level::update()
 {
 	for(Entity* var : items)
