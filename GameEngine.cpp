@@ -6,6 +6,8 @@ GameEngine::GameEngine(void)
 	, last_scene(0)
 	, scenes()
 {
+	
+
 	Ressource& res = Ressource::getInstance();
 
 	res.load_image("../ld30/res/tileset-garden0.png");
@@ -59,6 +61,10 @@ int main(int argc, char** argv)
 	sf::RenderWindow window(sf::VideoMode(640, 380), "LD30");
 	window.setFramerateLimit(60);
 
+	// Set rendering framerate at 60 frames per sec
+	window.setFramerateLimit(60);
+
+	// Main game loop - if the window is open, then loop
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -68,7 +74,6 @@ int main(int argc, char** argv)
 				window.close();
 		}
 		engine.update(event);
-
 		window.clear();
 		engine.draw(window);
 		window.display();
