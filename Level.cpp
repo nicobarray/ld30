@@ -38,6 +38,7 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 	
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.solid.data"))
 	{
+		
 		solids.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
 
@@ -50,8 +51,7 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 
 			int subindex = tiles.at(index);
 			ent->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
-			ent->solid_set(!solids.at(index));
-
+			ent->solid_set(solids.at(index));
 			
 			ground.push_back(ent);
 		}
