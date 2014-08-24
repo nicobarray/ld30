@@ -21,7 +21,6 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 		std::cout << "Parsing : " << file_name;
 		read_xml(file_name, pt);
 		std::cout << pt.get<std::string>("map.layer.<xmlattr>.name") << std::endl;
-
 	}
 	catch (...)
 	{

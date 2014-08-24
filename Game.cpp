@@ -10,7 +10,7 @@ Game::Game(void)
 	level1.clearEntity();
 	level2.clearEntity();
 
-	level1.addEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), &level1, 16*10, 16*5));
+	level1.addEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), &level1, 16*10, 16*7));
 	level1.addEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16*5, 16*6));
 	level1.addEntity(player);
 
@@ -29,7 +29,7 @@ void Game::transition_in(sf::RenderWindow& window)
 
 	level1.clearEntity();
 
-	level1.addEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), &level1, 16*10, 16*5));
+	level1.addEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), &level1, 16*10, 16*7));
 	level1.addEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16*5, 16*6));
 	level1.addEntity(player);
 	

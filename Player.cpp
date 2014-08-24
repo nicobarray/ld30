@@ -56,7 +56,7 @@ void Player::die(int n)
 void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 {
 	Entity::update(ground, items);
-	if (move_y != 0 || move_x != 0)
+	if (move_y != 0 || move_x != 0) //POTIONS
 	{
 		for (Entity* prop : items)
 		{
@@ -72,36 +72,60 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	view.setCenter(location.left + location.width / 2, location.top + location.height / 2);
 	std::cout << view.getCenter().x << std::endl;
 
-	for (Entity* prop : items)
+	if (frame_delay == 6 && frame_id == 4 && anim == ATTACK)//ATTACK
 	{
-		if (!prop->dead_get() && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))
+		sf::IntRect area = sf::IntRect(location.left, box.top + box.height, location.width, (box.height * 4)/3);
+		area.top -= area.height;
+		if (direction == WEST)
+			area.left -= + location.width;
+		if (direction == EAST)
+			area.left += + location.width;
+		if (direction == NORTH)
+			area.top -= box.height;
+		if (direction == SOUTH)
+			area.top += box.height;
+
+		bb = sf::RectangleShape(sf::Vector2f(area.width, area.height));
+		bb.setFillColor(sf::Color(0,0,0, 0));
+		bb.setOutlineColor(sf::Color(255,0,0, 255));
+		bb.setOutlineThickness(2);
+		bb.setPosition(sf::Vector2f(area.left, area.top));
+
+		for (Entity* prop : items)
+			if (prop != this && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
+				prop->switchWorld();
+	}
+	else
+		for (Entity* prop : items)
 		{
-			int x = box.left + box.width/2;
-			int y = box.top + box.height/2;
-			int x2 = x;
-			int y2 = y;
-
-			x2 = prop->box_get().left + prop->box_get().width/2;
-			y2 = prop->box_get().top + prop->box_get().height/2;
-
-			move_x = x2 - x;
-			move_y = y2 - y;
-			int speed = 2;
-			int dist = move_x * move_x + move_y * move_y;
-			dist  = sqrt(dist);
-			if (dist < 70)
+			if (!prop->dead_get() && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))//ATTACKED BY IMP
 			{
-				std::cout << "It's an imp! (" << life << ")\n";
-				life--;
-				anim = DEATH;
-				frame_id = 0;
-				frame_delay = 7;
-				invu = 120;
-				move_x = -(3.5f * move_x)/dist;
-				move_y = -(3.5f * move_y)/dist;
+				int x = box.left + box.width/2;
+				int y = box.top + box.height/2;
+				int x2 = x;
+				int y2 = y;
+
+				x2 = prop->box_get().left + prop->box_get().width/2;
+				y2 = prop->box_get().top + prop->box_get().height/2;
+
+				move_x = x2 - x;
+				move_y = y2 - y;
+				int speed = 2;
+				int dist = move_x * move_x + move_y * move_y;
+				dist  = sqrt(dist);
+				if (dist < 70)
+				{
+					std::cout << "It's an imp! (" << life << ")\n";
+					life--;
+					anim = DEATH;
+					frame_id = 0;
+					frame_delay = 7;
+					invu = 120;
+					move_x = -(3.5f * move_x)/dist;
+					move_y = -(3.5f * move_y)/dist;
+				}
 			}
 		}
-	}
 }
 
 sf::View& Player::view_get()
