@@ -60,8 +60,10 @@ int main(int argc, char** argv)
 
 	sf::RenderWindow window(sf::VideoMode(640, 380), "LD30");
 
+	// Set rendering framerate at 60 frames per sec
 	window.setFramerateLimit(60);
 
+	// Main game loop - if the window is open, then loop
 	while (window.isOpen())
 	{
 		sf::Event event;
