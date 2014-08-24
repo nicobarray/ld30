@@ -5,22 +5,24 @@
 #include <iostream>
 #include <fstream>
 
+#include <SFML\Graphics.hpp>
+
 #include "Entity.h"
 
 class Level
 {
 public:
-	Level(std::string fileName, SDL_Surface* t);
+	Level(std::string fileName, sf::Texture& tileset);
 	~Level(void);
 
 	void update();
-	void draw(SDL_Surface* screen);
+	void draw(sf::RenderWindow& window);
 
 	void addEntity(Entity* e);
 
 private:
 	std::vector<std::vector<bool>> ground;
 	std::vector<Entity*> items;
-	SDL_Surface* tiles;
+	sf::Texture& tileset;
 };
 

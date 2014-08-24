@@ -1,10 +1,10 @@
 #pragma once
 
-#include<SDL.h>
-#include<SDL_image.h>
 #include<string>
 #include<vector>
 #include<iostream>
+
+#include <SFML/Graphics.hpp>
 
 enum tex_id
 {
@@ -22,24 +22,21 @@ public:
 		return instance;
 	}
 
-	~Ressource(void);
-	SDL_Surface* load_image(std::string path);
-	SDL_Surface* texture_get(int i);
+	~Ressource();
+	int load_image(std::string path);
+	sf::Texture& texture_get(int index);
 
 private:
-	Ressource(void)
+	Ressource()
 		: textures()
 	{
-		if (IMG_Init(IMG_INIT_PNG) == 0)
-		{
-			std::cerr << "IMG Init error: " << IMG_GetError() << std::endl;
-		}
+		
 	}
 
 	Ressource(Ressource const&);
 	void operator=(Ressource const&);
 
 private:
-	std::vector<SDL_Surface*> textures;
+	std::vector<sf::Texture> textures;
 };
 

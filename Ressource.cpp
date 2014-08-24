@@ -1,27 +1,24 @@
 #include "Ressource.h"
 
-SDL_Surface* Ressource::load_image(std::string path)
+int Ressource::load_image(std::string path)
 {
 	// load sample.png into image
-	SDL_Surface *texture;
-	SDL_RWops *rwop;
-
-	rwop = SDL_RWFromFile(path.c_str(), "rb");
-	if(!(texture = IMG_LoadPNG_RW(rwop))) {
-		std::cerr << "IMG LoadPNG RW: " << IMG_GetError() << std::endl;
+	sf::Texture texture;
+	
+	if(!texture.loadFromFile(path)) {
+		std::cerr << "Loading texture error : " << path << std::endl;
 	}
 
 	textures.push_back(texture);
 
-	return texture;
+	return textures.size() - 1;
 }
 
 Ressource::~Ressource(void)
 {
-	IMG_Quit();
 }
 
-SDL_Surface* Ressource::texture_get(int i)
+sf::Texture& Ressource::texture_get(int index)
 {
-	return textures[i];
+	return textures.at(index);
 }

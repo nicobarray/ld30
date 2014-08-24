@@ -1,6 +1,6 @@
 #pragma once
 
-#include<SDL.h>
+#include <SFML\Graphics.hpp>
 
 class Scene
 {
@@ -9,7 +9,7 @@ public:
 	virtual ~Scene(void) = 0;
 	virtual void transition_in() = 0;
 	virtual void transition_out() = 0;
-	virtual void update(const SDL_Event& e, int index) = 0;
-	virtual void draw(SDL_Surface* screen) = 0;
+	virtual void update(sf::Event& event, int index) = 0;
+	virtual void draw(sf::RenderWindow& window) = 0;
 };
 

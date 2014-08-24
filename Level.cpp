@@ -1,9 +1,9 @@
 #include "Level.h"
 
-Level::Level(std::string fileName, SDL_Surface* tileset)
+Level::Level(std::string fileName, sf::Texture& tileset)
 	: ground()
 	, items()
-	, tiles(tileset)
+	, tileset(tileset)
 {
 	
 }
@@ -22,10 +22,10 @@ void Level::update()
 		var->update(items);
 }
 
-void Level::draw(SDL_Surface* screen)
+void Level::draw(sf::RenderWindow& window)
 {
 	for(Entity* var : items)
-		var->draw(screen);
+		var->draw(window);
 }
 
 void Level::addEntity(Entity* e)

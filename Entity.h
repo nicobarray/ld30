@@ -3,8 +3,7 @@
 #include <vector>
 #include <iostream>
 
-#include "Box.h"
-#include "SDL.h"
+#include <SFML\Graphics.hpp>
 
 /*
 	Classe abstraite
@@ -14,15 +13,15 @@
 class Entity
 {
 public:
-	Entity(SDL_Surface* t, int x, int y, int w, int h, bool s);
+	Entity(sf::Texture& texture, int x, int y, int w, int h, bool s);
 	virtual ~Entity(void);
 
 	void location_set(int x, int y, int w, int h);
-	void texture_set(SDL_Surface* tex);
+	void texture_set(sf::Texture& texture);
 	
 	void update();
 	void update(std::vector<Entity*>);
-	void draw(SDL_Surface* screen);
+	void draw(sf::RenderWindow& window);
 
 	bool contact(Entity *e);
 	void move(int x, int y);
@@ -30,11 +29,10 @@ public:
 	void moveBack();
 
 private:
-	SDL_Rect* location;
-	SDL_Rect* subrect;
-	SDL_Surface* texture;
+	sf::IntRect location;
+	sf::IntRect subrect;
+	sf::Texture& texture;
 	bool solid;
-	Box b;
 	int move_x, move_y, direction, frame_id, frame_delay;
 };
 

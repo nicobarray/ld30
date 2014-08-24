@@ -11,6 +11,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/tileset-garden0.png");
 	res.load_image("../ld30/res/drop-health.png");
 	res.load_image("../ld30/res/imp.png");
+	
 
 	// Add scenes here
 
@@ -23,9 +24,9 @@ GameEngine::~GameEngine(void)
 
 }
 
-void GameEngine::update(const SDL_Event& e)
+void GameEngine::update(sf::Event& event)
 {
-	if (e.type == SDL_QUIT)
+	if (false)
 		quit = true;
 
 	if (last_scene != index)
@@ -34,16 +35,15 @@ void GameEngine::update(const SDL_Event& e)
 		scenes.at(index)->transition_in();
 	}
 
-	scenes.at(index)->update(e, index);
-	
+	scenes.at(index)->update(event, index);
+
 	last_scene = index;
 }
 
 // Blit sprites and stuffs on the window's surface
-void GameEngine::draw(SDL_Surface* screen)
+void GameEngine::draw(sf::RenderWindow& window)
 {
-	scenes.at(index)->draw(screen);
-
+	scenes.at(index)->draw(window);
 }
 
 bool GameEngine::quit_get()
@@ -53,48 +53,25 @@ bool GameEngine::quit_get()
 
 int main(int argc, char** argv)
 {
-	bool success = true;
-	SDL_Window* window = nullptr;
-	SDL_Surface* screen = nullptr;
-	SDL_Event e;
-
 	// Our game engine
 	GameEngine engine = GameEngine();
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		std::cerr << "SDL Init error: " << SDL_GetError() << std::endl;
-		success = false;
-	} 
-	else
-	{
-		GameEngine engine = GameEngine();
-		window = SDL_CreateWindow("ld30", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 360, SDL_WINDOW_SHOWN);
+	sf::RenderWindow window(sf::VideoMode(640, 380), "LD30");
 
-		if (!window)
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
 		{
-			std::cerr << "SDL Create Window error : " << SDL_GetError() << std::endl;
-			success = false;
+			if (event.type == sf::Event::Closed)
+				window.close();
+			engine.update(event);
 		}
-		else
-			screen = SDL_GetWindowSurface(window);
+
+		window.clear();
+		engine.draw(window);
+		window.display();
 	}
 
-	if (success)
-	{
-		while (!engine.quit_get())
-		{
-
-			while (SDL_PollEvent(&e) != 0)
-			{
-				engine.update(e);
-			}
-
-			engine.draw(screen);
-			SDL_UpdateWindowSurface(window);
-		}
-	}
-
-	SDL_Quit();
-	return !success;
+	return 0;
 }

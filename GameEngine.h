@@ -1,12 +1,13 @@
 #pragma once
 
-#include<SDL.h>
+#include<SFML/Graphics.hpp>
+
 #include<iostream>
 #include<vector>
 
 #include "Scene.h"
-#include "TestRoom.h"
 #include "Ressource.h"
+#include "TestRoom.h"
 
 class GameEngine
 {
@@ -14,8 +15,8 @@ public:
 	GameEngine(void);
 	~GameEngine(void);
 
-	void update(const SDL_Event& e);
-	void draw(SDL_Surface* screen);
+	void update(sf::Event& event);
+	void draw(sf::RenderWindow& window);
 
 	bool quit_get();
 

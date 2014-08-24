@@ -4,22 +4,21 @@
 #include "Level.h"
 #include "Ressource.h"
 
-#include "AllEntities.h"
+//#include "AllEntities.h"
 
 class TestRoom : public Scene
 {
 public:
-	TestRoom(void);
-	TestRoom(SDL_Surface* tileset);
-	virtual ~TestRoom(void);
+	TestRoom();
+	TestRoom(sf::Texture& tileset);
+	virtual ~TestRoom();
 
 	virtual void transition_in();
 	virtual void transition_out();
-	virtual void update(const SDL_Event& e, int index);
-	virtual void draw(SDL_Surface* screen);
+	virtual void update(sf::Event& e, int index);
+	virtual void draw(sf::RenderWindow& window);
 
 private:
 	Level level;
-	SDL_Surface* tileset;
 };
 

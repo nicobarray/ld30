@@ -1,12 +1,11 @@
 #include "Entity.h"
 
 
-Entity::Entity(SDL_Surface* t, int x, int y, int w, int h, bool s)
-	: location(new SDL_Rect())
-	, subrect(new SDL_Rect())
-	, texture(t)
+Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
+	: location(x, y, w, h)
+	, subrect(0, 0, w, h)
+	, texture(texture)
 	, solid(s)
-	, b(0,0,0,0)
 	, move_x(0)
 	, move_y(0)
 	, direction(0)
@@ -14,28 +13,21 @@ Entity::Entity(SDL_Surface* t, int x, int y, int w, int h, bool s)
 	, frame_delay(7)
 {
 	location_set(x, y, w, h);
-	subrect->x = 0;
-	subrect->y = 0;
-	subrect->w = w;
-	subrect->h = h;
 }
 
 Entity::~Entity(void)
 {
-	delete location;
-	delete subrect;
 }
 
 void Entity::location_set(int x, int y, int w, int h)
 {
-	location->x = x;
+	/*location->x = x;
 	location->y = y;
 	location->w = w;
-	location->h = h;
-	b = Box(x, y, x+w, y+h);
+	location->h = h;*/
 }
 
-void Entity::texture_set(SDL_Surface* tex)
+void Entity::texture_set(sf::Texture& tex)
 {
 	texture = tex;
 }
@@ -49,43 +41,43 @@ void Entity::update()
 	else
 	{
 		frame_delay = 7;
-		subrect->x = subrect->w * (++frame_id % 8);
+		subrect.left = subrect.width * (++frame_id % 8);
 		std::cout << "Frame number: " << frame_id << '\n';
 	}
 }
+
 void Entity::update(std::vector<Entity*> v)
 {
 	move();
 	if (solid)
 		for (Entity* item : v)
 		{
-			if (item->solid && b.collide(item->b))
+			if (item->solid && location.intersects(item->location))
 			{
 				moveBack();
 				break;
 			}
 		}
-}
-
-bool Entity::contact(Entity* e)
-{
-	return b.collide(e->b);
+		
+	sf::Sprite sprite(texture, subrect);
+		//sprite.move(x, y);
 }
 
 void Entity::move(int x, int y)
 {
-	location_set(location->x + x, location->y + y, location->w, location->h);
+	location_set(location.left + x, location.top + y, location.width, location.height);
 }
 void Entity::move()
 {
-	location_set(location->x + move_x, location->y + move_y, location->w, location->h);
+	//location_set(location->x + move_x, location->y + move_y, location->w, location->h);
 }
 void Entity::moveBack()
 {
-	location_set(location->x - move_x, location->y - move_y, location->w, location->h);
+	//location_set(location->x - move_x, location->y - move_y, location->w, location->h);
 }
 
-void Entity::draw(SDL_Surface* screen)
+void Entity::draw(sf::RenderWindow& window)
 {
-	SDL_BlitSurface(texture, subrect, screen, location);
+	sf::Sprite sprite(texture, subrect);
+	//sprite.draw(window, sf::RenderStates::Default);
 }
