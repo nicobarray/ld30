@@ -13,7 +13,8 @@
 #include <boost\property_tree\xml_parser.hpp>
 #include <boost\foreach.hpp>
 
-#include "Entity.h"
+#include "Prop.h"
+#include "Ressource.h"
 
 class Level
 {
