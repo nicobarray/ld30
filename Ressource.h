@@ -12,7 +12,8 @@ enum tex_id
 	TILESET2,
 	DROPHEALTH,
 	HERO,
-	IMP
+	IMP,
+	THUG
 };
 
 class Ressource

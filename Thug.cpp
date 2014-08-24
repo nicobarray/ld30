@@ -1,17 +1,16 @@
-#include "Imp.h"
+#include "Thug.h"
 
-
-Imp::Imp(sf::Texture& t, Level* l, int x, int y)
+Thug::Thug(sf::Texture& t, Level* l, int x, int y)
 	: Mob(t, l, x, y, 32, 32)
 {
 }
 
 
-Imp::~Imp(void)
+Thug::~Thug(void)
 {
 }
 
-void Imp::update()
+void Thug::update()
 {
 	Entity::update();
 
@@ -35,8 +34,8 @@ void Imp::update()
 
 			float m_x = x2 - x;
 			float m_y = y2 - y;
-			float speed = 1.5f;
-			float dist = m_x * m_x + m_y * m_y;
+			float speed = 1.3f;
+			float dist = m_x * m_x + m_y * m_y + 1;
 			dist  = sqrt(dist);
 
 			if (dist < 66)//allonge-4
@@ -53,13 +52,13 @@ void Imp::update()
 					move_y = (speed * m_y) / dist;
 
 				/*if (col_x && move_y < 0)
-					move_y -= abs(move_x);
+				move_y -= abs(move_x);
 				if (col_x && move_y > 0)
-					move_y += abs(move_x);
+				move_y += abs(move_x);
 				if (col_y && move_x < 0)
-					move_x -= abs(move_y);
+				move_x -= abs(move_y);
 				if (col_y && move_x > 0)
-					move_x += abs(move_y);*/
+				move_x += abs(move_y);*/
 			}
 	}
 }

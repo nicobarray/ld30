@@ -2,7 +2,7 @@
 #include "Imp.h"
 
 Player::Player(sf::Texture& t, int x, int y)
-	: Entity(t, x, y, 32, 32, false)
+	: Entity(t, x, y, 32, 32, true)
 	, life(12)
 	, item(nullptr)
 {
@@ -86,7 +86,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			int speed = 2;
 			int dist = move_x * move_x + move_y * move_y;
 			dist  = sqrt(dist);
-			if (dist < 64)
+			if (dist < 70)
 			{
 				std::cout << "It's an imp! (" << life << ")\n";
 				life--;
@@ -94,8 +94,8 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				frame_id = 0;
 				frame_delay = 7;
 				invu = 120;
-				move_x = -(3*move_x)/dist;
-				move_y = -(3*move_y)/dist;
+				move_x = -(3.5f * move_x)/dist;
+				move_y = -(3.5f * move_y)/dist;
 			}
 		}
 	}
