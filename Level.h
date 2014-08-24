@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include <SFML\Graphics.hpp>
 
@@ -28,6 +29,9 @@ public:
 
 	void addEntity(Entity* e);
 	void clearEntity();
+
+	void in_the_real_world_set(bool b);
+	bool in_the_real_world_set();
 
 private:
 	std::vector<Entity*> real_ground, fairy_ground;

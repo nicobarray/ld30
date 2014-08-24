@@ -108,13 +108,3 @@ sf::View& Player::view_get()
 {
 	return view;
 }
-
-void in_the_real_world_set(bool b)
-{
-	in_the_real_world_set = b;
-}
-
-bool in_the_real_world_set()
-{
-	return in_the_real_world_set;
-}

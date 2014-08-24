@@ -88,6 +88,9 @@ void Level::draw(sf::RenderWindow& window)
 {
 	for(Entity* var : real_ground)
 		var->draw(window);
+
+	std::sort(real_items.begin(), real_items.end(), compare);
+
 	for(Entity* var : real_items)
 		var->draw(window);
 }
@@ -100,4 +103,14 @@ void Level::addEntity(Entity* e)
 void Level::clearEntity()
 {
 	real_items.clear();
+}
+
+void Level::in_the_real_world_set(bool b)
+{
+	in_the_real_world = b;
+}
+
+bool Level::in_the_real_world_set()
+{
+	return in_the_real_world;
 }
