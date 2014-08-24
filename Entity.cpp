@@ -254,3 +254,13 @@ bool compare (Entity *a, Entity *b)
 {
 	return a->location_get().top < b->location_get().top;
 }
+
+void Entity::switched_set(bool b)
+{
+	switched = b;
+}
+
+bool Entity::switched_get()
+{
+	return switched;
+}

@@ -6,7 +6,6 @@ Imp::Imp(sf::Texture& t, Level* l, int x, int y)
 {
 }
 
-
 Imp::~Imp(void)
 {
 }
@@ -23,7 +22,7 @@ void Imp::update()
 		float y2 = y;
 
 		if (parent)
-			for (Entity* e : parent->items_get())
+			for (Entity* e : parent->items_real_get())
 			{
 				//std::cout << "Checking item at " << e->location_get().left << ";" << e->location_get().top << "\n";
 				if (dynamic_cast<Player*> (e))

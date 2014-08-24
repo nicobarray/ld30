@@ -93,7 +93,13 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 
 		for (Entity* prop : items)
 			if (prop != this && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
-				prop->switchWorld();
+			{
+				Prop* statue = dynamic_cast<Prop*>(prop);
+				if (statue)
+					switchWorld();
+				else
+					prop->switchWorld();
+			}
 	}
 	else
 		for (Entity* prop : items)

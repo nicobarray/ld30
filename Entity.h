@@ -59,6 +59,9 @@ public:
 	virtual void die(int n);
 	void switchWorld();
 
+	void switched_set(bool b);
+	bool switched_get();
+
 protected:
 	sf::IntRect location;
 	sf::IntRect subrect;
