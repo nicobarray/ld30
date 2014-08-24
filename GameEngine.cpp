@@ -6,8 +6,6 @@ GameEngine::GameEngine(void)
 	, last_scene(0)
 	, scenes()
 {
-	
-
 	Ressource& res = Ressource::getInstance();
 
 	res.load_image("../ld30/res/tileset-garden0.png");
@@ -18,6 +16,8 @@ GameEngine::GameEngine(void)
 
 	// Add scenes here
 
+	scenes.push_back(new Game());
+
 	// Test room (debug only)
 	scenes.push_back(new TestRoom(res.texture_get((int)TILESET1)));
 }
@@ -27,18 +27,18 @@ GameEngine::~GameEngine(void)
 
 }
 
-void GameEngine::update(sf::Event& event)
+void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 {
 	if (false)
 		quit = true;
 
 	if (last_scene != index)
 	{
-		scenes.at(last_scene)->transition_out();
-		scenes.at(index)->transition_in();
+		scenes.at(last_scene)->transition_out(window);
+		scenes.at(index)->transition_in(window);
 	}
 
-	scenes.at(index)->update(event, index);
+	scenes.at(index)->update(event, window, index);
 
 	last_scene = index;
 }
@@ -60,7 +60,6 @@ int main(int argc, char** argv)
 	GameEngine engine = GameEngine();
 
 	sf::RenderWindow window(sf::VideoMode(16 *3 * 16, 16 * 3 * 16), "LD30");
-	window.setFramerateLimit(60);
 
 	// Set rendering framerate at 60 frames per sec
 	window.setFramerateLimit(60);
@@ -74,8 +73,10 @@ int main(int argc, char** argv)
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		engine.update(event);
+
+		engine.update(event, window);
 		window.clear();
+		
 		engine.draw(window);
 		window.display();
 	}

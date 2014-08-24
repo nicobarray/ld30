@@ -5,9 +5,9 @@ Player::Player(sf::Texture& t, int x, int y)
 	: Entity(t, x, y, 32, 32, false)
 	, life(12)
 	, item(nullptr)
+	, view(sf::FloatRect(0, 0, 16 *3 * 16, 16 * 3 * 16))
 {
 }
-
 
 Player::~Player(void)
 {
@@ -65,4 +65,12 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			}
 		}
 	}
+
+	view.setCenter(location.left + location.width / 2, location.top + location.height / 2);
+	std::cout << view.getCenter().x << std::endl;
+}
+
+sf::View& Player::view_get()
+{
+	return view;
 }

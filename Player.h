@@ -17,8 +17,11 @@ public:
 
 	virtual void die(int n) override;
 
+	sf::View& view_get();
+
 private:
 	int life;
 	Entity* item;
+	sf::View view;
 };
 

@@ -1,7 +1,7 @@
 #include "TestRoom.h"
 
 TestRoom::TestRoom(sf::Texture& t)
-	: level("map/gliched1.tmx", t)
+	: level("map/testroom.tmx", Ressource::getInstance().texture_get((int)TILESET1), t)
 {
 	Ressource& res = Ressource::getInstance();
 	level.addEntity(new Imp(res.texture_get((int)IMP), &level, 16*10, 16*5));
@@ -13,17 +13,17 @@ TestRoom::~TestRoom(void)
 {
 }
 
-void TestRoom::transition_in()
+void TestRoom::transition_in(sf::RenderWindow& window)
 {
 
 }
 
-void TestRoom::transition_out()
+void TestRoom::transition_out(sf::RenderWindow& window)
 {
 
 }
 
-void TestRoom::update(sf::Event& event, int index)
+void TestRoom::update(sf::Event& event, sf::RenderWindow& window, int index)
 {
 	level.update();
 }
