@@ -51,6 +51,7 @@ protected:
 	sf::IntRect subrect;
 	sf::Texture& texture;
 	sf::Sprite sprite;
+	sf::IntRect box;
 	bool solid;
 	int move_x, move_y, direction, frame_id, frame_delay;
 	animation anim;

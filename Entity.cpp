@@ -15,6 +15,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
+	, box(x * 3 + w/5, y* 3 + (h * 2)/3, (w*3)/5, h/3)
 	, solid(s)
 	, move_x(0)
 	, move_y(0)
@@ -55,7 +56,7 @@ void Entity::update()
 
 }
 
-void Entity::update(std::vector<Entity*> v)
+void Entity::update(std::vector<Entity*> ground)
 {
 	if (move_y != 0 || move_x != 0)
 	{
@@ -76,9 +77,9 @@ void Entity::update(std::vector<Entity*> v)
 	else
 		anim = IDLE;
 	if (solid)
-		for (Entity* item : v)
+		for (Entity* tile : ground)
 		{
-			if (item->solid && location.intersects(item->location))
+			if (tile->solid && box.intersects(tile->location))
 			{
 				moveBack();
 				anim = IDLE;
