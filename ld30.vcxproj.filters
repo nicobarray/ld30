@@ -78,6 +78,9 @@
     <ClInclude Include="MenuMain.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Spitter.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="MenuMain.cpp">
       <Filter>Fichiers sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Spitter.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

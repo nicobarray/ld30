@@ -3,8 +3,7 @@
 #include "Scene.h"
 #include "Ressource.h"
 #include "Levels.h"
-#include "Player.h"
-#include "Imp.h"
+#include "AllEntities.h"
 
 enum LevelName
 {

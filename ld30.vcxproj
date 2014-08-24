@@ -27,6 +27,7 @@
     <ClInclude Include="Prop.h" />
     <ClInclude Include="Ressource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Spitter.h" />
     <ClInclude Include="TestRoom.h" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +46,7 @@
     <ClCompile Include="Prop.cpp" />
     <ClCompile Include="Ressource.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Spitter.cpp" />
     <ClCompile Include="TestRoom.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -70,7 +70,6 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	}
 
 	view.setCenter(location.left + location.width / 2, location.top + location.height / 2);
-	std::cout << view.getCenter().x << std::endl;
 
 	if (frame_delay == 6 && frame_id == 4 && anim == ATTACK)//ATTACK
 	{
