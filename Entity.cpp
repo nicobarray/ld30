@@ -32,11 +32,11 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	location_set(x*3, y*3);
 	sprite.setScale(3, 3);
 
-	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
+	/*bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
 	bb.setFillColor(sf::Color(0,0,0, 0));
 	bb.setOutlineColor(sf::Color(255,0,0, 255));
 	bb.setOutlineThickness(2);
-	bb.setPosition(sf::Vector2f(box.left, box.top));
+	bb.setPosition(sf::Vector2f(box.left, box.top));*/
 
 	Ressource& r = Ressource::getInstance();
 
@@ -57,11 +57,11 @@ void Entity::location_set(float x, float y)
 	sprite.setPosition(location.left, location.top);
 	switchSprite.setPosition(location.left, location.top);
 
-	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
+	/*bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
 	bb.setFillColor(sf::Color(0,0,0, 0));
 	bb.setOutlineColor(sf::Color(255,0,0, 255));
 	bb.setOutlineThickness(2);
-	bb.setPosition(sf::Vector2f(box.left, box.top));
+	bb.setPosition(sf::Vector2f(box.left, box.top));*/
 }
 
 sf::IntRect& Entity::location_get()
