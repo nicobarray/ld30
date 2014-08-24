@@ -4,7 +4,7 @@ TestRoom::TestRoom(sf::Texture& t)
 	: level("map/gliched.tmx", t)
 {
 	Ressource& res = Ressource::getInstance();
-	level.addEntity(new Imp(res.texture_get((int)IMP), dynamic_cast<Level *const> (this), 16*10, 16*5));
+	level.addEntity(new Imp(res.texture_get((int)IMP), &level, 16*10, 16*5));
 	level.addEntity(newPotion(res.texture_get((int)DROPHEALTH), 16*5, 16*6));
 	level.addEntity(new Player(res.texture_get((int)HERO), 0, 0));
 }

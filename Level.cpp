@@ -70,7 +70,7 @@ void Level::update()
 	for(Entity* var : items)
 		var->update();
 	for(Entity* var : items)
-		var->update(items);
+		var->update(ground);
 }
 
 void Level::draw(sf::RenderWindow& window)
