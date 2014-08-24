@@ -29,19 +29,16 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 
 	std::vector<int> tiles;
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.layer.data"))
-	{	
 		tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
-	}
 	
-	for (int i = 0; i < width; i++)
+	for (int j = 0; j < height; j++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int i = 0; i < width; i++)
 		{
 			Entity* ent = new Entity(tileset, i * 16, j * 16, 16, 16, false);
 			int index = i + j * width;
 
 			int subindex = tiles.at(index);
-			std::cout << subindex - 1 << std::endl;
 			ent->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
 			
 			ground.push_back(ent);

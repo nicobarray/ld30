@@ -11,6 +11,7 @@ GameEngine::GameEngine(void)
 	Ressource& res = Ressource::getInstance();
 
 	res.load_image("../ld30/res/tileset-garden0.png");
+	res.load_image("../ld30/res/tileset-garden1.png");
 	res.load_image("../ld30/res/drop-health.png");
 	res.load_image("../ld30/res/hero.png");
 	res.load_image("../ld30/res/imp.png");
@@ -58,7 +59,7 @@ int main(int argc, char** argv)
 	// Our game engine
 	GameEngine engine = GameEngine();
 
-	sf::RenderWindow window(sf::VideoMode(640, 380), "LD30");
+	sf::RenderWindow window(sf::VideoMode(16 *3 * 16, 16 * 3 * 16), "LD30");
 	window.setFramerateLimit(60);
 
 	// Set rendering framerate at 60 frames per sec
