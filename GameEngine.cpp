@@ -2,8 +2,8 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
-	, index(0)
-	, last_scene(0)
+	, index(MENU)
+	, last_scene(TESTROOM)
 	, scenes()
 {
 	Ressource& res = Ressource::getInstance();
@@ -15,9 +15,12 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/imp.png");
 	res.load_image("../ld30/res/thug.png");
 	res.load_image("../ld30/res/switch.png");
+	res.load_image("../ld30/res/title.png");
 
 	// Add scenes here
-
+	
+	scenes.push_back(new MenuMain());
+	scenes.push_back(new MenuLevel());
 	scenes.push_back(new Game());
 
 	// Test room (debug only)

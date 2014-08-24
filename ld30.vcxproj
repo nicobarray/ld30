@@ -20,6 +20,8 @@
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Level2.h" />
     <ClInclude Include="Levels.h" />
+    <ClInclude Include="MenuLevel.h" />
+    <ClInclude Include="MenuMain.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Prop.h" />
@@ -36,6 +38,8 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
+    <ClCompile Include="MenuLevel.cpp" />
+    <ClCompile Include="MenuMain.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Prop.cpp" />

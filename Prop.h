@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Entity.h"
 
 /*
-	L'ensemble des objets inanimes
+	L'ensemble des objets inanimés
 */
 
 class Prop :

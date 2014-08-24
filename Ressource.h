@@ -14,7 +14,8 @@ enum tex_id
 	HERO,
 	IMP,
 	THUG,
-	SWITCH
+	SWITCH,
+	TITLE
 };
 
 class Ressource
