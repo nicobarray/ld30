@@ -2,6 +2,13 @@
 
 #define SCALE = 3
 
+int abs(int n)
+{
+	if (n > 0)
+		return n;
+	else
+		return -n;
+}
 
 Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	: location(x, y, w * 3, h * 3)
@@ -14,6 +21,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, direction(0)
 	, frame_id(0)
 	, frame_delay(7)
+	, anim(IDLE)
 {
 	location_set(x, y, w, h);
 	sprite.setScale(3,3);
@@ -31,7 +39,10 @@ void Entity::location_set(int x, int y, int w, int h)
 	location.height = h;
 	sprite.setPosition(x, y);
 }
-
+sf::IntRect& Entity::location_get()
+{
+	return location;
+}
 void Entity::texture_set(sf::Texture& tex)
 {
 	texture = tex;
@@ -41,28 +52,54 @@ void Entity::update()
 {
 	move_x = 0;
 	move_y = 0;
-	if (frame_delay)
-		frame_delay--;
-	else
-	{
-		frame_delay = 7;
-		sprite.setTextureRect(sf::IntRect(subrect.width * (++frame_id % 8), subrect.height * direction, subrect.width, subrect.height));
-		std::cout << "Frame number: " << frame_id << '\n';
-	}
 }
 
 void Entity::update(std::vector<Entity*> v)
 {
-	move();
+	if (move_y != 0 || move_x != 0)
+	{
+		if (anim == IDLE)
+			frame_id = 0;
+		anim = RUN;
+		if (move_y > 0 && move_y > abs(move_x))
+			direction = SOUTH;
+		else if (move_y < 0 && -move_y > abs(move_x))
+			direction = NORTH;
+		else if (move_x > 0 && move_x > abs(move_y))
+			direction = EAST;
+		else if (move_x < 0 && -move_x > abs(move_y))
+			direction = WEST;
+		move();
+		updateSubrect();
+	}
+	else
+		anim = IDLE;
 	if (solid)
 		for (Entity* item : v)
 		{
 			if (item->solid && location.intersects(item->location))
 			{
 				moveBack();
+				anim = IDLE;
+				frame_id = 0;
+				updateSubrect();
 				break;
 			}
 		}
+		if (frame_delay)
+			frame_delay--;
+		else
+		{
+			frame_delay = 7;
+			frame_id++;
+			updateSubrect();
+		}
+}
+
+void Entity::updateSubrect()
+{
+	sprite.setTextureRect(sf::IntRect(subrect.width * (frame_id % 8),
+		subrect.height * (direction + 4 * (int)anim), subrect.width, subrect.height));
 }
 
 void Entity::move(int x, int y)

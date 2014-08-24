@@ -5,13 +5,22 @@ Level::Level(std::string fileName, sf::Texture& tileset)
 	, items()
 	, tileset(tileset)
 {
-	
+
 }
 
 Level::~Level(void)
 {
 	for(Entity* var : items)
 		delete var;
+}
+
+std::vector<std::vector<bool>>& Level::ground_get()
+{
+	return ground;
+}
+std::vector<Entity*>& Level::items_get()
+{
+	return items;
 }
 
 void Level::update()

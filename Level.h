@@ -15,6 +15,9 @@ public:
 	Level(std::string fileName, sf::Texture& tileset);
 	~Level(void);
 
+	std::vector<std::vector<bool>>& ground_get();
+	std::vector<Entity*>& items_get();
+
 	void update();
 	void draw(sf::RenderWindow& window);
 
