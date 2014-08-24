@@ -1,8 +1,8 @@
 #include "Player.h"
-
+#include "Imp.h"
 
 Player::Player(sf::Texture& t, int x, int y)
-	: Entity(t, x, y, 32, 32, false)
+	: Entity(t, x, y, 32, 32, true)
 	, life(12)
 	, item(nullptr)
 	, view(sf::FloatRect(0, 0, 16 *3 * 16, 16 * 3 * 16))
@@ -15,10 +15,13 @@ Player::~Player(void)
 
 void Player::update()
 {
+	dead = false;
+	if (invu)
+		invu--;
 	Entity::update();
 
 	int speed = 3;
-	if (anim != ATTACK)
+	if (anim != ATTACK && anim != DEATH)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			// move left...
@@ -68,9 +71,50 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 
 	view.setCenter(location.left + location.width / 2, location.top + location.height / 2);
 	std::cout << view.getCenter().x << std::endl;
+
+	for (Entity* prop : items)
+	{
+		if (!prop->dead_get() && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))
+		{
+			int x = box.left + box.width/2;
+			int y = box.top + box.height/2;
+			int x2 = x;
+			int y2 = y;
+
+			x2 = prop->box_get().left + prop->box_get().width/2;
+			y2 = prop->box_get().top + prop->box_get().height/2;
+
+			move_x = x2 - x;
+			move_y = y2 - y;
+			int speed = 2;
+			int dist = move_x * move_x + move_y * move_y;
+			dist  = sqrt(dist);
+			if (dist < 70)
+			{
+				std::cout << "It's an imp! (" << life << ")\n";
+				life--;
+				anim = DEATH;
+				frame_id = 0;
+				frame_delay = 7;
+				invu = 120;
+				move_x = -(3.5f * move_x)/dist;
+				move_y = -(3.5f * move_y)/dist;
+			}
+		}
+	}
 }
 
 sf::View& Player::view_get()
 {
 	return view;
+}
+
+void in_the_real_world_set(bool b)
+{
+	in_the_real_world_set = b;
+}
+
+bool in_the_real_world_set()
+{
+	return in_the_real_world_set;
 }

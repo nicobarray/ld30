@@ -36,5 +36,6 @@ private:
 	sf::Texture& fairy_world;
 	int width;
 	int height;
+	bool in_the_real_world;
 };
 

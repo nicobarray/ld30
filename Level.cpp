@@ -9,6 +9,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	, fairy_world(fairy_world)
 	, width(0)
 	, height(0)
+	, in_the_real_world(true)
 {
 	// Read the xml file @ fileName and create the level from it
 

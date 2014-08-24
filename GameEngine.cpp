@@ -13,6 +13,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/drop-health.png");
 	res.load_image("../ld30/res/hero.png");
 	res.load_image("../ld30/res/imp.png");
+	res.load_image("../ld30/res/thug.png");
 
 	// Add scenes here
 

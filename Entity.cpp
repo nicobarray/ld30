@@ -16,9 +16,12 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
 	//, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*9)/8)
-	, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*3)/2)
+	, box(x * 3+ (w*3) /4+1, y * 3 + (h * 3)/2, (w*3)/2-2, (h*3)/2)
 	, solid(s)
 	, dead(false)
+	, col_x(false)
+	, col_y(false)
+	, invu(0)
 	, move_x(0)
 	, move_y(0)
 	, direction(0)
@@ -41,13 +44,13 @@ Entity::~Entity(void)
 {
 }
 
-void Entity::location_set(int x, int y)
+void Entity::location_set(float x, float y)
 {
 	box.left = box.left - location.left + x;
 	box.top = box.top - location.top + y;
 	location.left = x;
 	location.top = y;
-	sprite.setPosition(x, y);
+	sprite.setPosition(location.left, location.top);
 
 	bb = sf::RectangleShape(sf::Vector2f(box.width, box.height));
 	bb.setFillColor(sf::Color(0,0,0, 0));
@@ -55,6 +58,7 @@ void Entity::location_set(int x, int y)
 	bb.setOutlineThickness(2);
 	bb.setPosition(sf::Vector2f(box.left, box.top));
 }
+
 sf::IntRect& Entity::location_get()
 {
 	return location;
@@ -71,10 +75,14 @@ sf::IntRect Entity::box_get()
 {
 	return box;
 }
+animation Entity::anim_get()
+{
+	return anim;
+}
 
 void Entity::update()
 {
-	if (!dead)
+	if (!dead && anim != DEATH)
 	{
 		move_x = 0;
 		move_y = 0;
@@ -89,18 +97,21 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		{
 #pragma region move
 			if (anim == IDLE)
+			{
 				frame_id = 0;
-			anim = RUN;
-			if (move_y > 0 && move_y > abs(move_x))
-				direction = SOUTH;
-			else if (move_y < 0 && -move_y > abs(move_x))
-				direction = NORTH;
-			else if (move_x > 0 && move_x > abs(move_y))
-				direction = EAST;
-			else if (move_x < 0 && -move_x > abs(move_y))
-				direction = WEST;
-			move(ground, items);
-			updateSubrect();  
+				anim = RUN;
+			}
+			if (anim != DEATH)
+				if (move_y > 0 && move_y > abs(move_x))
+					direction = SOUTH;
+				else if (move_y < 0 && -move_y > abs(move_x))
+					direction = NORTH;
+				else if (move_x > 0 && move_x > abs(move_y))
+					direction = EAST;
+				else if (move_x < 0 && -move_x > abs(move_y))
+					direction = WEST;
+				move(ground, items);
+				updateSubrect();  
 #pragma endregion
 		}
 		else if (anim == RUN)
@@ -115,6 +126,16 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			updateSubrect();
 			if (frame_id % 8 == 0 && anim == ATTACK)
 				anim = IDLE;
+			if (frame_id % 4 == 0 && anim == DEATH)
+			{
+				move_x = 0;
+				move_y = 0;
+			}
+			if (frame_id % 8 == 0 && anim == DEATH)
+			{
+				anim = IDLE;
+				dead = true;
+			}
 		}
 	}
 }
@@ -130,49 +151,55 @@ void Entity::die(int n)
 	dead = true;
 }
 
-void Entity::move(int x, int y)
+void Entity::move(float x, float y)
 {
 	location_set(location.left + x, location.top + y);
 }
 void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 {
 	move(move_x, 0);
+	col_x = false;
 	for (Entity* tile : ground)
 	{
 		if (tile->solid && box.intersects(tile->location))
 		{
 			move(-move_x, 0);
 			move_x = 0;
+			col_x = true;
 			break;
 		}
 	}
 	for (Entity* prop : items)
 	{
-		if (prop->solid && box.intersects(prop->location))
+		if (prop != this && prop->solid && box.intersects(prop->box))
 		{
 			move(-move_x, 0);
 			move_x = 0;
+			col_x = true;
 			break;
 		}
 	}
 
-	
+
 	move(0, move_y);
+	col_y = false;
 	for (Entity* tile : ground)
 	{
 		if (tile->solid && box.intersects(tile->location))
 		{
 			move(0, -move_y);
 			move_y = 0;
+			col_y = true;
 			break;
 		}
 	}
 	for (Entity* prop : items)
 	{
-		if (prop->solid && box.intersects(prop->location))
+		if (prop != this && prop->solid && box.intersects(prop->box))
 		{
 			move(0, -move_y);
 			move_y = 0;
+			col_y = true;
 			break;
 		}
 	}
@@ -184,11 +211,11 @@ void Entity::moveBack()
 
 void Entity::draw(sf::RenderWindow& window)
 {
-	if (!dead)
+	if (!dead && !((invu/7)%2))
 	{
 		window.draw(sprite);
-		if (move_x || move_y)
-			window.draw(bb);
+		//if (move_x || move_y)
+		//	window.draw(bb);
 	}
 }
 
