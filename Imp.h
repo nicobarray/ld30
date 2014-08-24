@@ -5,7 +5,7 @@ class Imp :
 	public Mob
 {
 public:
-	Imp(SDL_Surface *t, int x, int y);
+	Imp(sf::Texture& t, int x, int y);
 	~Imp(void);
 };
 

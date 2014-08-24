@@ -1,10 +1,13 @@
 #include "Entity.h"
 
+#define SCALE = 3
+
 
 Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
-	: location(x, y, w, h)
+	: location(x, y, w * 3, h * 3)
 	, subrect(0, 0, w, h)
 	, texture(texture)
+	, sprite(texture, sf::IntRect(0, 0, w, h))
 	, solid(s)
 	, move_x(0)
 	, move_y(0)
@@ -13,6 +16,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, frame_delay(7)
 {
 	location_set(x, y, w, h);
+	sprite.setScale(3,3);
 }
 
 Entity::~Entity(void)
@@ -21,10 +25,11 @@ Entity::~Entity(void)
 
 void Entity::location_set(int x, int y, int w, int h)
 {
-	/*location->x = x;
-	location->y = y;
-	location->w = w;
-	location->h = h;*/
+	location.left = x;
+	location.top = y;
+	location.width = w;
+	location.height = h;
+	sprite.setPosition(x, y);
 }
 
 void Entity::texture_set(sf::Texture& tex)
@@ -41,7 +46,7 @@ void Entity::update()
 	else
 	{
 		frame_delay = 7;
-		subrect.left = subrect.width * (++frame_id % 8);
+		sprite.setTextureRect(sf::IntRect(subrect.width * (++frame_id % 8), subrect.height * direction, subrect.width, subrect.height));
 		std::cout << "Frame number: " << frame_id << '\n';
 	}
 }
@@ -58,9 +63,6 @@ void Entity::update(std::vector<Entity*> v)
 				break;
 			}
 		}
-		
-	sf::Sprite sprite(texture, subrect);
-		//sprite.move(x, y);
 }
 
 void Entity::move(int x, int y)
@@ -69,15 +71,14 @@ void Entity::move(int x, int y)
 }
 void Entity::move()
 {
-	//location_set(location->x + move_x, location->y + move_y, location->w, location->h);
+	location_set(location.left + move_x, location.top + move_y, location.width, location.height);
 }
 void Entity::moveBack()
 {
-	//location_set(location->x - move_x, location->y - move_y, location->w, location->h);
+	location_set(location.left - move_x, location.top - move_y, location.width, location.height);
 }
 
 void Entity::draw(sf::RenderWindow& window)
 {
-	sf::Sprite sprite(texture, subrect);
-	//sprite.draw(window, sf::RenderStates::Default);
+	window.draw(sprite);
 }
