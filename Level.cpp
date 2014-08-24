@@ -28,9 +28,19 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 	height = pt.get<int>("map.<xmlattr>.height");
 
 	std::vector<int> tiles;
+	std::vector<int> solids;
+
+
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.layer.data"))
+	{
 		tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
+	}
 	
+	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.solid.data"))
+	{
+		solids.push_back(v.second.get<int>("<xmlattr>.gid"));
+	}
+
 	for (int j = 0; j < height; j++)
 	{
 		for (int i = 0; i < width; i++)
@@ -40,6 +50,8 @@ Level::Level(std::string file_name, sf::Texture& tileset)
 
 			int subindex = tiles.at(index);
 			ent->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
+			ent->solid_set(!solids.at(index));
+
 			
 			ground.push_back(ent);
 		}
@@ -67,7 +79,7 @@ void Level::update()
 	for(Entity* var : items)
 		var->update();
 	for(Entity* var : items)
-		var->update(ground);
+		var->update(items);
 }
 
 void Level::draw(sf::RenderWindow& window)

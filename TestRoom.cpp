@@ -1,7 +1,7 @@
 #include "TestRoom.h"
 
 TestRoom::TestRoom(sf::Texture& t)
-	: level("map/gliched.tmx", t)
+	: level("map/gliched1.tmx", t)
 {
 	Ressource& res = Ressource::getInstance();
 	level.addEntity(new Imp(res.texture_get((int)IMP), &level, 16*10, 16*5));

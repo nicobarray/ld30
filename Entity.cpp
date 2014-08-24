@@ -126,3 +126,8 @@ sf::Sprite& Entity::sprite_get()
 {
 	return sprite;
 }
+
+void Entity::solid_set(bool b)
+{
+	solid = b;
+}

@@ -44,6 +44,7 @@ public:
 	void moveBack();
 
 	sf::Sprite& sprite_get();
+	void solid_set(bool b);
 	void updateSubrect();
 
 protected:
