@@ -9,8 +9,8 @@ class Prop :
 	public Entity
 {
 public:
-	Prop(/*SDL_Surface* texture,*/ int x, int y, int w, int h, bool s);
-	Prop(/*SDL_Surface* texture,*/ int x, int y, int w, int h, int life);
+	Prop(sf::Texture& texture, int x, int y, int w, int h, bool s);
+	Prop(sf::Texture& texture, int x, int y, int w, int h, int life);
 	~Prop(void);
 
 private:
@@ -18,4 +18,4 @@ private:
 	int lifeGain;
 };
 
-Prop* newPotion(/*SDL_Surface* texture,*/ int x, int y);
+Prop* newPotion(sf::Texture& texture, int x, int y);

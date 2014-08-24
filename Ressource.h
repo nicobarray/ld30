@@ -10,6 +10,7 @@ enum tex_id
 {
 	TILESET1 = 0,
 	DROPHEALTH,
+	HERO,
 	IMP
 };
 

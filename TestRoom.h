@@ -4,7 +4,7 @@
 #include "Level.h"
 #include "Ressource.h"
 
-//#include "AllEntities.h"
+#include "AllEntities.h"
 
 class TestRoom : public Scene
 {

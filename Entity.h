@@ -32,6 +32,7 @@ private:
 	sf::IntRect location;
 	sf::IntRect subrect;
 	sf::Texture& texture;
+	sf::Sprite sprite;
 	bool solid;
 	int move_x, move_y, direction, frame_id, frame_delay;
 };

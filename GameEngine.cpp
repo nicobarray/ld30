@@ -10,8 +10,8 @@ GameEngine::GameEngine(void)
 
 	res.load_image("../ld30/res/tileset-garden0.png");
 	res.load_image("../ld30/res/drop-health.png");
+	res.load_image("../ld30/res/hero.png");
 	res.load_image("../ld30/res/imp.png");
-	
 
 	// Add scenes here
 
@@ -57,6 +57,7 @@ int main(int argc, char** argv)
 	GameEngine engine = GameEngine();
 
 	sf::RenderWindow window(sf::VideoMode(640, 380), "LD30");
+	window.setFramerateLimit(60);
 
 	while (window.isOpen())
 	{
@@ -65,8 +66,8 @@ int main(int argc, char** argv)
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			engine.update(event);
 		}
+		engine.update(event);
 
 		window.clear();
 		engine.draw(window);
