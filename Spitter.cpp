@@ -89,6 +89,7 @@ void Spitter::shoot()
 	std::cout << "Shoot at "<< bullet_x << ", " << bullet_y <<"\n";
 	bullet->speed_set(bullet_x, bullet_y);
 	bullet->location_set(box.left + 7 * bullet_x, box.top + 7 * bullet_y);
+	bullet->real_set(real);
 	//parent->addEntity(bullet);
 	if (shots.size() < 5)
 	{

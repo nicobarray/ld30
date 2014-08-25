@@ -15,7 +15,7 @@ public:
 	virtual void update() override;
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items) override;
 
-	virtual void die(int n) override;
+	virtual void hurt(int n) override;
 
 	sf::View& view_get();
 
