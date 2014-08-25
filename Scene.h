@@ -7,7 +7,7 @@ enum SceneName
 	MENU = 0,
 	LVL,
 	GAME,
-	TESTROOM
+	ENDSCREEN
 };
 
 class Scene

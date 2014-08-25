@@ -20,6 +20,7 @@ enum tex_id
 	SWITCH,
 	CRATE,
 	TITLE,
+	GAMEOVER,
 	PORTAL1,
 	PORTAL2,
 	EXIT1,

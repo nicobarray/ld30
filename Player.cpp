@@ -29,7 +29,7 @@ void Player::update()
 	}
 
 	int speed = 3;
-	if (anim != ATTACK && anim != DEATH)
+	if (anim != ATTACK && anim != DEATH && anim != SWITCH)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			// move left...
@@ -126,7 +126,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	else
 		for (Entity* prop : items)
 		{
-			if (!prop->dead_get() && prop->real_get() == real && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))//ATTACKED BY IMP
+			if (anim != SWITCH && !prop->dead_get() && prop->real_get() == real && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))//ATTACKED BY IMP
 			{
 				int x = box.left + box.width/2;
 				int y = box.top + box.height/2;

@@ -29,7 +29,7 @@ void Bullet::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		{
 			if (prop != this && prop->real_get() == real && prop->solid_get() && box.intersects(prop->box_get()))
 			{
-				if (dynamic_cast<Player*> (prop) && !prop->invu_get() > 0)
+				if (prop->anim_get() != SWITCH && dynamic_cast<Player*> (prop) && !prop->invu_get() > 0)
 				{
 					prop->hurt(1);
 					prop->speed_set(move_x/2, move_y/2);
