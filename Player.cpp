@@ -70,7 +70,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	{
 		for (Entity* prop : items)
 		{
-			if (!prop->dead_get() && prop->real_get() == real && dynamic_cast<Prop*>(prop) && box.intersects(prop->box_get()))
+			if (!prop->dead_get() && prop->real_get() == real && dynamic_cast<Prop*>(prop) && box.intersects(prop->box_get()) && dynamic_cast<Prop*>(prop)->lifeGain_get())
 			{
 				std::cout << "It's a prop!\n";
 				life+=dynamic_cast<Prop*>(prop)->lifeGain_get();
@@ -87,9 +87,9 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		area.left -= area.width/2;
 		area.top -= area.height/2;
 		if (direction == WEST)
-			area.left -= + location.width;
+			area.left -= + box.width+4;
 		if (direction == EAST)
-			area.left += + location.width;
+			area.left += + box.width+4;
 		if (direction == NORTH)
 			area.top -= box.height;
 		if (direction == SOUTH)
