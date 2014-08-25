@@ -32,7 +32,6 @@ void Gui::update(sf::Event& event, Player* player)
 {
 	life_set(player->life_get());
 	glove_set(player->glove_get());
-	std::cout << glove << std::endl;
 }
 
 void Gui::draw(sf::RenderWindow& window)
