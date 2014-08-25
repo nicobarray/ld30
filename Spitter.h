@@ -18,5 +18,6 @@ public:
 
 private:
 	std::vector<Entity*> shots;
+	int bullet_x, bullet_y;
 };
 

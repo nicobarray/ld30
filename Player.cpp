@@ -57,6 +57,10 @@ void Player::die(int n)
 	life-= n;
 	std::cout << "Outch !\n";
 	SoundPlayer::getInstance().play((int)HIT);
+	anim = DEATH;
+	frame_id = 0;
+	frame_delay = 7;
+	invu = 120;
 }
 
 void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
@@ -128,11 +132,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				if (dist < 70)
 				{
 					std::cout << "It's an imp! (" << life << ")\n";
-					life--;
-					anim = DEATH;
-					frame_id = 0;
-					frame_delay = 7;
-					invu = 120;
+					die(1);
 					move_x = -(3.5f * move_x)/dist;
 					move_y = -(3.5f * move_y)/dist;
 				}

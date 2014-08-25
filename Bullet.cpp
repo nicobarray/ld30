@@ -31,11 +31,29 @@ void Bullet::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			{
 				if (dynamic_cast<Player*> (prop))
 				{
-					anim = DEATH;
-					move_x = 0;
-					move_y = 0;
-					prop->die(1);
+					int x = box.left + box.width/2;
+					int y = box.top + box.height/2;
+					int x2 = x;
+					int y2 = y;
+
+					x2 = prop->box_get().left + prop->box_get().width/2;
+					y2 = prop->box_get().top + prop->box_get().height/2;
+
+					move_x = x2 - x;
+					move_y = y2 - y;
+					int speed = 2;
+					int dist = move_x * move_x + move_y * move_y;
+					dist  = sqrt(dist);
+
+					if (!prop->invu_get() > 0)
+					{
+						prop->die(1);
+						prop->speed_set((3.5f * move_x)/dist, (3.5f * move_y)/dist);
+					}
 				}
+				anim = DEATH;
+				move_x = 0;
+				move_y = 0;
 			}
 		}
 	}

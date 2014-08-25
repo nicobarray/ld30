@@ -79,6 +79,10 @@ bool Entity::solid_get()
 {
 	return solid;
 }
+bool Entity::invu_get()
+{
+	return invu;
+}
 sf::IntRect Entity::box_get()
 {
 	return box;
@@ -106,16 +110,10 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				anim = RUN;
 			}
 			if (anim != DEATH)
-				if (move_y > 0 && move_y > abs(move_x))
-					direction = SOUTH;
-				else if (move_y < 0 && -move_y > abs(move_x))
-					direction = NORTH;
-				else if (move_x > 0 && move_x > abs(move_y))
-					direction = EAST;
-				else if (move_x < 0 && -move_x > abs(move_y))
-					direction = WEST;
-				move(ground, items);
-				updateSubrect();  
+				direction_set();
+
+			move(ground, items);
+			updateSubrect();  
 #pragma endregion
 		}
 		else if (anim == RUN)
@@ -165,6 +163,17 @@ void Entity::switchWorld()
 	frame_delay = 7;
 	frame_id = 0;
 	//teleport_gfx.play();
+}
+void Entity::direction_set()
+{
+	if (move_y > 0 && move_y > abs(move_x))
+		direction = SOUTH;
+	else if (move_y < 0 && -move_y > abs(move_x))
+		direction = NORTH;
+	else if (move_x > 0 && move_x > abs(move_y))
+		direction = EAST;
+	else if (move_x < 0 && -move_x > abs(move_y))
+		direction = WEST;
 }
 
 void Entity::move(float x, float y)

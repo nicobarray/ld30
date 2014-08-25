@@ -41,9 +41,13 @@ public:
 	void texture_set(sf::Texture& texture);
 	bool dead_get();
 	bool solid_get();
+	bool invu_get();
 	sf::IntRect box_get();
 	animation anim_get();
 	void speed_set(int x, int y);
+
+	void real_set(bool b);
+	bool real_get();
 	
 	virtual void update() = 0;
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items);
@@ -61,8 +65,7 @@ public:
 	virtual void die(int n);
 	void switchWorld();
 
-	void real_set(bool b);
-	bool real_get();
+	void direction_set();
 
 protected:
 	sf::IntRect location;
