@@ -116,9 +116,9 @@ void Game::transition_in(sf::RenderWindow& window)
 		
 		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 9, 3));
 		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 11, 3));
-		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 13, 3));
+		//levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 13, 3));
 		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 15, 3));
-		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 17, 3));
+		//levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 17, 3));
 		
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 5, 7, 32, 32, true));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 7, 7, 32, 32, true));

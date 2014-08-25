@@ -10,8 +10,8 @@ Gui::Gui(void)
 	, glove(3)
 	, max_glove(3)
 {
-	int scale = 5;
-	life_container.setPosition(16 - 9, 16 - 9);
+	int scale = 3;
+	life_container.setPosition(16 - 5, 16 - 5);
 	life_bar.setScale(scale, scale);
 	life_container.setScale(scale, scale);
 	glove_full.setScale(scale, scale);
@@ -39,14 +39,14 @@ void Gui::draw(sf::RenderWindow& window)
 	window.draw(life_container);
 	for (int i = 0; i < life; i++)
 	{
-		life_bar.setPosition(16 + i * (8*5), 16);
+		life_bar.setPosition(16 + i * (8 * 3), 16);
 		window.draw(life_bar);
 	}
 
 	for (int i = 0; i < max_glove; i++)
 	{
-		int x = 16 + i * (8 * 5 + 4);
-		int y = 16 + (8 * 5) + 16;
+		int x = 16 + i * (8 * 3);
+		int y = 16 + (8 * 3) + 16;
 
 		if (i < glove)
 		{

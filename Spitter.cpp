@@ -59,7 +59,7 @@ void Spitter::update()
 				anim = ATTACK;
 				frame_id = 0;
 				frame_delay = 7;
-				//std::cout << "Shoot at "<< bullet_x << ", " << bullet_y <<"\n";
+				//std::cout  << "Shoot at "<< bullet_x << ", " << bullet_y <<"\n";
 				bullet_x = (8 * m_x) / dist;
 				bullet_y = (8 * m_y) / dist;
 				move_x = 0;

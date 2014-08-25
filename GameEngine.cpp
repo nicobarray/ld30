@@ -10,43 +10,42 @@ GameEngine::GameEngine(void)
 	Ressource& res = Ressource::getInstance();
 	SoundPlayer& snd = SoundPlayer::getInstance();
 
-	res.load_image("../ld30/res/tileset-garden.png");
-	res.load_image("../ld30/res/tileset-fairy.png");
-	res.load_image("../ld30/res/drop-health.png");
-	res.load_image("../ld30/res/hero.png");
-	res.load_image("../ld30/res/imp.png");
-	res.load_image("../ld30/res/spitter.png");
-	res.load_image("../ld30/res/thug.png");
-	res.load_image("../ld30/res/spit.png");
-	res.load_image("../ld30/res/woosh.png");
-	res.load_image("../ld30/res/crate.png");
-	res.load_image("../ld30/res/dust.png");
-	res.load_image("../ld30/res/title.png");
-	res.load_image("../ld30/res/controls.png");
-	res.load_image("../ld30/res/game-over.png");
-	res.load_image("../ld30/res/portal1.png");
-	res.load_image("../ld30/res/portal2.png");
-	res.load_image("../ld30/res/door.png");
-	res.load_image("../ld30/res/hud-health.png");
-	res.load_image("../ld30/res/hud-health-bar.png");
-	res.load_image("../ld30/res/hud-energy.png");
-	res.load_image("../ld30/res/hud-energy-empty.png");
-	res.load_image("../ld30/res/exit1.png");
-	res.load_image("../ld30/res/exit2.png");
-	res.load_image("../ld30/res/mystery.png");
+	res.load_image("res/tileset-garden.png");
+	res.load_image("res/tileset-fairy.png");
+	res.load_image("res/drop-health.png");
+	res.load_image("res/hero.png");
+	res.load_image("res/imp.png");
+	res.load_image("res/spitter.png");
+	res.load_image("res/thug.png");
+	res.load_image("res/spit.png");
+	res.load_image("res/woosh.png");
+	res.load_image("res/crate.png");
+	res.load_image("res/dust.png");
+	res.load_image("res/title.png");
+	res.load_image("res/controls.png");
+	res.load_image("res/game-over.png");
+	res.load_image("res/portal1.png");
+	res.load_image("res/portal2.png");
+	res.load_image("res/door.png");
+	res.load_image("res/hud-health.png");
+	res.load_image("res/hud-health-bar.png");
+	res.load_image("res/hud-energy.png");
+	res.load_image("res/hud-energy-empty.png");
+	res.load_image("res/exit1.png");
+	res.load_image("res/exit2.png");
+	res.load_image("res/mystery.png");
 
 	// Load musics here
 
-	res.load_wav("../ld30/res/teleport.wav");
-	res.load_wav("../ld30/res/shot.wav");
-	res.load_wav("../ld30/res/hit.wav");
-	res.load_wav("../ld30/res/foot.wav");
-
+	res.load_wav("res/teleport.wav");
+	res.load_wav("res/shot.wav");
+	res.load_wav("res/hit.wav");
+	res.load_wav("res/foot.wav");
 
 	// Load musics here
 
-	snd.load_music("../ld30/res/real_music.wav");
-	snd.load_music("../ld30/res/fairy_music.wav");
+	snd.load_music("res/real_music.wav");
+	snd.load_music("res/fairy_music.wav");
 
 	// Add scenes here
 
