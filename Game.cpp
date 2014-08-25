@@ -37,6 +37,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 15, 2, 32, 32, true, true));
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 9, 3, 32, 32, true));
 		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)DOOR), 3, 3, 32, 32, false, true));
+		levels.at((int)LV1)->addRealEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at((int)LV1), 9, 9));
 		levels.at((int)LV1)->addRealEntity(player);
 		levels.at((int)LV1)->player_set(player);
 		break;
