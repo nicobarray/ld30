@@ -5,7 +5,7 @@ Gui::Gui(void)
 	, life(3)
 	, max_life(3)
 {
-	life_bar.setScale(3, 3);
+	life_bar.setScale(6, 6);
 }
 
 Gui::~Gui(void)
@@ -22,7 +22,7 @@ void Gui::draw(sf::RenderWindow& window)
 	for (int i = 0; i < life; i++)
 	{
 		
-		life_bar.setPosition(16 + i * 12, 16);
+		life_bar.setPosition(16 + i * 36, 16);
 		window.draw(life_bar);
 	}
 }

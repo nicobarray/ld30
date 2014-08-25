@@ -7,6 +7,7 @@
 #include <SFML\System.hpp>
 
 #include "Ressource.h"
+#include "SoundPlayer.h"
 
 /*
 	Classe abstraite
