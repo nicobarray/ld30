@@ -14,9 +14,11 @@ enum tex_id
 	DROPHEALTH,
 	HERO,
 	IMP,
+	SPITTER,
 	THUG,
 	SPIT,
 	SWITCH,
+	CRATE,
 	TITLE,
 	PORTAL
 };

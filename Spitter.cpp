@@ -4,7 +4,6 @@ Spitter::Spitter(sf::Texture& t, Level* l, int x, int y)
 	: Mob(t, l, x, y, 32, 32)
 	, shots()
 {
-	sprite.setColor(sf::Color(255, 0, 0, 255));
 }
 
 Spitter::~Spitter(void)
@@ -20,7 +19,7 @@ void Spitter::update()
 	{
 		if (anim == ATTACK)
 		{
-			if (frame_id == 7 && frame_delay == 6)
+			if (frame_id == 4 && frame_delay == 6)
 				shoot();
 		}
 		else
@@ -45,7 +44,7 @@ void Spitter::update()
 			float dist = m_x * m_x + m_y * m_y;
 			dist  = sqrt(dist);
 
-			if (dist < 16*10)//allonge-4
+			if (dist < 16*20)
 			{
 				anim = ATTACK;
 				frame_id = 0;
@@ -78,13 +77,11 @@ void Spitter::draw(sf::RenderWindow& window)
 
 void Spitter::shoot()
 {
-	std::cout << "Shoot !"<< std::endl;
-
 	SoundPlayer::getInstance().play((int)SHOT);
 
 	std::cout << "Shots("<< shots.size() << ")" << std::endl;
 	Ressource& res = Ressource::getInstance();
-	Prop* bullet = new Prop(res.texture_get(SPIT), box.left, box.top, 16, 16, false);
+	Bullet* bullet = new Bullet(res.texture_get(SPIT), box.left, box.top);
 
 	float x = box.left + box.width/2;
 	float y = box.top + box.height/2;
@@ -113,6 +110,14 @@ void Spitter::shoot()
 		shots.push_back(bullet);
 	else
 	{
-		shots[0] = bullet;
+		int k = 0;
+		for (int i = 0; i < 5; i++){
+			if (shots[i]->dead_get())
+			{
+				k = i;
+				break;
+			}}
+
+		shots[k] = bullet;
 	}
 }

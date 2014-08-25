@@ -15,8 +15,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
-	//, box(x * 3+ (w*3) /4, y * 3 + (h * 3)/2, (w*3)/2, (h*9)/8)
-	, box(x * 3+ (w*3) /4+1, y * 3 + (h * 3)/2, (w*3)/2-2, (h*3)/2)
+	, box(x * 3+ (w*3) /4 + 2, y * 3 + (h * 3)/2+2, (w*3)/2-4, (h*3)/2-4)
 	, solid(s)
 	, dead(false)
 	, col_x(false)
@@ -75,6 +74,10 @@ void Entity::texture_set(sf::Texture& tex)
 bool Entity::dead_get()
 {
 	return dead;
+}
+bool Entity::solid_get()
+{
+	return solid;
 }
 sf::IntRect Entity::box_get()
 {
@@ -171,25 +174,28 @@ void Entity::move(float x, float y)
 void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 {
 	move(move_x, 0);
-	col_x = false;
-	for (Entity* tile : ground)
+	if (solid)
 	{
-		if (tile->solid && box.intersects(tile->location))
+		col_x = false;
+		for (Entity* tile : ground)
 		{
-			move(-move_x, 0);
-			move_x = 0;
-			col_x = true;
-			break;
+			if (tile->solid && box.intersects(tile->location))
+			{
+				move(-move_x, 0);
+				move_x = 0;
+				col_x = true;
+				break;
+			}
 		}
-	}
-	for (Entity* prop : items)
-	{
-		if (prop != this && prop->solid && box.intersects(prop->box))
+		for (Entity* prop : items)
 		{
-			move(-move_x, 0);
-			move_x = 0;
-			col_x = true;
-			break;
+			if (prop != this && prop->solid && prop->real == real && box.intersects(prop->box))
+			{
+				move(-move_x, 0);
+				move_x = 0;
+				col_x = true;
+				break;
+			}
 		}
 	}
 
@@ -208,7 +214,7 @@ void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 	}
 	for (Entity* prop : items)
 	{
-		if (prop != this && prop->solid && box.intersects(prop->box))
+		if (prop != this && prop->solid && prop->real == real && box.intersects(prop->box))
 		{
 			move(0, -move_y);
 			move_y = 0;
@@ -230,8 +236,8 @@ void Entity::draw(sf::RenderWindow& window)
 			window.draw(switchSprite);
 		else
 			window.draw(sprite);
-		if (anim != IDLE)
-			window.draw(bb);
+		//if (anim != IDLE)
+		//	window.draw(bb);
 	}
 }
 

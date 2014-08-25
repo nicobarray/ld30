@@ -40,6 +40,7 @@ public:
 	sf::IntRect& location_get();
 	void texture_set(sf::Texture& texture);
 	bool dead_get();
+	bool solid_get();
 	sf::IntRect box_get();
 	animation anim_get();
 	void speed_set(int x, int y);

@@ -24,3 +24,4 @@ private:
 };
 
 Prop* newPotion(sf::Texture& texture, int x, int y);
+Prop* newCrate(sf::Texture& texture, int x, int y);
