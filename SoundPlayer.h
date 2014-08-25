@@ -15,14 +15,17 @@ public:
 
 	~SoundPlayer();
 	void play(int sound);
+	void update();
 
 private:
 	SoundPlayer()
+		: sounds()
 	{
 	}
 
 	SoundPlayer(SoundPlayer const&);
 	void operator=(SoundPlayer const&);
 private:
+	std::vector<sf::Sound*> sounds;
 };
 

@@ -5,7 +5,7 @@ Player::Player(sf::Texture& t, int x, int y)
 	: Entity(t, x, y, 32, 32, true)
 	, life(12)
 	, item(nullptr)
-	, view(sf::FloatRect(0, 0, 16 *3 * 16, 16 * 3 * 16))
+	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
 {
 }
 
@@ -56,6 +56,7 @@ void Player::die(int n)
 {
 	life-= n;
 	std::cout << "Outch !\n";
+	SoundPlayer::getInstance().play((int)HIT);
 }
 
 void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)

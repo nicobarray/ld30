@@ -54,6 +54,7 @@ void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 	last_scene = index;
 
 	scenes.at(index)->update(event, window, index);
+	SoundPlayer::getInstance().update();
 }
 
 // Blit sprites and stuffs on the window's surface
@@ -72,7 +73,7 @@ int main(int argc, char** argv)
 	// Our game engine
 	GameEngine engine = GameEngine();
 
-	sf::RenderWindow window(sf::VideoMode(16 *3 * 16, 16 * 3 * 16), "LD30");
+	sf::RenderWindow window(sf::VideoMode(480 * 2, 320 * 2), "LD30");
 
 	// Set rendering framerate at 60 frames per sec
 	window.setFramerateLimit(60);
