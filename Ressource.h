@@ -22,7 +22,8 @@ enum tex_id
 	TITLE,
 	PORTAL1,
 	PORTAL2,
-	DOOR
+	DOOR,
+	LIFE
 };
 
 enum BufferName

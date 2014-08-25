@@ -1,7 +1,7 @@
 #include "TestRoom.h"
 
 TestRoom::TestRoom(sf::Texture& t)
-	: level("map/testroom.tmx", Ressource::getInstance().texture_get((int)TILESET1), t)
+	: level("map/level1.tmx", Ressource::getInstance().texture_get((int)TILESET1), t)
 {
 	Ressource& res = Ressource::getInstance();
 	level.addRealEntity(new Imp(res.texture_get((int)IMP), &level, 16*10, 16*5));
@@ -12,6 +12,7 @@ TestRoom::TestRoom(sf::Texture& t)
 
 TestRoom::~TestRoom(void)
 {
+
 }
 
 void TestRoom::transition_in(sf::RenderWindow& window)

@@ -17,6 +17,8 @@ public:
 	int lifeGain_get();
 	virtual void update();
 
+	bool statue_get();
+
 private:
 	bool catchable; //Le joueur peut capturer l'objet dans le gant
 	int lifeGain;

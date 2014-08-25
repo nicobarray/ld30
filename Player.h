@@ -19,8 +19,11 @@ public:
 
 	sf::View& view_get();
 
+	int life_get();
+	int max_life_get();
+
 private:
-	int life;
+	int life, max_life;
 	Entity* item;
 	sf::View view;
 };

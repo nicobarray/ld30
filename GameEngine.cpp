@@ -22,6 +22,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/portal1.png");
 	res.load_image("../ld30/res/portal2.png");
 	res.load_image("../ld30/res/door.png");
+	res.load_image("../ld30/res/life.png");
 	
 	res.load_wav("../ld30/res/teleport.wav");
 	res.load_wav("../ld30/res/shot.wav");

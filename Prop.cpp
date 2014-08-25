@@ -37,3 +37,8 @@ Prop* newCrate(sf::Texture& texture, int x, int y)
 	Prop* p = new Prop(texture, x, y, 32, 32, true);
 	return p;
 }
+
+bool Prop::statue_get()
+{
+	return statue;
+}

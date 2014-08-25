@@ -4,6 +4,7 @@ Game::Game(void)
 	: levels()
 	, player(nullptr)
 	, current(LV1)
+	, gui()
 {
 	player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 	levels.push_back(new Level1(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
@@ -58,10 +59,14 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
 	levels.at((int)current)->in_the_real_world_set(player->real_get());
 	levels.at((int)current)->update();
+	gui.update(event);
 }
 
 void Game::draw(sf::RenderWindow& window)
 {
 	window.setView(player->view_get());
 	levels.at((int)current)->draw(window);
+	
+	window.setView(window.getDefaultView());
+	gui.draw(window);
 }
