@@ -22,17 +22,23 @@ public:
 	Level(std::string fileName, sf::Texture& real_world, sf::Texture& fairy_world);
 	~Level(void);
 
-	std::vector<Entity*>& ground_get();
+	std::vector<Entity*>& ground_real_get();
+	std::vector<Entity*>& ground_fairy_get();
+	std::vector<Entity*>& items_real_get();
+	std::vector<Entity*>& items_fairy_get();
 	std::vector<Entity*>& items_get();
+
 
 	virtual void update();
 	virtual void draw(sf::RenderWindow& window);
 
+	void addRealEntity(Entity* e);
+	void addFairyEntity(Entity* e);
 	void addEntity(Entity* e);
 	void clearEntity();
 
 	void in_the_real_world_set(bool b);
-	bool in_the_real_world_set();
+	bool in_the_real_world_get();
 
 private:
 	std::vector<Entity*> real_ground, fairy_ground;

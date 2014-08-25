@@ -36,7 +36,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	{
 		tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
-	
+
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.solid.data"))
 	{
 		solids.push_back(v.second.get<int>("<xmlattr>.gid"));
@@ -52,7 +52,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 			int subindex = tiles.at(index);
 			ent->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
 			ent->solid_set(solids.at(index));
-			
+
 			real_ground.push_back(ent);
 		}
 	}
@@ -64,38 +64,95 @@ Level::~Level(void)
 		delete var;
 }
 
-std::vector<Entity*>& Level::ground_get()
+std::vector<Entity*>& Level::ground_real_get()
+{
+	return real_ground;
+}
+
+std::vector<Entity*>& Level::items_real_get()
+{
+	return real_items;
+}
+
+std::vector<Entity*>& Level::ground_fairy_get()
 {
 	return real_ground;
 }
 
 std::vector<Entity*>& Level::items_get()
 {
-	return real_items;
+	if (in_the_real_world)
+		return real_items;
+	else
+		return fairy_items;
 }
 
 void Level::update()
 {
-	for(Entity* var : real_items)
-		var->update();
-	for(Entity* var : real_items)
-		var->update(real_ground, real_items);
+	//while (real_items.size() && real_items.back()->dead_get())
+	//	real_items.pop_back();
+	//while (fairy_items.size() && fairy_items.back()->dead_get())
+	//	fairy_items.pop_back();
+
+	for(Entity* var : in_the_real_world ? real_items : fairy_items)
+	{
+		if (var->real_get())
+		{
+
+		}
+	}
+
+	if (in_the_real_world)
+	{
+		for(Entity* var : real_items)
+			var->update();
+		for(Entity* var : real_items)
+			var->update(real_ground, real_items);
+	}
+	else
+	{
+		for(Entity* var : fairy_items)
+			var->update();
+		for(Entity* var : fairy_items)
+			var->update(fairy_ground, fairy_items);
+	}
 }
 
 void Level::draw(sf::RenderWindow& window)
 {
-	for(Entity* var : real_ground)
-		var->draw(window);
+	if (in_the_real_world)
+	{
+		for(Entity* var : real_ground)
+			var->draw(window);
 
-	std::sort(real_items.begin(), real_items.end(), compare);
+		std::sort(real_items.begin(), real_items.end(), compare);
 
-	for(Entity* var : real_items)
-		var->draw(window);
+		for(Entity* var : real_items)
+			var->draw(window);
+	}
+	else
+	{
+		for(Entity* var : fairy_ground)
+			var->draw(window);
+
+		std::sort(fairy_items.begin(), fairy_items.end(), compare);
+
+		for(Entity* var : fairy_items)
+			var->draw(window);
+	}
+
 }
 
-void Level::addEntity(Entity* e)
+void Level::addRealEntity(Entity* e)
 {
 	real_items.push_back(e);
+}
+void Level::addEntity(Entity* e)
+{
+	if (in_the_real_world)
+		real_items.push_back(e);
+	else
+		fairy_items.push_back(e);
 }
 
 void Level::clearEntity()
@@ -108,7 +165,7 @@ void Level::in_the_real_world_set(bool b)
 	in_the_real_world = b;
 }
 
-bool Level::in_the_real_world_set()
+bool Level::in_the_real_world_get()
 {
 	return in_the_real_world;
 }

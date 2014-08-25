@@ -14,7 +14,8 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/hero.png");
 	res.load_image("../ld30/res/imp.png");
 	res.load_image("../ld30/res/thug.png");
-	res.load_image("../ld30/res/switch.png");
+	res.load_image("../ld30/res/spit.png");
+	res.load_image("../ld30/res/woosh.png");
 	res.load_image("../ld30/res/title.png");
 
 	// Add scenes here

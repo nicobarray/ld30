@@ -46,7 +46,7 @@ public:
 	
 	virtual void update() = 0;
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items);
-	void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window);
 
 	bool contact(Entity *e);
 	void move(float x, float y);
@@ -60,13 +60,16 @@ public:
 	virtual void die(int n);
 	void switchWorld();
 
+	void real_set(bool b);
+	bool real_get();
+
 protected:
 	sf::IntRect location;
 	sf::IntRect subrect;
 	sf::Texture& texture, switchTexture;
 	sf::Sprite sprite, switchSprite;
 	sf::IntRect box;
-	bool solid, dead, col_x, col_y, switched;
+	bool solid, dead, col_x, col_y, real;
 	int move_x, move_y;
 	int direction, frame_id, frame_delay, invu;
 	animation anim;

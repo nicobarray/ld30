@@ -21,17 +21,18 @@ void Game::transition_in(sf::RenderWindow& window)
 	case LV1:
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 		levels.at((int)LV1)->clearEntity();
-		levels.at((int)LV1)->addEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*10, 16*7));
-		levels.at((int)LV1)->addEntity(new Spitter(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*9, 16*9));
-		levels.at((int)LV1)->addEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16*5, 16*6));
-		levels.at((int)LV1)->addEntity(player);
+		levels.at((int)LV1)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*10, 16*7));
+		levels.at((int)LV1)->addRealEntity(new Spitter(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*9, 16*9));
+		levels.at((int)LV1)->addRealEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16 * 5, 16 * 6));
+		levels.at((int)LV1)->addRealEntity(player);
+		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)TILESET2), 16 * 2, 16 * 2, 16, 16, true)); 
 		break;
 	case LV2:
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 		levels.at((int)LV2)->clearEntity();
-		levels.at((int)LV2)->addEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 16*10, 16*5));
-		levels.at((int)LV2)->addEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16*5, 16*6));
-		levels.at((int)LV2)->addEntity(player);
+		levels.at((int)LV2)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 16*10, 16*5));
+		levels.at((int)LV2)->addRealEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16*5, 16*6));
+		levels.at((int)LV2)->addRealEntity(player);
 		break;
 	default:
 		break;

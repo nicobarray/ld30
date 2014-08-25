@@ -141,12 +141,11 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			if (frame_id % 8 == 0 && anim == SWITCHING)
 			{
 				anim = IDLE;
-				switched = true;
+				real = !real;
 			}
 		}
 	}
 }
-
 void Entity::updateSubrect()
 {
 	sprite.setTextureRect(sf::IntRect(subrect.width * (frame_id % 8),
@@ -248,5 +247,18 @@ void Entity::solid_set(bool b)
 
 bool compare (Entity *a, Entity *b)
 {
-	return a->location_get().top < b->location_get().top;
+	if (a->dead_get())
+		return false;
+	else
+		return a->location_get().top < b->location_get().top;
+}
+
+void Entity::real_set(bool b)
+{
+	real = b;
+}
+
+bool Entity::real_get()
+{
+	return real;
 }

@@ -1,7 +1,8 @@
 #include "Prop.h"
 
-Prop::Prop(sf::Texture& texture, int x, int y, int w, int h, bool s)
+Prop::Prop(sf::Texture& texture, int x, int y, int w, int h, bool s, bool teleport)
 	: Entity(texture, x, y, w, h, s)
+	, statue(teleport)
 {
 }
 
@@ -9,6 +10,7 @@ Prop::Prop(sf::Texture& texture, int x, int y, int w, int h, int life)
 	: Entity(texture, x, y, w, h, false)
 	, lifeGain(life)
 	, catchable(false)
+	, statue(false)
 {
 }
 
