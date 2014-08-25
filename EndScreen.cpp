@@ -21,7 +21,7 @@ void EndScreen::transition_out(sf::RenderWindow& window)
 
 }
 
-void EndScreen::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
+void EndScreen::update(sf::Event& event, sf::RenderWindow& window, SceneName& index, std::vector<bool>& pressed_keys)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		index = GAME;

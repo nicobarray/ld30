@@ -30,5 +30,6 @@ private:
 	SceneName index;
 	SceneName last_scene;
 	std::vector<Scene*> scenes;
+	std::vector<bool> pressed_keys;
 };
 

@@ -25,7 +25,7 @@ void TestRoom::transition_out(sf::RenderWindow& window)
 
 }
 
-void TestRoom::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
+void TestRoom::update(sf::Event& event, sf::RenderWindow& window, SceneName& index, std::vector<bool>& pressed_keys)
 {
 	level.update();
 }

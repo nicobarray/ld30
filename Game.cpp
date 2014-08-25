@@ -118,7 +118,7 @@ void Game::transition_out(sf::RenderWindow& window)
 {
 }
 
-void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
+void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index, std::vector<bool>& pressed_keys)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) || player->life_get() < 1)
 		transition_in(window);

@@ -2,9 +2,10 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
-	, index(GAME)
+	, index(MAIN)
 	, last_scene(ENDSCREEN)
 	, scenes()
+	, pressed_keys()
 {
 	Ressource& res = Ressource::getInstance();
 	SoundPlayer& snd = SoundPlayer::getInstance();
@@ -54,6 +55,9 @@ GameEngine::GameEngine(void)
 
 	// Test room (debug only)
 	scenes.push_back(new TestRoom(res.texture_get((int)TILESET1)));
+
+	for (int i = 0; i < (int) sf::Keyboard::KeyCount; ++i)
+		pressed_keys.push_back(false);
 }
 
 GameEngine::~GameEngine(void)
@@ -63,6 +67,9 @@ GameEngine::~GameEngine(void)
 
 void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 {
+	for (int i = 0; i < (int) sf::Keyboard::KeyCount; ++i)
+		pressed_keys[i] = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)i);
+
 	if (false)
 		quit = true;
 
@@ -74,8 +81,11 @@ void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 	
 	last_scene = index;
 
-	scenes.at(index)->update(event, window, index);
+	scenes.at(index)->update(event, window, index, pressed_keys);
 	SoundPlayer::getInstance().update();
+	
+	for (int i = 0; i < (int) sf::Keyboard::KeyCount; ++i)
+		pressed_keys[i] = false;
 }
 
 // Blit sprites and stuffs on the window's surface

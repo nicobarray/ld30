@@ -20,10 +20,13 @@ void MenuLevel::transition_out(sf::RenderWindow& window)
 
 }
 
-void MenuLevel::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
+void MenuLevel::update(sf::Event& event, sf::RenderWindow& window, SceneName& index, std::vector<bool>& pressed_keys)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (!pressed_keys.at(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
 		index = GAME;
+		pressed_keys[(int)sf::Keyboard::Space] = true;
+	}
 }
 
 void MenuLevel::draw(sf::RenderWindow& window)
