@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
-	, index(MENU)
+	, index(GAME)
 	, last_scene(TESTROOM)
 	, scenes()
 {
@@ -19,6 +19,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/woosh.png");
 	res.load_image("../ld30/res/crate.png");
 	res.load_image("../ld30/res/title.png");
+	res.load_image("../ld30/res/portal.png");
 
 	// Add scenes here
 	
@@ -39,8 +40,6 @@ void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 {
 	if (false)
 		quit = true;
-
-	//std::cout << "Last : " << last_scene << " Current : " << index << std::endl; 
 
 	if (last_scene != index)
 	{

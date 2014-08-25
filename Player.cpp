@@ -65,7 +65,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	{
 		for (Entity* prop : items)
 		{
-			if (!prop->dead_get() && dynamic_cast<Prop*>(prop) && box.intersects(prop->box_get()))
+			if (!prop->dead_get() && prop->real_get() == real && dynamic_cast<Prop*>(prop) && box.intersects(prop->box_get()))
 			{
 				std::cout << "It's a prop!\n";
 				life+=dynamic_cast<Prop*>(prop)->lifeGain_get();
@@ -97,7 +97,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		bb.setPosition(sf::Vector2f(area.left, area.top));
 
 		for (Entity* prop : items)
-			if (prop != this && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
+			if (prop != this && prop->real_get() == real && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
 			{
 				Prop* statue = dynamic_cast<Prop*>(prop);
 				if (statue)
@@ -109,7 +109,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	else
 		for (Entity* prop : items)
 		{
-			if (!prop->dead_get() && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))//ATTACKED BY IMP
+			if (!prop->dead_get() && prop->real_get() == real && prop->anim_get() == ATTACK && !invu && dynamic_cast<Imp*>(prop))//ATTACKED BY IMP
 			{
 				int x = box.left + box.width/2;
 				int y = box.top + box.height/2;

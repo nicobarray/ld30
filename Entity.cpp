@@ -20,6 +20,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, dead(false)
 	, col_x(false)
 	, col_y(false)
+	, real(true)
 	, invu(0)
 	, move_x(0)
 	, move_y(0)
@@ -40,8 +41,6 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	bb.setOutlineColor(sf::Color(255,0,0, 255));
 	bb.setOutlineThickness(2);
 	bb.setPosition(sf::Vector2f(box.left, box.top));
-
-
 }
 
 Entity::~Entity(void)
@@ -63,11 +62,11 @@ void Entity::location_set(float x, float y)
 	bb.setOutlineThickness(2);
 	bb.setPosition(sf::Vector2f(box.left, box.top));
 }
-
 sf::IntRect& Entity::location_get()
 {
 	return location;
 }
+
 void Entity::texture_set(sf::Texture& tex)
 {
 	texture = tex;
@@ -189,7 +188,7 @@ void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 		}
 		for (Entity* prop : items)
 		{
-			if (prop != this && prop->solid && box.intersects(prop->box))
+			if (prop != this && prop->solid && prop->real == real && box.intersects(prop->box))
 			{
 				move(-move_x, 0);
 				move_x = 0;
@@ -214,7 +213,7 @@ void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 	}
 	for (Entity* prop : items)
 	{
-		if (prop != this && prop->solid && box.intersects(prop->box))
+		if (prop != this && prop->solid && prop->real == real && box.intersects(prop->box))
 		{
 			move(0, -move_y);
 			move_y = 0;
@@ -263,7 +262,6 @@ void Entity::real_set(bool b)
 {
 	real = b;
 }
-
 bool Entity::real_get()
 {
 	return real;

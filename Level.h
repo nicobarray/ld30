@@ -24,10 +24,7 @@ public:
 
 	std::vector<Entity*>& ground_real_get();
 	std::vector<Entity*>& ground_fairy_get();
-	std::vector<Entity*>& items_real_get();
-	std::vector<Entity*>& items_fairy_get();
 	std::vector<Entity*>& items_get();
-
 
 	virtual void update();
 	virtual void draw(sf::RenderWindow& window);
@@ -42,7 +39,7 @@ public:
 
 private:
 	std::vector<Entity*> real_ground, fairy_ground;
-	std::vector<Entity*> real_items, fairy_items;
+	std::vector<Entity*> items;
 	sf::Texture& real_world;
 	sf::Texture& fairy_world;
 	int width;

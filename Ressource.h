@@ -18,7 +18,8 @@ enum tex_id
 	SPIT,
 	SWITCH,
 	CRATE,
-	TITLE
+	TITLE,
+	PORTAL
 };
 
 class Ressource
