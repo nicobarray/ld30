@@ -82,6 +82,7 @@ void Spitter::draw(sf::RenderWindow& window)
 
 void Spitter::shoot()
 {
+	SoundPlayer::getInstance().play((int)SHOT);
 	Ressource& res = Ressource::getInstance();
 	Bullet* bullet = new Bullet(res.texture_get(SPIT), box.left, box.top);
 

@@ -162,6 +162,7 @@ void Entity::switchWorld()
 	anim = SWITCHING;
 	frame_delay = 7;
 	frame_id = 0;
+	//teleport_gfx.play();
 }
 void Entity::direction_set()
 {

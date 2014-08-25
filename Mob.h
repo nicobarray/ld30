@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Level.h"
+#include "SoundPlayer.h"
 
 class Mob :
 	public Entity

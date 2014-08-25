@@ -20,6 +20,10 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/crate.png");
 	res.load_image("../ld30/res/title.png");
 	res.load_image("../ld30/res/portal.png");
+	
+	res.load_wav("../ld30/res/teleport.wav");
+	res.load_wav("../ld30/res/shot.wav");
+	res.load_wav("../ld30/res/hit.wav");
 
 	// Add scenes here
 	
