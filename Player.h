@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML\Window\Keyboard.hpp>
+#include <SFML\System.hpp>
 
 #include "Entity.h"
 #include "Prop.h"
@@ -34,5 +35,7 @@ private:
 	Entity* item;
 	//std::vector<Entity*> dust;
 	sf::View view;
+	sf::Clock clock;
+	float timer;
 };
 

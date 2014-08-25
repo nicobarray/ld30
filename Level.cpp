@@ -134,6 +134,8 @@ void Level::clearEntity()
 void Level::in_the_real_world_set(bool b)
 {
 	in_the_real_world = b;
+	SoundPlayer::getInstance().stop_music(in_the_real_world);
+	SoundPlayer::getInstance().play_music(!in_the_real_world);
 }
 
 bool Level::in_the_real_world_get()

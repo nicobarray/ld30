@@ -4,11 +4,12 @@
 MenuMain::MenuMain(void)
 	: background(Ressource::getInstance().texture_get((int)TITLE))
 {
+	background.scale(2, 2);
 }
-
 
 MenuMain::~MenuMain(void)
 {
+
 }
 
 void MenuMain::transition_in(sf::RenderWindow& window)

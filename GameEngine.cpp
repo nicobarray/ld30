@@ -30,11 +30,12 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/hud-energy-empty.png");
 	res.load_image("../ld30/res/exit1.png");
 	res.load_image("../ld30/res/exit2.png");
-	res.load_image("../ld30/res/life.png");
+	res.load_image("../ld30/res/mystery.png");
 	
 	res.load_wav("../ld30/res/teleport.wav");
 	res.load_wav("../ld30/res/shot.wav");
 	res.load_wav("../ld30/res/hit.wav");
+	res.load_wav("../ld30/res/foot.wav");
 
 	// Add scenes here
 	

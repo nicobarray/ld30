@@ -26,6 +26,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
 		player->initGlove(4);
 		levels.at(current)->clearEntity();
+		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)MYSTERE), 29, 2, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 15, 2, 32, 32, true, 1));
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 15, 2, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 9, 3, 32, 32, true));
@@ -133,7 +134,7 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 			if (current == END)
 			{
 				index = ENDSCREEN;
-				current = LV1;
+				current = LVINTRO;
 			}
 			transition_in(window);
 		}

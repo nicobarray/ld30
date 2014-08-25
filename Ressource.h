@@ -30,14 +30,16 @@ enum tex_id
 	GLOVE,
 	GLOVE_BACK,
 	EXIT1,
-	EXIT2
+	EXIT2,
+	MYSTERE
 };
 
 enum BufferName
 {
 	TELEPORT = 0,
 	SHOT,
-	HIT
+	HIT,
+	FOOT
 };
 
 class Ressource

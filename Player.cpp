@@ -9,6 +9,8 @@ Player::Player(sf::Texture& t, int x, int y)
 	, max_glove(3)
 	, item(nullptr)
 	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
+	, clock()
+	, timer(0)
 {
 }
 
@@ -18,6 +20,9 @@ Player::~Player(void)
 
 void Player::update()
 {
+	if (clock.getElapsedTime().asMilliseconds() > 117)
+		timer++;
+
 	dead = false;
 	if (invu)
 		invu--;
@@ -30,6 +35,9 @@ void Player::update()
 	int speed = 3;
 	if (anim == IDLE || anim == RUN)
 	{
+		int xx = move_x;
+		int yy = move_y;
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			// move left...
 				move_x -= speed;
@@ -52,13 +60,21 @@ void Player::update()
 			move_x = 0;
 			move_y = 0;
 		}
+
+		if (xx != move_x || yy != move_y)
+		{
+			if (timer > 32)
+			{
+				SoundPlayer::getInstance().play((int)FOOT);
+				timer = 0;
+			}
+		}
 	}
 }
 
 void Player::hurt(int n)
 {
 	life-= n;
-	std::cout << "Outch !\n";
 	SoundPlayer::getInstance().play((int)HIT);
 	anim = DEATH;
 	frame_id = 0;
