@@ -32,7 +32,7 @@ void Player::update()
 		move_y = 0;
 	}
 
-	int speed = 3;
+	int speed = 4;
 	if (anim == IDLE || anim == RUN)
 	{
 		int xx = move_x;
@@ -77,7 +77,7 @@ void Player::hurt(int n)
 	anim = DEATH;
 	frame_id = 0;
 	frame_delay = 7;
-	invu = 120;
+	invu = 90;
 }
 
 void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)

@@ -53,7 +53,7 @@ void Spitter::update()
 			float dist = m_x * m_x + m_y * m_y;
 			dist  = sqrt(dist);
 
-			if (dist < 16*20)
+			if (dist < 16*30)
 			{
 				direction_set();
 				anim = ATTACK;

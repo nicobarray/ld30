@@ -11,5 +11,8 @@ public:
 	~Bullet(void);
 	
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items) override;
+
+private:
+	int delay;
 };
 

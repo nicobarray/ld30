@@ -13,6 +13,7 @@ enum LevelName
 	LV2IMPS,
 	TRAP,
 	LV4PORTALS,
+	BRIDGE,
 	END
 };
 
