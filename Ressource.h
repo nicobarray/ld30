@@ -19,6 +19,7 @@ enum tex_id
 	SPIT,
 	SWITCH,
 	CRATE,
+	DUST,
 	TITLE,
 	GAMEOVER,
 	PORTAL1,
@@ -30,6 +31,7 @@ enum tex_id
 	GLOVE_BACK,
 	EXIT1,
 	EXIT2,
+	MYSTERE
 };
 
 enum BufferName

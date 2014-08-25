@@ -31,9 +31,9 @@ public:
 
 private:
 	int life, max_life;
-	bool end;
 	int glove, max_glove;
 	Entity* item;
+	//std::vector<Entity*> dust;
 	sf::View view;
 	sf::Clock clock;
 	float timer;

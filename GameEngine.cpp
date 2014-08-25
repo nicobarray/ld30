@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
-	, index(MENU)
+	, index(GAME)
 	, last_scene(ENDSCREEN)
 	, scenes()
 {
@@ -19,6 +19,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/spit.png");
 	res.load_image("../ld30/res/woosh.png");
 	res.load_image("../ld30/res/crate.png");
+	res.load_image("../ld30/res/dust.png");
 	res.load_image("../ld30/res/title.png");
 	res.load_image("../ld30/res/game-over.png");
 	res.load_image("../ld30/res/portal1.png");
@@ -30,7 +31,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/hud-energy-empty.png");
 	res.load_image("../ld30/res/exit1.png");
 	res.load_image("../ld30/res/exit2.png");
-	res.load_image("../ld30/res/life.png");
+	res.load_image("../ld30/res/mystery.png");
 	
 	// Load musics here
 
