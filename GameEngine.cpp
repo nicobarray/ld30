@@ -9,8 +9,8 @@ GameEngine::GameEngine(void)
 	Ressource& res = Ressource::getInstance();
 	SoundPlayer& snd = SoundPlayer::getInstance();
 
-	res.load_image("../ld30/res/tileset-garden0.png");
-	res.load_image("../ld30/res/tileset-garden1.png");
+	res.load_image("../ld30/res/tileset-garden.png");
+	res.load_image("../ld30/res/tileset-fairy.png");
 	res.load_image("../ld30/res/drop-health.png");
 	res.load_image("../ld30/res/hero.png");
 	res.load_image("../ld30/res/imp.png");

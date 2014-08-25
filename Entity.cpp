@@ -168,6 +168,8 @@ void Entity::switchWorld()
 	anim = SWITCHING;
 	frame_delay = 7;
 	frame_id = 0;
+	move_x = 0;
+	move_y = 0;
 	SoundPlayer::getInstance().play((int)TELEPORT);
 }
 void Entity::direction_set()

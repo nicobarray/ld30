@@ -24,7 +24,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	}
 	catch (...)
 	{
-		std::cout << "Error will parsing : " << file_name;
+		std::cout << "Error while parsing : " << file_name;
 	}
 
 	width = pt.get<int>("map.<xmlattr>.width");
@@ -39,7 +39,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	{
 		real_tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
-
+	
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.realsolid.data"))
 	{
 		real_solids.push_back(v.second.get<int>("<xmlattr>.gid"));
@@ -47,13 +47,14 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairyground.data"))
 	{
-		fairy_tiles.push_back(v.second.get<int>("<xmlattr>.gid") - 81);
+		fairy_tiles.push_back(v.second.get<int>("<xmlattr>.gid") - 108);
 	}
-
+	
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairysolid.data"))
 	{
 		fairy_solids.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
+	
 
 #pragma endregion
 	for (int j = 0; j < height; j++)
@@ -77,6 +78,8 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 			fairy_ground.push_back(fairy_tile);
 		}
 	}
+
+	std::cout << "Done with : " << file_name << "\n";
 }
 
 Level::~Level(void)
@@ -94,7 +97,7 @@ void Level::update()
 	}
 	for(Entity* var : items)
 	{
-			var->update(in_the_real_world ? real_ground : fairy_ground, items);
+		var->update(in_the_real_world ? real_ground : fairy_ground, items);
 	}
 }
 
