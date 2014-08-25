@@ -3,6 +3,7 @@
 
 Bullet::Bullet(sf::Texture& texture, int x, int y)
 	: Prop(texture, x, y, 16, 16, false)
+	, delay(300)
 {
 }
 
@@ -12,6 +13,10 @@ Bullet::~Bullet(void)
 
 void Bullet::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 {
+	delay--;
+	if (delay <1)
+		hurt(0);
+
 	Entity::update(ground, items);
 	if (anim != DEATH)
 	{
@@ -31,7 +36,7 @@ void Bullet::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			{
 				if (prop->anim_get() != SWITCH && dynamic_cast<Player*> (prop) && !prop->invu_get() > 0)
 				{
-					prop->hurt(1);
+					prop->hurt(2);
 					prop->speed_set(move_x/2, move_y/2);
 				}
 				hurt(1);
