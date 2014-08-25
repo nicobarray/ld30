@@ -38,6 +38,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 7, 4, 32, 32, true));
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 7, 5, 32, 32, true));
 		levels.at((int)LV1)->addRealEntity(player);
+		levels.at((int)LV1)->player_set(player);
 		break;
 	case LV2:
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
@@ -45,6 +46,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at((int)LV2)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 16*10, 16*5));
 		levels.at((int)LV2)->addRealEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16*5, 16*6));
 		levels.at((int)LV2)->addRealEntity(player);
+		levels.at((int)LV2)->player_set(player);
 		break;
 	default:
 		break;
@@ -59,7 +61,7 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
 	levels.at((int)current)->in_the_real_world_set(player->real_get());
 	levels.at((int)current)->update();
-	gui.update(event);
+	gui.update(event, levels.at((int)current)->player_get());
 }
 
 void Game::draw(sf::RenderWindow& window)

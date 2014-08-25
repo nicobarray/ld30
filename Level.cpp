@@ -9,6 +9,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	, width(0)
 	, height(0)
 	, in_the_real_world(true)
+	, player(nullptr)
 {
 	// Read the xml file @ fileName and create the level from it
 
@@ -138,4 +139,14 @@ std::vector<Entity*>& Level::ground_fairy_get()
 std::vector<Entity*>& Level::items_get()
 {
 	return items;
+}
+
+Player* Level::player_get()
+{
+	return player;
+}
+
+void Level::player_set(Player* p)
+{
+	player = p;
 }
