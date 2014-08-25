@@ -11,11 +11,11 @@ int abs(int n)
 }
 
 Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
-	: location(x * 3, y * 3, w * 3, h * 3)
+	: location(x * 3*16, y * 3*16, w * 3, h * 3)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
-	, box(x * 3+ (w*3) /4 + 2, y * 3 + (h * 3)/2+2, (w*3)/2-4, (h*3)/2-4)
+	, box(x * 3*16+ (w*3) /4 + 2, y * 3*16 + (h * 3)/2+2, (w*3)/2-4, (h*3)/2-4)
 	, solid(s)
 	, dead(false)
 	, col_x(false)
@@ -32,7 +32,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	Ressource& r = Ressource::getInstance();
 	switchTexture = r.texture_get(SWITCH);
 	switchSprite = sf::Sprite(switchTexture, location);
-	location_set(x*3, y*3);
+	location_set(x*3*16, y*3*16);
 	sprite.setScale(3, 3);
 	switchSprite.setScale(3, 3);
 

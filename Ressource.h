@@ -20,7 +20,9 @@ enum tex_id
 	SWITCH,
 	CRATE,
 	TITLE,
-	PORTAL,
+	PORTAL1,
+	PORTAL2,
+	DOOR,
 	LIFE
 };
 
