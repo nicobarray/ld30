@@ -21,6 +21,7 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, dead(false)
 	, col_x(false)
 	, col_y(false)
+	, real(true)
 	, invu(0)
 	, move_x(0)
 	, move_y(0)
@@ -41,8 +42,6 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	bb.setOutlineColor(sf::Color(255,0,0, 255));
 	bb.setOutlineThickness(2);
 	bb.setPosition(sf::Vector2f(box.left, box.top));
-
-
 }
 
 Entity::~Entity(void)
@@ -263,4 +262,14 @@ void Entity::switched_set(bool b)
 bool Entity::switched_get()
 {
 	return switched;
+}
+
+void Entity::real_set(bool b)
+{
+	real = b;
+}
+
+bool Entity::real_get()
+{
+	return real;
 }

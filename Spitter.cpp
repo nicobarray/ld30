@@ -22,7 +22,7 @@ void Spitter::update()
 		float y2 = y;
 
 		if (parent)
-			for (Entity* e : parent->items_real_get())
+			for (Entity* e : parent->items_get())
 			{
 				if (dynamic_cast<Player*> (e))
 				{

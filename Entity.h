@@ -62,13 +62,16 @@ public:
 	void switched_set(bool b);
 	bool switched_get();
 
+	void real_set(bool b);
+	bool real_get();
+
 protected:
 	sf::IntRect location;
 	sf::IntRect subrect;
 	sf::Texture& texture, switchTexture;
 	sf::Sprite sprite, switchSprite;
 	sf::IntRect box;
-	bool solid, dead, col_x, col_y, switched;
+	bool solid, dead, col_x, col_y, switched, real;
 	int move_x, move_y;
 	int direction, frame_id, frame_delay, invu;
 	animation anim;

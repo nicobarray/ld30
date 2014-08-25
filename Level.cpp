@@ -3,8 +3,7 @@
 Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_world)
 	: real_ground()
 	, fairy_ground()
-	, real_items()
-	, fairy_items()
+	, items()
 	, real_world(real_world)
 	, fairy_world(fairy_world)
 	, width(0)
@@ -12,6 +11,8 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	, in_the_real_world(true)
 {
 	// Read the xml file @ fileName and create the level from it
+
+#pragma region XML loader
 
 	using boost::property_tree::ptree;
 	ptree pt;
@@ -42,107 +43,85 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 		solids.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
 
+#pragma endregion
+
 	for (int j = 0; j < height; j++)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			Entity* ent = new Entity(real_world, i * 16, j * 16, 16, 16, false);
+			Entity* real_tile = new Entity(real_world, i * 16, j * 16, 16, 16, false);
+			Entity* fairy_tile = new Entity(fairy_world, i * 16, j * 16, 16, 16, false);
 			int index = i + j * width;
 
 			int subindex = tiles.at(index);
-			ent->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
-			ent->solid_set(solids.at(index));
+			real_tile->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
+			real_tile->solid_set(solids.at(index));
+			fairy_tile->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
+			fairy_tile->solid_set(solids.at(index));
 
-			real_ground.push_back(ent);
+			real_ground.push_back(real_tile);
+			fairy_ground.push_back(fairy_tile);
 		}
 	}
 }
 
 Level::~Level(void)
 {
-	for(Entity* var : real_items)
+	for(Entity* var : items)
 		delete var;
-}
-
-std::vector<Entity*>& Level::ground_real_get()
-{
-	return real_ground;
-}
-
-std::vector<Entity*>& Level::items_real_get()
-{
-	return real_items;
-}
-
-std::vector<Entity*>& Level::ground_fairy_get()
-{
-	return real_ground;
-}
-
-std::vector<Entity*>& Level::items_fairy_get()
-{
-	return real_items;
 }
 
 void Level::update()
 {
-	for(Entity* var : in_the_real_world ? real_items : fairy_items)
+	for(Entity* item : items)
 	{
-		if (var->switched_get())
+		if (item->switched_get())
 		{
-
+			item->switched_set(false);
+			item->real_set(!item->real_get());
 		}
 	}
 
-	if (in_the_real_world)
+	for(Entity* var : items)
 	{
-		for(Entity* var : real_items)
+		if (var->real_get() == in_the_real_world)
 			var->update();
-		for(Entity* var : real_items)
-			var->update(real_ground, real_items);
 	}
-	else
+	for(Entity* var : items)
 	{
-		for(Entity* var : fairy_items)
-			var->update();
-		for(Entity* var : fairy_items)
-			var->update(fairy_ground, fairy_items);
+		if (var->real_get() == in_the_real_world)
+			var->update(real_ground, items);
 	}
 }
 
 void Level::draw(sf::RenderWindow& window)
 {
-	if (in_the_real_world)
+	for(Entity* var : in_the_real_world ? real_ground : fairy_ground)
+		var->draw(window);
+
+	std::sort(items.begin(), items.end(), compare);
+
+	for(Entity* var : items)
 	{
-		for(Entity* var : real_ground)
-			var->draw(window);
-
-		std::sort(real_items.begin(), real_items.end(), compare);
-
-		for(Entity* var : real_items)
+		if (var->real_get() == in_the_real_world)
 			var->draw(window);
 	}
-	else
-	{
-		for(Entity* var : fairy_ground)
-			var->draw(window);
-
-		std::sort(fairy_items.begin(), fairy_items.end(), compare);
-
-		for(Entity* var : fairy_items)
-			var->draw(window);
-	}
-
 }
 
 void Level::addRealEntity(Entity* e)
 {
-	real_items.push_back(e);
+	items.push_back(e);
+}
+
+void Level::addFairyEntity(Entity* e)
+{
+	e->real_set(false);
+	items.push_back(e);
 }
 
 void Level::clearEntity()
 {
-	real_items.clear();
+	items.clear();
 }
 
 void Level::in_the_real_world_set(bool b)
@@ -153,4 +132,19 @@ void Level::in_the_real_world_set(bool b)
 bool Level::in_the_real_world_set()
 {
 	return in_the_real_world;
+}
+
+std::vector<Entity*>& Level::ground_real_get()
+{
+	return real_ground;
+}
+
+std::vector<Entity*>& Level::ground_fairy_get()
+{
+	return fairy_ground;
+}
+
+std::vector<Entity*>& Level::items_get()
+{
+	return items;
 }

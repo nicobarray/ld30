@@ -16,6 +16,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/thug.png");
 	res.load_image("../ld30/res/switch.png");
 	res.load_image("../ld30/res/title.png");
+	res.load_image("../ld30/res/portal.png");
 
 	// Add scenes here
 	
@@ -36,8 +37,6 @@ void GameEngine::update(sf::Event& event, sf::RenderWindow& window)
 {
 	if (false)
 		quit = true;
-
-	std::cout << "Last : " << last_scene << " Current : " << index << std::endl; 
 
 	if (last_scene != index)
 	{

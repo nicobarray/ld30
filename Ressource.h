@@ -15,7 +15,8 @@ enum tex_id
 	IMP,
 	THUG,
 	SWITCH,
-	TITLE
+	TITLE,
+	PORTAL
 };
 
 class Ressource
