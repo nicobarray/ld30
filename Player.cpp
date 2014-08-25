@@ -5,6 +5,7 @@ Player::Player(sf::Texture& t, int x, int y)
 	: Entity(t, x, y, 32, 32, true)
 	, life(12)
 	, item(nullptr)
+	, end(false)
 	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
 {
 }
@@ -105,8 +106,10 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			if (prop != this && prop->real_get() == real && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
 			{
 				Prop* statue = dynamic_cast<Prop*>(prop);
-				if (statue && statue->statue_get())
+				if (statue && statue->link_get() == 1)
 					switchWorld();
+				else if (statue && statue->link_get() == 2)
+					end = true;
 				else
 					prop->switchWorld();
 			}
@@ -149,8 +152,15 @@ int Player::life_get()
 {
 	return life;
 }
-
 int Player::max_life_get()
 {
 	return max_life;
+}
+bool Player::end_get()
+{
+	return end;
+}
+void Player::end_set(bool s)
+{
+	end =s;
 }

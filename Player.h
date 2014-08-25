@@ -21,9 +21,12 @@ public:
 
 	int life_get();
 	int max_life_get();
+	bool end_get();
+	void end_set(bool s);
 
 private:
 	int life, max_life;
+	bool end;
 	Entity* item;
 	sf::View view;
 };

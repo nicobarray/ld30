@@ -10,19 +10,18 @@ class Prop :
 	public Entity
 {
 public:
-	Prop(sf::Texture& texture, int x, int y, int w, int h, bool s, bool statue = false);
+	Prop(sf::Texture& texture, int x, int y, int w, int h, bool s, int link = 0);
 	Prop(sf::Texture& texture, int x, int y, int w, int h, int life);
 	~Prop(void);
 	
 	int lifeGain_get();
 	virtual void update();
 
-	bool statue_get();
+	int link_get();
 
 private:
 	bool catchable; //Le joueur peut capturer l'objet dans le gant
-	int lifeGain;
-	bool statue;
+	int lifeGain, link;
 };
 
 Prop* newPotion(sf::Texture& texture, int x, int y);
