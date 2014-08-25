@@ -5,6 +5,7 @@ Imp::Imp(sf::Texture& t, Level* l, int x, int y)
 	: Mob(t, l, x, y, 32, 32)
 {
 	frame_id = std::rand() % 8;
+	attack.setBuffer(Ressource::getInstance().buffer_get((int)FOOT));
 }
 
 Imp::~Imp(void)
@@ -52,6 +53,9 @@ void Imp::update()
 
 				if (dist < 66)//allonge-4
 				{
+					// play sound here
+					attack.play();
+
 					anim = ATTACK;
 					move_x = 0;
 					move_y = 0;

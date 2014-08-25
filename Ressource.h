@@ -21,6 +21,7 @@ enum tex_id
 	CRATE,
 	DUST,
 	TITLE,
+	CONTROLS,
 	GAMEOVER,
 	PORTAL1,
 	PORTAL2,

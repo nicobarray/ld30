@@ -10,5 +10,8 @@ public:
 	~Imp(void);
 	
 	virtual void update() override;
+
+private:
+	sf::Sound attack;
 };
 

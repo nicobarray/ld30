@@ -154,8 +154,11 @@ void Game::transition_out(sf::RenderWindow& window)
 
 void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index, std::vector<bool>& pressed_keys)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) || player->life_get() < 1)
+	if (!pressed_keys.at((int)sf::Keyboard::R) && sf::Keyboard::isKeyPressed(sf::Keyboard::R) || player->life_get() < 1)
+	{
 		transition_in(window);
+		pressed_keys[(int)sf::Keyboard::R] = true;
+	}
 	else
 	{
 		if (levels.at((int)current)->in_the_real_world_get() != player->real_get())

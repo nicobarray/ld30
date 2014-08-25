@@ -1,8 +1,9 @@
 #include "MenuLevel.h"
 
 MenuLevel::MenuLevel(void)
-	: background(Ressource::getInstance().texture_get((int)TITLE))
+	: background(Ressource::getInstance().texture_get((int)CONTROLS))
 {
+	background.scale(2, 2);
 }
 
 MenuLevel::~MenuLevel(void)
