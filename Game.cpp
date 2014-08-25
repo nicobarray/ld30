@@ -50,7 +50,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		player->real_set(false);
 		break;
 	case LV3:
-		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
+		player = new Player(Ressource::getInstance().texture_get((int)HERO), 2, 3);
 		player->initGlove(4);
 		levels.at((int)LV3)->clearEntity();
 
