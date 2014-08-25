@@ -52,8 +52,6 @@ void Player::update()
 				move_y += speed;
 		if (glove > 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			std::cout << "Attack !!\n";
-			// attack...
 			anim = ATTACK;
 			frame_delay = 7;
 			frame_id = 0;
@@ -91,7 +89,6 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		{
 			if (!prop->dead_get() && prop->real_get() == real && dynamic_cast<Prop*>(prop) && box.intersects(prop->box_get()) && dynamic_cast<Prop*>(prop)->lifeGain_get())
 			{
-				std::cout << "It's a prop!\n";
 				life+=dynamic_cast<Prop*>(prop)->lifeGain_get();
 				prop->dead_set(true);
 			}
@@ -161,7 +158,6 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				dist  = sqrt(dist);
 				if (dist < 70)
 				{
-					std::cout << "It's an imp! (" << life << ")\n";
 					hurt(1);
 					move_x = -(3.5f * move_x)/dist;
 					move_y = -(3.5f * move_y)/dist;

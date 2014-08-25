@@ -9,7 +9,9 @@
 enum LevelName
 {
 	LVINTRO = 0,
+	LVIMP,
 	LV2IMPS,
+	TRAP,
 	LV4PORTALS,
 	END
 };
