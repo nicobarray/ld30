@@ -27,6 +27,9 @@ enum tex_id
 	LIFE_BACK,
 	GLOVE,
 	GLOVE_BACK
+	EXIT1,
+	EXIT2,
+	LIFE
 };
 
 enum BufferName

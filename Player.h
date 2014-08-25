@@ -21,12 +21,16 @@ public:
 
 	int life_get();
 	int max_life_get();
+	bool end_get();
+	void end_set(bool s);
 
 	int glove_get();
 	int max_glove_get();
+	void initGlove(int n);
 
 private:
 	int life, max_life;
+	bool end;
 	int glove, max_glove;
 	Entity* item;
 	sf::View view;

@@ -1,8 +1,9 @@
 #include "Prop.h"
 
-Prop::Prop(sf::Texture& texture, int x, int y, int w, int h, bool s, bool teleport)
+Prop::Prop(sf::Texture& texture, int x, int y, int w, int h, bool s, int teleport)
 	: Entity(texture, x, y, w, h, s)
-	, statue(teleport)
+	, lifeGain(0)
+	, link(teleport)
 {
 }
 
@@ -10,7 +11,7 @@ Prop::Prop(sf::Texture& texture, int x, int y, int w, int h, int life)
 	: Entity(texture, x, y, w, h, false)
 	, lifeGain(life)
 	, catchable(false)
-	, statue(false)
+	, link(0)
 {
 }
 
@@ -38,7 +39,7 @@ Prop* newCrate(sf::Texture& texture, int x, int y)
 	return p;
 }
 
-bool Prop::statue_get()
+int Prop::link_get()
 {
-	return statue;
+	return link;
 }

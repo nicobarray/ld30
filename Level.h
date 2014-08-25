@@ -25,6 +25,7 @@ public:
 
 	std::vector<Entity*>& ground_real_get();
 	std::vector<Entity*>& ground_fairy_get();
+	std::vector<Entity*>& ground_get();
 	std::vector<Entity*>& items_get();
 
 	virtual void update();

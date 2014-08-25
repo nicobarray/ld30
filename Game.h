@@ -9,7 +9,8 @@
 enum LevelName
 {
 	LV1 = 0,
-	LV2
+	LV2,
+	END
 };
 
 class Game : public Scene

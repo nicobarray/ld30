@@ -26,6 +26,9 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/hud-health-bar.png");
 	res.load_image("../ld30/res/hud-energy.png");
 	res.load_image("../ld30/res/hud-energy-empty.png");
+	res.load_image("../ld30/res/exit1.png");
+	res.load_image("../ld30/res/exit2.png");
+	res.load_image("../ld30/res/life.png");
 	
 	res.load_wav("../ld30/res/teleport.wav");
 	res.load_wav("../ld30/res/shot.wav");
@@ -76,6 +79,7 @@ bool GameEngine::quit_get()
 
 int main(int argc, char** argv)
 {
+	std::srand(time(nullptr));
 	// Our game engine
 	GameEngine engine = GameEngine();
 

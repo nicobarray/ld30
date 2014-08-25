@@ -19,12 +19,20 @@ void Spitter::update()
 
 	if (!dead && anim != DEATH && anim != SWITCHING)
 	{
+		for (Entity* tile : parent->ground_get())
+		{
+			if (tile->solid_get() && box.intersects(tile->location_get()))
+			{
+				hurt(0);
+				break;
+			}
+		}
 		if (anim == ATTACK)
 		{
 			if (frame_id == 4 && frame_delay == 6)
 				shoot();
 		}
-		else
+		else if (anim != DEATH)
 		{
 			float x = box.left + box.width/2;
 			float y = box.top + box.height/2;
@@ -57,7 +65,7 @@ void Spitter::update()
 				move_x = 0;
 				move_y = 0;
 			}
-			else
+			else if (dist < 16 * 20)
 			{
 				if (m_x)
 					move_x = (1.5f * m_x) / dist;
@@ -86,7 +94,7 @@ void Spitter::shoot()
 	Ressource& res = Ressource::getInstance();
 	Bullet* bullet = new Bullet(res.texture_get(SPIT), box.left, box.top);
 
-	std::cout << "Shoot at "<< bullet_x << ", " << bullet_y <<"\n";
+	std::cout << "Shoot at "<< bullet_x << ", " << bullet_y << "\n";
 	bullet->speed_set(bullet_x, bullet_y);
 	bullet->location_set(box.left + 7 * bullet_x, box.top + 7 * bullet_y);
 	bullet->real_set(real);

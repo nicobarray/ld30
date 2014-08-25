@@ -21,7 +21,6 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	try
 	{
 		read_xml(file_name, pt);
-		std::cout << pt.get<std::string>("map.layer.<xmlattr>.name") << std::endl;
 	}
 	catch (...)
 	{
@@ -48,7 +47,7 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairyground.data"))
 	{
-		fairy_tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
+		fairy_tiles.push_back(v.second.get<int>("<xmlattr>.gid") - 81);
 	}
 
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairysolid.data"))
@@ -143,10 +142,13 @@ std::vector<Entity*>& Level::ground_real_get()
 {
 	return real_ground;
 }
-
 std::vector<Entity*>& Level::ground_fairy_get()
 {
 	return fairy_ground;
+}
+std::vector<Entity*>& Level::ground_get()
+{
+	return in_the_real_world ? real_ground : fairy_ground;
 }
 
 std::vector<Entity*>& Level::items_get()
