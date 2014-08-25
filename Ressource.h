@@ -20,7 +20,8 @@ enum tex_id
 	SWITCH,
 	CRATE,
 	TITLE,
-	PORTAL
+	PORTAL,
+	LIFE
 };
 
 enum BufferName

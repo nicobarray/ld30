@@ -105,7 +105,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			if (prop != this && prop->real_get() == real && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
 			{
 				Prop* statue = dynamic_cast<Prop*>(prop);
-				if (statue)
+				if (statue && statue->statue_get())
 					switchWorld();
 				else
 					prop->switchWorld();
@@ -143,4 +143,14 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 sf::View& Player::view_get()
 {
 	return view;
+}
+
+int Player::life_get()
+{
+	return life;
+}
+
+int Player::max_life_get()
+{
+	return max_life;
 }

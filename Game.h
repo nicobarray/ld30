@@ -4,6 +4,7 @@
 #include "Ressource.h"
 #include "Levels.h"
 #include "AllEntities.h"
+#include "Gui.h"
 
 enum LevelName
 {
@@ -25,5 +26,6 @@ private:
 	std::vector<Level*> levels;
 	Player* player;
 	LevelName current;
+	Gui gui;
 };
 

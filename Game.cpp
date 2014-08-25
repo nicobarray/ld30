@@ -4,6 +4,7 @@ Game::Game(void)
 	: levels()
 	, player(nullptr)
 	, current(LV1)
+	, gui()
 {
 	player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 	levels.push_back(new Level1(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
@@ -29,8 +30,8 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 16 * 4, 16 * 15, 32, 32, true));
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 16 * 4, 16 * 16, 32, 32, true));
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 16 * 4, 16 * 17, 32, 32, true));
-		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL), 16 * 2, 16 * 2, 32, 32, true));
-		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL), 16 * 2, 16 * 2, 32, 32, true)); 
+		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL), 16 * 2, 16 * 2, 32, 32, true, true));
+		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL), 16 * 2, 16 * 2, 32, 32, true, true)); 
 		levels.at((int)LV1)->addRealEntity(player);
 		break;
 	case LV2:
@@ -53,10 +54,14 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
 	levels.at((int)current)->in_the_real_world_set(player->real_get());
 	levels.at((int)current)->update();
+	gui.update(event);
 }
 
 void Game::draw(sf::RenderWindow& window)
 {
 	window.setView(player->view_get());
 	levels.at((int)current)->draw(window);
+	
+	window.setView(window.getDefaultView());
+	gui.draw(window);
 }
