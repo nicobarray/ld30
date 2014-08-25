@@ -14,6 +14,7 @@ enum tex_id
 	HERO,
 	IMP,
 	THUG,
+	SPIT,
 	SWITCH,
 	TITLE,
 	PORTAL

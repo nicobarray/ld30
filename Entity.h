@@ -42,10 +42,11 @@ public:
 	bool dead_get();
 	sf::IntRect box_get();
 	animation anim_get();
+	void speed_set(int x, int y);
 	
-	virtual void update();
+	virtual void update() = 0;
 	virtual void update(std::vector<Entity*> ground, std::vector<Entity*> items);
-	void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window);
 
 	bool contact(Entity *e);
 	void move(float x, float y);
@@ -58,9 +59,6 @@ public:
 
 	virtual void die(int n);
 	void switchWorld();
-
-	void switched_set(bool b);
-	bool switched_get();
 
 	void real_set(bool b);
 	bool real_get();

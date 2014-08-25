@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
-	, index(MENU)
+	, index(GAME)
 	, last_scene(TESTROOM)
 	, scenes()
 {
@@ -14,7 +14,8 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/hero.png");
 	res.load_image("../ld30/res/imp.png");
 	res.load_image("../ld30/res/thug.png");
-	res.load_image("../ld30/res/switch.png");
+	res.load_image("../ld30/res/spit.png");
+	res.load_image("../ld30/res/woosh.png");
 	res.load_image("../ld30/res/title.png");
 	res.load_image("../ld30/res/portal.png");
 

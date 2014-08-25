@@ -2,6 +2,7 @@
 
 Spitter::Spitter(sf::Texture& t, Level* l, int x, int y)
 	: Mob(t, l, x, y, 32, 32)
+	, shots()
 {
 	sprite.setColor(sf::Color(255, 0, 0, 255));
 }
@@ -12,16 +13,23 @@ Spitter::~Spitter(void)
 
 void Spitter::update()
 {
-	Entity::update();
+	move_x = 0;
+	move_y = 0;
 
 	if (!dead && anim != DEATH && anim != SWITCHING)
 	{
-		float x = box.left + box.width/2;
-		float y = box.top + box.height/2;
-		float x2 = x;
-		float y2 = y;
+		if (anim == ATTACK)
+		{
+			if (frame_id == 7 && frame_delay == 6)
+				shoot();
+		}
+		else
+		{
+			float x = box.left + box.width/2;
+			float y = box.top + box.height/2;
+			float x2 = x;
+			float y2 = y;
 
-		if (parent)
 			for (Entity* e : parent->items_get())
 			{
 				if (dynamic_cast<Player*> (e))
@@ -37,9 +45,11 @@ void Spitter::update()
 			float dist = m_x * m_x + m_y * m_y;
 			dist  = sqrt(dist);
 
-			if (dist < 66)//allonge-4
+			if (dist < 16*10)//allonge-4
 			{
 				anim = ATTACK;
+				frame_id = 0;
+				frame_delay = 7;
 				move_x = 0;
 				move_y = 0;
 			}
@@ -50,5 +60,56 @@ void Spitter::update()
 				if (m_y)
 					move_y = (speed * m_y) / dist;
 			}
+		}
+	}
+}
+void Spitter::update(std::vector<Entity*> ground, std::vector<Entity*> items)
+{
+	Entity::update(ground, items);
+	for (Entity* p : shots)
+		p->update(ground, items);
+}
+void Spitter::draw(sf::RenderWindow& window)
+{
+	Entity::draw(window);
+	for (Entity* p : shots)
+		p->draw(window);
+}
+
+void Spitter::shoot()
+{
+	std::cout << "Shoot !"<< std::endl;
+	std::cout << "Shots("<< shots.size() << ")" << std::endl;
+	Ressource& res = Ressource::getInstance();
+	Prop* bullet = new Prop(res.texture_get(SPIT), box.left, box.top, 16, 16, false);
+
+	float x = box.left + box.width/2;
+	float y = box.top + box.height/2;
+	float x2 = x;
+	float y2 = y;
+
+	for (Entity* e : parent->items_get())
+	{
+		if (dynamic_cast<Player*> (e))
+		{
+			x2 = e->box_get().left + e->box_get().width/2;
+			y2 = e->box_get().top + e->box_get().height/2;
+		}
+	}
+
+	float m_x = x2 - x;
+	float m_y = y2 - y;
+	float speed = 7;
+	float dist = m_x * m_x + m_y * m_y;
+	dist  = sqrt(dist);
+
+	bullet->speed_set((speed * m_x) / dist, (speed * m_y) / dist);
+	bullet->location_set(box.left + 5 * ((speed * m_x) / dist), box.top + 5 * ((speed * m_y) / dist));
+	//parent->addEntity(bullet);
+	if (shots.size() < 5)
+		shots.push_back(bullet);
+	else
+	{
+		shots[0] = bullet;
 	}
 }

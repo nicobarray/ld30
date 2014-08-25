@@ -49,8 +49,8 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	{
 		for (int i = 0; i < width; i++)
 		{
-			Entity* real_tile = new Entity(real_world, i * 16, j * 16, 16, 16, false);
-			Entity* fairy_tile = new Entity(fairy_world, i * 16, j * 16, 16, 16, false);
+			Entity* real_tile = new Prop(real_world, i * 16, j * 16, 16, 16, false);
+			Entity* fairy_tile = new Prop(fairy_world, i * 16, j * 16, 16, 16, false);
 			int index = i + j * width;
 
 			int subindex = tiles.at(index);
@@ -73,15 +73,6 @@ Level::~Level(void)
 
 void Level::update()
 {
-	for(Entity* item : items)
-	{
-		if (item->switched_get())
-		{
-			item->switched_set(false);
-			item->real_set(!item->real_get());
-		}
-	}
-
 	for(Entity* var : items)
 	{
 		if (var->real_get() == in_the_real_world)
@@ -89,8 +80,7 @@ void Level::update()
 	}
 	for(Entity* var : items)
 	{
-		if (var->real_get() == in_the_real_world)
-			var->update(real_ground, items);
+			var->update(in_the_real_world ? real_ground : fairy_ground, items);
 	}
 }
 
@@ -129,7 +119,7 @@ void Level::in_the_real_world_set(bool b)
 	in_the_real_world = b;
 }
 
-bool Level::in_the_real_world_set()
+bool Level::in_the_real_world_get()
 {
 	return in_the_real_world;
 }

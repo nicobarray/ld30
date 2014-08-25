@@ -45,6 +45,7 @@ void Game::transition_out(sf::RenderWindow& window)
 
 void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
+	levels.at((int)current)->in_the_real_world_set(player->real_get());
 	levels.at((int)current)->update();
 }
 

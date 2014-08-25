@@ -31,10 +31,11 @@ public:
 
 	void addRealEntity(Entity* e);
 	void addFairyEntity(Entity* e);
+	void addEntity(Entity* e);
 	void clearEntity();
 
 	void in_the_real_world_set(bool b);
-	bool in_the_real_world_set();
+	bool in_the_real_world_get();
 
 private:
 	std::vector<Entity*> real_ground, fairy_ground;

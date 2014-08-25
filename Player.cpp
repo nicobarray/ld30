@@ -18,7 +18,11 @@ void Player::update()
 	dead = false;
 	if (invu)
 		invu--;
-	Entity::update();
+	if (anim != DEATH)
+	{
+		move_x = 0;
+		move_y = 0;
+	}
 
 	int speed = 3;
 	if (anim != ATTACK && anim != DEATH)
@@ -73,8 +77,9 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 
 	if (frame_delay == 6 && frame_id == 4 && anim == ATTACK)//ATTACK
 	{
-		sf::IntRect area = sf::IntRect(location.left, box.top + box.height, location.width, (box.height * 4)/3);
-		area.top -= area.height;
+		sf::IntRect area = sf::IntRect(box.left + box.width/2, box.top + box.height/2, (box.width * 4)/3, (box.height * 4)/3);
+		area.left -= area.width/2;
+		area.top -= area.height/2;
 		if (direction == WEST)
 			area.left -= + location.width;
 		if (direction == EAST)

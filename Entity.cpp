@@ -63,11 +63,11 @@ void Entity::location_set(float x, float y)
 	bb.setOutlineThickness(2);
 	bb.setPosition(sf::Vector2f(box.left, box.top));
 }
-
 sf::IntRect& Entity::location_get()
 {
 	return location;
 }
+
 void Entity::texture_set(sf::Texture& tex)
 {
 	texture = tex;
@@ -84,14 +84,10 @@ animation Entity::anim_get()
 {
 	return anim;
 }
-
-void Entity::update()
+void Entity::speed_set(int x, int y)
 {
-	if (!dead && anim != DEATH)
-	{
-		move_x = 0;
-		move_y = 0;
-	}
+	move_x = x;
+	move_y = y;
 }
 
 void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
@@ -144,12 +140,11 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			if (frame_id % 8 == 0 && anim == SWITCHING)
 			{
 				anim = IDLE;
-				switched = true;
+				real = !real;
 			}
 		}
 	}
 }
-
 void Entity::updateSubrect()
 {
 	sprite.setTextureRect(sf::IntRect(subrect.width * (frame_id % 8),
@@ -251,24 +246,16 @@ void Entity::solid_set(bool b)
 
 bool compare (Entity *a, Entity *b)
 {
-	return a->location_get().top < b->location_get().top;
-}
-
-void Entity::switched_set(bool b)
-{
-	switched = b;
-}
-
-bool Entity::switched_get()
-{
-	return switched;
+	if (a->dead_get())
+		return false;
+	else
+		return a->location_get().top < b->location_get().top;
 }
 
 void Entity::real_set(bool b)
 {
 	real = b;
 }
-
 bool Entity::real_get()
 {
 	return real;
