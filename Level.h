@@ -15,6 +15,7 @@
 
 #include "Prop.h"
 #include "Ressource.h"
+#include "Player.h"
 
 class Level
 {
@@ -24,6 +25,7 @@ public:
 
 	std::vector<Entity*>& ground_real_get();
 	std::vector<Entity*>& ground_fairy_get();
+	std::vector<Entity*>& ground_get();
 	std::vector<Entity*>& items_get();
 
 	virtual void update();
@@ -36,6 +38,9 @@ public:
 
 	void in_the_real_world_set(bool b);
 	bool in_the_real_world_get();
+	
+	Player* player_get();
+	void player_set(Player* p);
 
 private:
 	std::vector<Entity*> real_ground, fairy_ground;
@@ -45,5 +50,6 @@ private:
 	int width;
 	int height;
 	bool in_the_real_world;
+	Player* player;
 };
 

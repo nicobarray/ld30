@@ -3,7 +3,10 @@
 
 Player::Player(sf::Texture& t, int x, int y)
 	: Entity(t, x, y, 32, 32, true)
-	, life(12)
+	, life(6)
+	, max_life(6)
+	, glove(3)
+	, max_glove(3)
 	, item(nullptr)
 	, end(false)
 	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
@@ -40,7 +43,7 @@ void Player::update()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			// down...
 				move_y += speed;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if (glove > 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			std::cout << "Attack !!\n";
 			// attack...
@@ -102,9 +105,12 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 		bb.setOutlineThickness(2);
 		bb.setPosition(sf::Vector2f(area.left, area.top));
 
+		bool touched = false;
+
 		for (Entity* prop : items)
 			if (prop != this && prop->real_get() == real && !prop->dead_get() && area.intersects(prop->box_get()) && prop->anim_get() != DEATH && prop->anim_get() != SWITCHING)
 			{
+				touched = true;
 				Prop* statue = dynamic_cast<Prop*>(prop);
 				if (statue && statue->link_get() == 1)
 					switchWorld();
@@ -113,6 +119,9 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				else
 					prop->switchWorld();
 			}
+
+			if (glove > 0)
+				glove -= touched;
 	}
 	else
 		for (Entity* prop : items)
@@ -163,4 +172,20 @@ bool Player::end_get()
 void Player::end_set(bool s)
 {
 	end =s;
+}
+
+int Player::glove_get()
+{
+	return glove;
+}
+
+int Player::max_glove_get()
+{
+	return max_glove;
+}
+
+void Player::initGlove(int n)
+{
+	max_glove = n;
+	glove = n;
 }
