@@ -26,7 +26,7 @@ enum tex_id
 	LIFE,
 	LIFE_BACK,
 	GLOVE,
-	GLOVE_BACK
+	GLOVE_BACK,
 	EXIT1,
 	EXIT2,
 	LIFE
