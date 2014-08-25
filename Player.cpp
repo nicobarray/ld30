@@ -52,7 +52,7 @@ void Player::update()
 	}
 }
 
-void Player::die(int n)
+void Player::hurt(int n)
 {
 	life-= n;
 	std::cout << "Outch !\n";
@@ -73,7 +73,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			{
 				std::cout << "It's a prop!\n";
 				life+=dynamic_cast<Prop*>(prop)->lifeGain_get();
-				prop->die(0);
+				prop->dead_set(true);
 			}
 		}
 	}
@@ -131,7 +131,7 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				if (dist < 70)
 				{
 					std::cout << "It's an imp! (" << life << ")\n";
-					die(1);
+					hurt(1);
 					move_x = -(3.5f * move_x)/dist;
 					move_y = -(3.5f * move_y)/dist;
 				}

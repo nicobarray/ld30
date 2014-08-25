@@ -153,9 +153,15 @@ void Entity::updateSubrect()
 	switchSprite.setTextureRect(sf::IntRect(subrect.width * (frame_id % 8), 0, subrect.width, subrect.height));
 }
 
-void Entity::die(int n)
+void Entity::hurt(int n)
 {
-	dead = true;
+	anim = DEATH;
+	frame_delay = 7;
+	frame_id = 0;
+}
+void Entity::dead_set(bool b)
+{
+	dead = b;
 }
 void Entity::switchWorld()
 {
@@ -210,25 +216,28 @@ void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 
 
 	move(0, move_y);
-	col_y = false;
-	for (Entity* tile : ground)
+	if (solid)
 	{
-		if (tile->solid && box.intersects(tile->location))
+		col_y = false;
+		for (Entity* tile : ground)
 		{
-			move(0, -move_y);
-			move_y = 0;
-			col_y = true;
-			break;
+			if (tile->solid && box.intersects(tile->location))
+			{
+				move(0, -move_y);
+				move_y = 0;
+				col_y = true;
+				break;
+			}
 		}
-	}
-	for (Entity* prop : items)
-	{
-		if (prop != this && prop->solid && prop->real == real && box.intersects(prop->box))
+		for (Entity* prop : items)
 		{
-			move(0, -move_y);
-			move_y = 0;
-			col_y = true;
-			break;
+			if (prop != this && prop->solid && prop->real == real && box.intersects(prop->box))
+			{
+				move(0, -move_y);
+				move_y = 0;
+				col_y = true;
+				break;
+			}
 		}
 	}
 }

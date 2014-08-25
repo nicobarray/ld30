@@ -61,8 +61,9 @@ public:
 	sf::Sprite& sprite_get();
 	void solid_set(bool b);
 	void updateSubrect();
-
-	virtual void die(int n);
+	
+	virtual void hurt(int n);
+	virtual void dead_set(bool b);
 	void switchWorld();
 
 	void direction_set();
