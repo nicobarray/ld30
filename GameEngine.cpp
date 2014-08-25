@@ -22,6 +22,11 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/game-over.png");
 	res.load_image("../ld30/res/portal1.png");
 	res.load_image("../ld30/res/portal2.png");
+	res.load_image("../ld30/res/door.png");
+	res.load_image("../ld30/res/hud-health.png");
+	res.load_image("../ld30/res/hud-health-bar.png");
+	res.load_image("../ld30/res/hud-energy.png");
+	res.load_image("../ld30/res/hud-energy-empty.png");
 	res.load_image("../ld30/res/exit1.png");
 	res.load_image("../ld30/res/exit2.png");
 	res.load_image("../ld30/res/life.png");

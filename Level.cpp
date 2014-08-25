@@ -35,7 +35,6 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	std::vector<int> fairy_tiles;
 	std::vector<int> fairy_solids;
 
-
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.realground.data"))
 	{
 		real_tiles.push_back(v.second.get<int>("<xmlattr>.gid"));

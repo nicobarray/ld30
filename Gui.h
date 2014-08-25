@@ -19,7 +19,10 @@ public:
 
 private:
 	sf::Sprite life_bar;
-	sf::Sprite glove_bar;
+	sf::Sprite life_container;
+	sf::Sprite glove_full;
+	sf::Sprite glove_empty;
+
 	int life, max_life;
 	int glove, max_glove;
 };
