@@ -81,6 +81,12 @@
     <ClInclude Include="Spitter.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="AllEntities.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -132,6 +138,9 @@
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Spitter.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
