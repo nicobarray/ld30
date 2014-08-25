@@ -55,6 +55,7 @@ void Player::update()
 void Player::die(int n)
 {
 	life-= n;
+	std::cout << "Outch !\n";
 }
 
 void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)

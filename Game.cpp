@@ -22,8 +22,9 @@ void Game::transition_in(sf::RenderWindow& window)
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 		levels.at((int)LV1)->clearEntity();
 		levels.at((int)LV1)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*10, 16*7));
-		levels.at((int)LV1)->addRealEntity(new Spitter(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*9, 16*9));
+		levels.at((int)LV1)->addRealEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at((int)LV1), 16*9, 16*9));
 		levels.at((int)LV1)->addRealEntity(newPotion(Ressource::getInstance().texture_get((int)DROPHEALTH), 16 * 5, 16 * 6));
+		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 16 * 4, 16 * 12, 32, 32, true));
 		levels.at((int)LV1)->addRealEntity(player);
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)TILESET2), 16 * 2, 16 * 2, 16, 16, true)); 
 		break;

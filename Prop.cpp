@@ -31,3 +31,9 @@ Prop* newPotion(sf::Texture& texture, int x, int y)
 {
 	return new Prop(texture, x, y, 16, 16, 2);
 }
+
+Prop* newCrate(sf::Texture& texture, int x, int y)
+{
+	Prop* p = new Prop(texture, x, y, 32, 32, true);
+	return p;
+}
