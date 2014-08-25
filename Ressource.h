@@ -5,6 +5,7 @@
 #include<iostream>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 enum tex_id
 {
@@ -20,6 +21,13 @@ enum tex_id
 	PORTAL
 };
 
+enum BufferName
+{
+	TELEPORT = 0,
+	SHOT,
+	HIT
+};
+
 class Ressource
 {
 public:
@@ -30,12 +38,17 @@ public:
 	}
 
 	~Ressource();
+
 	int load_image(std::string path);
+	int load_wav(std::string path);
+
 	sf::Texture& texture_get(int index);
+	const sf::SoundBuffer& buffer_get(int index);
 
 private:
 	Ressource()
 		: textures()
+		, buffers()
 	{
 		
 	}
@@ -45,5 +58,6 @@ private:
 
 private:
 	std::vector<sf::Texture> textures;
+	std::vector<sf::SoundBuffer*> buffers;
 };
 

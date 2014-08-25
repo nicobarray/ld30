@@ -1,5 +1,7 @@
 #pragma once
+
 #include "mob.h"
+
 class Spitter :
 	public Mob
 {

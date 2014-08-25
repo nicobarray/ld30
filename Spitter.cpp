@@ -79,6 +79,9 @@ void Spitter::draw(sf::RenderWindow& window)
 void Spitter::shoot()
 {
 	std::cout << "Shoot !"<< std::endl;
+
+	SoundPlayer::getInstance().play((int)SHOT);
+
 	std::cout << "Shots("<< shots.size() << ")" << std::endl;
 	Ressource& res = Ressource::getInstance();
 	Prop* bullet = new Prop(res.texture_get(SPIT), box.left, box.top, 16, 16, false);
