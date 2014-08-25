@@ -60,7 +60,7 @@ public:
 	void moveBack();
 
 	sf::Sprite& sprite_get();
-	void solid_set(bool b);
+	void solid_set(int b);
 	void updateSubrect();
 	
 	virtual void hurt(int n);

@@ -8,7 +8,9 @@ Game::Game(void)
 {
 	player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 	levels.push_back(new Level1(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
+	levels.push_back(new Level("map/level1.5.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	levels.push_back(new Level2(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
+	levels.push_back(new Level("map/trap.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	levels.push_back(new Level("map/level3.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	//levels.push_back(new Level("map/level4.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 }
@@ -26,7 +28,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
 		player->initGlove(4);
 		levels.at(current)->clearEntity();
-		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)MYSTERE), 29, 2, 32, 32, true, 1));
+		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)MYSTERE), 30, 5, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 15, 2, 32, 32, true, 1));
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 15, 2, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 9, 3, 32, 32, true));
@@ -39,7 +41,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		player->initGlove(5);
 
 		levels.at(current)->clearEntity();
-		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 10, 5));
+		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 10, 3));
 		levels.at(current)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 15, 11));
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 15, 3, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 15, 3, 32, 32, true, 1));
@@ -56,7 +58,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		player->initGlove(5);
 		levels.at(current)->clearEntity();
 
-		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 2, 10));
+		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 7, 10));
 
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 2, 10, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 2, 10, 32, 32, true, 1));
@@ -74,7 +76,39 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at(current)->in_the_real_world_set(true);
 		player->real_set(true);
 		break;
-		/*case LV4:
+	case LVIMP:
+		player = new Player(Ressource::getInstance().texture_get((int)HERO), 2, 7);
+		player->initGlove(3);
+		levels.at(current)->clearEntity();
+		
+		levels.at(current)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 8, 7));
+		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 12, 7, 32, 32, true, 1));
+		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 12, 7, 32, 32, true, 1));
+		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)EXIT2), 2, 7, 32, 32, true, 2));
+
+		levels.at(current)->addRealEntity(player);
+		levels.at(current)->player_set(player);
+		levels.at(current)->in_the_real_world_set(true);
+		player->real_set(true);
+		break;
+	case TRAP:
+		player = new Player(Ressource::getInstance().texture_get((int)HERO), 9, 6);
+		player->initGlove(2);
+		levels.at(current)->clearEntity();
+		
+		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 13, 3));
+		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 13, 6));
+		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at(current), 13, 9));
+		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 2, 6, 32, 32, true, 1));
+		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 15, 6, 32, 32, true, 1));
+		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)EXIT2), 9, 6, 32, 32, true, 2));
+
+		levels.at(current)->addRealEntity(player);
+		levels.at(current)->player_set(player);
+		levels.at(current)->in_the_real_world_set(true);
+		player->real_set(true);
+		break;
+	/*case LV4:
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 4);
 		player->initGlove(5);
 		levels.at((int)LV4)->clearEntity();
