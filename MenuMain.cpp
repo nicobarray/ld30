@@ -1,6 +1,5 @@
 #include "MenuMain.h"
 
-
 MenuMain::MenuMain(void)
 	: background(Ressource::getInstance().texture_get((int)TITLE))
 {

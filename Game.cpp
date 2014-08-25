@@ -55,7 +55,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 2, 3);
 		player->initGlove(5);
 		levels.at(current)->clearEntity();
-		
+
 		levels.at(current)->addFairyEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at(current), 2, 10));
 
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 2, 10, 32, 32, true, 1));
@@ -74,7 +74,7 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at(current)->in_the_real_world_set(true);
 		player->real_set(true);
 		break;
-	/*case LV4:
+		/*case LV4:
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 4);
 		player->initGlove(5);
 		levels.at((int)LV4)->clearEntity();
@@ -90,10 +90,10 @@ void Game::transition_in(sf::RenderWindow& window)
 
 		levels.at((int)LV4)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 14, 24, 32, 32, true, 1));
 		levels.at((int)LV4)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 14, 24, 32, 32, true, 1));
-		
+
 		levels.at((int)LV4)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 25, 4, 32, 32, true, 1));
 		levels.at((int)LV4)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 25, 4, 32, 32, true, 1));
-		
+
 		levels.at((int)LV4)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 25, 14, 32, 32, true, 1));
 		levels.at((int)LV4)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 25, 14, 32, 32, true, 1));
 
@@ -124,8 +124,11 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 		transition_in(window);
 	else
 	{
-		levels.at((int)current)->in_the_real_world_set(player->real_get());
+		if (levels.at((int)current)->in_the_real_world_get() != player->real_get())
+			levels.at((int)current)->in_the_real_world_set(player->real_get());
+
 		gui.update(event, levels.at((int)current)->player_get());
+		
 		if (player->end_get())
 		{
 			if (current < END)
@@ -140,7 +143,6 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 		}
 		levels.at((int)current)->update();
 	}
-
 }
 
 void Game::draw(sf::RenderWindow& window)
