@@ -21,8 +21,7 @@ void Gui::draw(sf::RenderWindow& window)
 {
 	for (int i = 0; i < life; i++)
 	{
-		
-		life_bar.setPosition(16 + i * 36, 16);
+		life_bar.setPosition(16 + i * 32, 16);
 		window.draw(life_bar);
 	}
 }

@@ -44,18 +44,19 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	}
 
 #pragma endregion
-
 	for (int j = 0; j < height; j++)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			Entity* real_tile = new Prop(real_world, i * 16, j * 16, 16, 16, false);
-			Entity* fairy_tile = new Prop(fairy_world, i * 16, j * 16, 16, 16, false);
+			Entity* real_tile = new Prop(real_world, i, j, 16, 16, false);
+			Entity* fairy_tile = new Prop(fairy_world, i, j, 16, 16, false);
 			int index = i + j * width;
 
 			int subindex = tiles.at(index);
+			
 			real_tile->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
 			real_tile->solid_set(solids.at(index));
+
 			fairy_tile->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
 			fairy_tile->solid_set(solids.at(index));
 
