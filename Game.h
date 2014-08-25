@@ -10,6 +10,7 @@ enum LevelName
 {
 	LV1 = 0,
 	LV2,
+	LV3,
 	END
 };
 
