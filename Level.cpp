@@ -31,17 +31,30 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 	width = pt.get<int>("map.<xmlattr>.width");
 	height = pt.get<int>("map.<xmlattr>.height");
 
-	std::vector<int> tiles;
-	std::vector<int> solids;
+	std::vector<int> real_tiles;
+	std::vector<int> real_solids;
+	std::vector<int> fairy_tiles;
+	std::vector<int> fairy_solids;
 
-	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.layer.data"))
+
+	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.realground.data"))
 	{
-		tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
+		real_tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
 
-	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.solid.data"))
+	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.realsolid.data"))
 	{
-		solids.push_back(v.second.get<int>("<xmlattr>.gid"));
+		real_solids.push_back(v.second.get<int>("<xmlattr>.gid"));
+	}
+	
+	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairyground.data"))
+	{
+		fairy_tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
+	}
+
+	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairysolid.data"))
+	{
+		fairy_solids.push_back(v.second.get<int>("<xmlattr>.gid"));
 	}
 
 #pragma endregion
@@ -53,13 +66,14 @@ Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_
 			Entity* fairy_tile = new Prop(fairy_world, i, j, 16, 16, false);
 			int index = i + j * width;
 
-			int subindex = tiles.at(index);
-			
-			real_tile->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
-			real_tile->solid_set(solids.at(index));
+			int real_sub_index = real_tiles.at(index);
+			int fairy_sub_index = fairy_tiles.at(index);
 
-			fairy_tile->sprite_get().setTextureRect(sf::IntRect(((subindex - 1) % 9) * 16, ((subindex - 1) / 9) * 16, 16, 16));
-			fairy_tile->solid_set(solids.at(index));
+			real_tile->sprite_get().setTextureRect(sf::IntRect(((real_sub_index - 1) % 9) * 16, ((real_sub_index - 1) / 9) * 16, 16, 16));
+			real_tile->solid_set(real_solids.at(index));
+
+			fairy_tile->sprite_get().setTextureRect(sf::IntRect(((fairy_sub_index - 1) % 9) * 16, ((fairy_sub_index - 1) / 9) * 16, 16, 16));
+			fairy_tile->solid_set(fairy_solids.at(index));
 
 			real_ground.push_back(real_tile);
 			fairy_ground.push_back(fairy_tile);
