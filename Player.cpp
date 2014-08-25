@@ -64,7 +64,7 @@ void Player::update()
 
 		if (xx != move_x || yy != move_y)
 		{
-			if (timer > 16)
+			if (timer > 32)
 			{
 				SoundPlayer::getInstance().play((int)FOOT);
 				timer = 0;

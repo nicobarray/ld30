@@ -2,14 +2,6 @@
 
 #define SCALE = 3
 
-int abs(int n)
-{
-	if (n > 0)
-		return n;
-	else
-		return -n;
-}
-
 Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	: location(x * 3*16, y * 3*16, w * 3, h * 3)
 	, subrect(0, 0, w, h)
