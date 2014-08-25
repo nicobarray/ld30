@@ -29,7 +29,6 @@ enum tex_id
 	GLOVE_BACK,
 	EXIT1,
 	EXIT2,
-	LIFE
 };
 
 enum BufferName

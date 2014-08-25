@@ -13,9 +13,12 @@ public:
 
 	void update(sf::Event& event, Player* player);
 	void draw(sf::RenderWindow& window);
+	void transition_in(Player* player);
 
 	void life_set(int i);
 	void glove_set(int i);
+
+	void max_glove_set(int i);
 
 private:
 	sf::Sprite life_bar;
