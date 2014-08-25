@@ -3,7 +3,7 @@
 GameEngine::GameEngine(void)
 	: quit(false)
 	, index(GAME)
-	, last_scene(TESTROOM)
+	, last_scene(ENDSCREEN)
 	, scenes()
 {
 	Ressource& res = Ressource::getInstance();
@@ -19,6 +19,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/woosh.png");
 	res.load_image("../ld30/res/crate.png");
 	res.load_image("../ld30/res/title.png");
+	res.load_image("../ld30/res/game-over.png");
 	res.load_image("../ld30/res/portal1.png");
 	res.load_image("../ld30/res/portal2.png");
 	res.load_image("../ld30/res/door.png");
@@ -39,6 +40,7 @@ GameEngine::GameEngine(void)
 	scenes.push_back(new MenuMain());
 	scenes.push_back(new MenuLevel());
 	scenes.push_back(new Game());
+	scenes.push_back(new EndScreen());
 
 	// Test room (debug only)
 	scenes.push_back(new TestRoom(res.texture_get((int)TILESET1)));

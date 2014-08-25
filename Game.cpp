@@ -33,19 +33,16 @@ void Game::transition_in(sf::RenderWindow& window)
 		break;
 	case LV2:
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
-		player->initGlove(6);
+		player->initGlove(5);
+
 		levels.at(current)->clearEntity();
 		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 10, 5));
 		levels.at(current)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 15, 11));
-
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 15, 3, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 15, 3, 32, 32, true, 1));
-
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 12, 13, 32, 32, true, 1));
 		levels.at(current)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 12, 13, 32, 32, true, 1));
-		
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)EXIT2), 3, 13, 32, 32, true, 2));
-
 		levels.at(current)->addRealEntity(player);
 		levels.at(current)->player_set(player);
 		levels.at(current)->in_the_real_world_set(false);
@@ -54,7 +51,7 @@ void Game::transition_in(sf::RenderWindow& window)
 	default:
 		break;
 	}
-	
+
 	gui.transition_in(player);
 }
 
@@ -71,12 +68,15 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 		if (current < END)
 			current = (LevelName)((int)current + 1);
 		player->end_set(false);
-		transition_in(window);
 		if (current == END)
-			index = MENU;
+		{
+			index = ENDSCREEN;
+			current = LV1;
+		}
+		transition_in(window);
 	}
 	levels.at((int)current)->update();
-	
+
 }
 
 void Game::draw(sf::RenderWindow& window)

@@ -12,6 +12,7 @@
 #include "TestRoom.h"
 #include "MenuLevel.h"
 #include "MenuMain.h"
+#include "EndScreen.h"
 
 class GameEngine
 {

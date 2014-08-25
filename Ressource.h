@@ -20,6 +20,7 @@ enum tex_id
 	SWITCH,
 	CRATE,
 	TITLE,
+	GAMEOVER,
 	PORTAL1,
 	PORTAL2,
 	DOOR,
@@ -28,7 +29,7 @@ enum tex_id
 	GLOVE,
 	GLOVE_BACK,
 	EXIT1,
-	EXIT2,
+	EXIT2
 };
 
 enum BufferName
