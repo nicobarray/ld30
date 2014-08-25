@@ -18,6 +18,7 @@ GameEngine::GameEngine(void)
 	res.load_image("../ld30/res/spit.png");
 	res.load_image("../ld30/res/woosh.png");
 	res.load_image("../ld30/res/crate.png");
+	res.load_image("../ld30/res/dust.png");
 	res.load_image("../ld30/res/title.png");
 	res.load_image("../ld30/res/game-over.png");
 	res.load_image("../ld30/res/portal1.png");

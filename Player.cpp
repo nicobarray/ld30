@@ -8,7 +8,6 @@ Player::Player(sf::Texture& t, int x, int y)
 	, glove(3)
 	, max_glove(3)
 	, item(nullptr)
-	, end(false)
 	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
 {
 }
@@ -29,7 +28,7 @@ void Player::update()
 	}
 
 	int speed = 3;
-	if (anim != ATTACK && anim != DEATH && anim != SWITCH)
+	if (anim == IDLE || anim == RUN)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			// move left...
@@ -115,7 +114,10 @@ void Player::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 				if (statue && statue->link_get() == 1)
 					switchWorld();
 				else if (statue && statue->link_get() == 2)
-					end = true;
+				{
+					gonna_end = true;
+					switchWorld();
+				}
 				else
 					prop->switchWorld();
 			}

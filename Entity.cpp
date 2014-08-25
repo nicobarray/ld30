@@ -28,6 +28,8 @@ Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
 	, frame_id(0)
 	, frame_delay(7)
 	, anim(IDLE)
+	, end(false)
+	, gonna_end(false)
 {
 	Ressource& r = Ressource::getInstance();
 	switchTexture = r.texture_get(SWITCH);
@@ -141,6 +143,12 @@ void Entity::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 			if (frame_id % 8 == 0 && anim == SWITCHING)
 			{
 				anim = IDLE;
+				if (gonna_end)
+				{
+					end = true;
+					gonna_end = false;
+				}
+				else
 				real = !real;
 			}
 		}

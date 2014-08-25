@@ -17,7 +17,7 @@ void Bullet::update(std::vector<Entity*> ground, std::vector<Entity*> items)
 	{
 		for (Entity* tile : ground)
 		{
-			if (tile->solid_get() && box.intersects(tile->location_get()))
+			if (tile->solid_get() > 1 && box.intersects(tile->location_get()))
 			{
 				hurt(1);
 				move_x = 0;

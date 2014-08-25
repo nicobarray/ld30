@@ -19,6 +19,7 @@ enum tex_id
 	SPIT,
 	SWITCH,
 	CRATE,
+	DUST,
 	TITLE,
 	GAMEOVER,
 	PORTAL1,
