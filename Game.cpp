@@ -20,7 +20,7 @@ void Game::transition_in(sf::RenderWindow& window)
 	switch (current)
 	{
 	case LV1:
-		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 4);
+		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
 		levels.at((int)LV1)->clearEntity();
 		/*levels.at((int)LV1)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV1), 16*10, 16*7));
 		levels.at((int)LV1)->addRealEntity(new Spitter(Ressource::getInstance().texture_get((int)SPITTER), levels.at((int)LV1), 16*9, 16*9));
@@ -33,10 +33,10 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL), 16 * 2, 16 * 2, 32, 32, true, true));
 		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL), 16 * 2, 16 * 2, 32, 32, true, true)); 
 		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)DOOR), 16 * 2, 16 * 12, 32, 32, false));*/
-		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 11, 4, 32, 32, true, true));
-		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 11, 4, 32, 32, true, true));
-		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 7, 4, 32, 32, true));
-		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 7, 5, 32, 32, true));
+		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL1), 15, 2, 32, 32, true, true));
+		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)PORTAL2), 15, 2, 32, 32, true, true));
+		levels.at((int)LV1)->addRealEntity(new Prop(Ressource::getInstance().texture_get((int)CRATE), 9, 3, 32, 32, true));
+		levels.at((int)LV1)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)DOOR), 3, 3, 32, 32, false, true));
 		levels.at((int)LV1)->addRealEntity(player);
 		levels.at((int)LV1)->player_set(player);
 		break;
