@@ -127,7 +127,7 @@
    <tile gid="52"/>
   </data>
  </layer>
- <solid name="Calque 2" width="15" height="8">
+ <layer name="solid" width="15" height="8" visible="0">
   <data>
    <tile gid="81"/>
    <tile gid="81"/>
@@ -250,5 +250,5 @@
    <tile gid="81"/>
    <tile gid="81"/>
   </data>
- </solid>
+ </layer>
 </map>
