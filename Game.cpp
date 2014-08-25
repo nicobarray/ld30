@@ -8,6 +8,7 @@ Game::Game(void)
 {
 	player = new Player(Ressource::getInstance().texture_get((int)HERO), 16*4, 16*4);
 	levels.push_back(new Level1(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
+	levels.push_back(new Level("map/level1.5.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	levels.push_back(new Level2(Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	levels.push_back(new Level("map/level3.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
 	//levels.push_back(new Level("map/level4.tmx", Ressource::getInstance().texture_get((int)TILESET1), Ressource::getInstance().texture_get((int)TILESET2)));
@@ -69,6 +70,15 @@ void Game::transition_in(sf::RenderWindow& window)
 
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)EXIT2), 2, 2, 32, 32, true, 2));
 
+		levels.at(current)->addRealEntity(player);
+		levels.at(current)->player_set(player);
+		levels.at(current)->in_the_real_world_set(true);
+		player->real_set(true);
+		break;
+	case LVIMP:
+		player = new Player(Ressource::getInstance().texture_get((int)HERO), 2, 3);
+		player->initGlove(2);
+		levels.at(current)->clearEntity();
 		levels.at(current)->addRealEntity(player);
 		levels.at(current)->player_set(player);
 		levels.at(current)->in_the_real_world_set(true);

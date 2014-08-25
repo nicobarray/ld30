@@ -196,7 +196,6 @@ int Player::glove_get()
 {
 	return glove;
 }
-
 int Player::max_glove_get()
 {
 	return max_glove;
