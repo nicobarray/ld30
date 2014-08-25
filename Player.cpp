@@ -10,6 +10,8 @@ Player::Player(sf::Texture& t, int x, int y)
 	, item(nullptr)
 	, end(false)
 	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
+	, clock()
+	, timer(0)
 {
 }
 
@@ -19,6 +21,9 @@ Player::~Player(void)
 
 void Player::update()
 {
+	if (clock.getElapsedTime().asMilliseconds() > 117)
+		timer++;
+
 	dead = false;
 	if (invu)
 		invu--;
@@ -31,6 +36,9 @@ void Player::update()
 	int speed = 3;
 	if (anim != ATTACK && anim != DEATH && anim != SWITCH)
 	{
+		int xx = move_x;
+		int yy = move_y;
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			// move left...
 				move_x -= speed;
@@ -52,6 +60,15 @@ void Player::update()
 			frame_id = 0;
 			move_x = 0;
 			move_y = 0;
+		}
+
+		if (xx != move_x || yy != move_y)
+		{
+			if (timer > 16)
+			{
+				SoundPlayer::getInstance().play((int)FOOT);
+				timer = 0;
+			}
 		}
 	}
 }

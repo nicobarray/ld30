@@ -2,11 +2,12 @@
 
 GameEngine::GameEngine(void)
 	: quit(false)
-	, index(GAME)
+	, index(MENU)
 	, last_scene(ENDSCREEN)
 	, scenes()
 {
 	Ressource& res = Ressource::getInstance();
+	SoundPlayer& snd = SoundPlayer::getInstance();
 
 	res.load_image("../ld30/res/tileset-garden0.png");
 	res.load_image("../ld30/res/tileset-garden1.png");
@@ -34,6 +35,10 @@ GameEngine::GameEngine(void)
 	res.load_wav("../ld30/res/teleport.wav");
 	res.load_wav("../ld30/res/shot.wav");
 	res.load_wav("../ld30/res/hit.wav");
+	res.load_wav("../ld30/res/foot.wav");
+
+	snd.load_music("../ld30/res/real_music.wav");
+	snd.load_music("../ld30/res/fairy_music.wav");
 
 	// Add scenes here
 	

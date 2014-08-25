@@ -21,6 +21,7 @@ void Game::transition_in(sf::RenderWindow& window)
 	{
 	case LV1:
 		levels.at(current)->in_the_real_world_set(true);
+
 		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
 		player->initGlove(4);
 		levels.at(current)->clearEntity();
@@ -32,9 +33,11 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at(current)->player_set(player);
 		break;
 	case LV2:
-		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
-		player->initGlove(5);
+		levels.at(current)->in_the_real_world_set(false);
 
+		player = new Player(Ressource::getInstance().texture_get((int)HERO), 3, 3);
+		player->real_set(false);
+		player->initGlove(5);
 		levels.at(current)->clearEntity();
 		levels.at(current)->addFairyEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 10, 5));
 		levels.at(current)->addRealEntity(new Imp(Ressource::getInstance().texture_get((int)IMP), levels.at((int)LV2), 15, 11));
@@ -45,8 +48,6 @@ void Game::transition_in(sf::RenderWindow& window)
 		levels.at(current)->addFairyEntity(new Prop(Ressource::getInstance().texture_get((int)EXIT2), 3, 13, 32, 32, true, 2));
 		levels.at(current)->addRealEntity(player);
 		levels.at(current)->player_set(player);
-		levels.at(current)->in_the_real_world_set(false);
-		player->real_set(false);
 		break;
 	default:
 		break;
@@ -57,11 +58,16 @@ void Game::transition_in(sf::RenderWindow& window)
 
 void Game::transition_out(sf::RenderWindow& window)
 {
+	SoundPlayer::getInstance().stop_music();
 }
 
 void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index)
 {
-	levels.at((int)current)->in_the_real_world_set(player->real_get());
+	if (player->real_get() != levels.at(current)->in_the_real_world_get())
+	{
+		levels.at(current)->in_the_real_world_set(player->real_get());
+	}
+
 	gui.update(event, levels.at((int)current)->player_get());
 	if (player->end_get())
 	{
