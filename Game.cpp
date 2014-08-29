@@ -190,9 +190,11 @@ void Game::update(sf::Event& event, sf::RenderWindow& window, SceneName& index, 
 	}
 	else
 	{
+		// The world "follows" the player's dimension
 		if (levels.at((int)current)->in_the_real_world_get() != player->real_get())
 			levels.at((int)current)->in_the_real_world_set(player->real_get());
 
+		// Update gui with player info
 		gui.update(event, levels.at((int)current)->player_get());
 		
 		if (player->end_get())

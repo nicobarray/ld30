@@ -37,5 +37,6 @@ private:
 	sf::View view;
 	sf::Clock clock;
 	float timer;
+	sf::Vector2<float> acceleration;
 };
 

@@ -100,22 +100,22 @@ bool GameEngine::quit_get()
 	return quit;
 }
 
-#ifdef WIN32
-/*
-** Entry point for a Win32 application
-** Allows to build the program for Windows
-*/
-#include <windows.h>
-
-int WINAPI
-	wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
-#else
-/*
-** Generic entry point.
-** Should work for a Unix build (Mac OS compatible?)
-*/
+//#ifdef WIN32
+///*
+//** Entry point for a Win32 application
+//** Allows to build the program for Windows
+//*/
+//#include <windows.h>
+//
+//int WINAPI
+//	wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+//#else
+///*
+//** Generic entry point.
+//** Should work for a Unix build (Mac OS compatible?)
+//*/
 int main()
-#endif
+// #endif
 {
 	std::srand(time(nullptr));
 	// Our game engine

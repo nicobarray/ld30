@@ -11,6 +11,7 @@ Player::Player(sf::Texture& t, int x, int y)
 	, view(sf::FloatRect(0, 0, 480 * 2, 320 * 2))
 	, clock()
 	, timer(0)
+	, acceleration()
 {
 }
 
@@ -32,25 +33,53 @@ void Player::update()
 		move_y = 0;
 	}
 
-	int speed = 4;
+	float speed = 4;
+	const float MAX_SPEED = 4;
 	if (anim == IDLE || anim == RUN)
 	{
 		int xx = move_x;
 		int yy = move_y;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			// move left...
-				move_x -= speed;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			// move right...
+		bool as_moved_this_update = false;
+
+		if (sf::Joystick::isConnected(0))
+		{
+			if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X) > 25)
 				move_x += speed;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			// up...
-				move_y -= speed;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			// down...
+			else if(sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X) < -25)
+				move_x -= speed;
+
+			if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) > 25)
 				move_y += speed;
-		if (glove > 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			else if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) < -25)
+				move_y -= speed;
+		}
+		else
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				// move left...
+				move_x -= speed;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				// move right...
+				move_x += speed;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				// up...
+				move_y -= speed;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				// down...
+				move_y += speed;
+			}
+		}
+
+		// Glove use
+		if (glove > 0 && sf::Joystick::isButtonPressed(0, sf::Joystick::R) || (!sf::Joystick::isConnected(0) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))
 		{
 			anim = ATTACK;
 			frame_delay = 7;
