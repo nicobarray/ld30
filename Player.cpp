@@ -79,7 +79,7 @@ void Player::update()
 		}
 
 		// Glove use
-		if (glove > 0 && sf::Joystick::isButtonPressed(0, sf::Joystick::R) || (!sf::Joystick::isConnected(0) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))
+		if (glove > 0 && sf::Joystick::isButtonPressed(0, 0) || (!sf::Joystick::isConnected(0) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))
 		{
 			anim = ATTACK;
 			frame_delay = 7;
