@@ -3,7 +3,7 @@
 #define SCALE = 3
 
 Entity::Entity(sf::Texture& texture, int x, int y, int w, int h, bool s)
-	: location(x * 3*16, y * 3*16, w * 3, h * 3)
+	: location(x * 3 * 16, y * 3 * 16, w * 3, h * 3)
 	, subrect(0, 0, w, h)
 	, texture(texture)
 	, sprite(texture, sf::IntRect(0, 0, w, h))
@@ -215,7 +215,6 @@ void Entity::move(std::vector<Entity*> ground, std::vector<Entity*> items)
 			}
 		}
 	}
-
 
 	move(0, move_y);
 	if (solid)

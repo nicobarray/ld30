@@ -27,6 +27,20 @@ Level::Level(std::string file_name, const sf::Texture& real_world, const sf::Tex
 {
 	// Read the xml file @ fileName and create the level from it
 	// XMLParser::load_level(file_name);
+
+}
+
+Level::Level(const Level& level)
+	: tiles_real(level.tiles_real)
+	, tiles_fairy(level.tiles_fairy)
+	, entities(level.entities)
+	, texture_real(level.texture_real)
+	, texture_fairy(level.texture_fairy)
+	, map_width(level.map_width)
+	, map_height(level.map_height)
+	, in_the_real_world(level.in_the_real_world)
+	, player(level.player)
+{
 }
 
 Level::~Level(void)
@@ -41,11 +55,19 @@ void Level::update()
 	for(Entity* var : entities)
 	{
 		if (var->real_get() == in_the_real_world)
-			var->update();
+		{
+			int dx = var->location_get().left - player->location_get().left;
+			int dy = var->location_get().top - player->location_get().top;
+
+			if ((dx < 300 || dx > -300) && (dy < 300 || dy > -300))
+				var->update();
+		}
 	}
+
 	for(Entity* var : entities)
 	{
-		var->update(in_the_real_world ? tiles_real : tiles_fairy, entities);
+		if (var->real_get() == in_the_real_world)
+			var->update(in_the_real_world ? tiles_real : tiles_fairy, entities);
 	}
 }
 
@@ -113,15 +135,9 @@ std::vector<Entity*>& Level::entities_get()
 	return entities;
 }
 
-void Level::entities_real_add(Entity* e)
+void Level::entities_add(Entity* e, bool real)
 {
-	e->real_set(true);
-	entities.push_back(e);
-}
-
-void Level::entities_fairy_add(Entity* e)
-{
-	e->real_set(false);
+	e->real_set(real);
 	entities.push_back(e);
 }
 

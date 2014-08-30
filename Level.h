@@ -22,6 +22,7 @@ class Level
 public:
 	Level();
 	Level(std::string path, const sf::Texture& real_world, const sf::Texture& fairy_world);
+	Level(const Level& level);
 	~Level(void);
 	
 	virtual void update();
@@ -36,8 +37,7 @@ public:
 
 	// Get the vector containing all entities (player, mobs, dynamic objs, etc.)
 	std::vector<Entity*>& entities_get();
-	void entities_real_add(Entity* e);
-	void entities_fairy_add(Entity* e);
+	void entities_add(Entity* e, bool real);
 	
 	void in_the_real_world_set(bool b);
 	bool in_the_real_world_get();

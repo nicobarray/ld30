@@ -8,9 +8,11 @@ XMLParser::~XMLParser(void)
 {
 }
 
-Level* XMLParser::load_level(std::string path)
+Level* XMLParser::load_level(std::string path, Player* player)
 {
 	Level* level = new Level();
+	level->player_set(player);
+
 	std::ifstream file(path);
 	std::stringstream buffer;
 
@@ -29,16 +31,19 @@ Level* XMLParser::load_level(std::string path)
 
 	sf::Texture& texture_real = Ressource::getInstance().getInstance().texture_get(TextureName::TILESET1);
 	sf::Texture& texture_fairy = Ressource::getInstance().getInstance().texture_get(TextureName::TILESET2);
+
+#pragma region Tiles Parser
+
 	int index = 0;
 	Entity* tile_entity = nullptr;
 
-	std::vector<int> solids;
+	std::set<int> solids;
 
 	for (rapidxml::xml_node<> *node = map->first_node("tileset"); node; node = node->next_sibling())
 	{
 		for (rapidxml::xml_node<> *tile = node->first_node("tile"); tile; tile = tile->next_sibling())
 		{
-			solids.push_back(atoi(tile->first_attribute("id")->value()));
+			solids.insert(atoi(tile->first_attribute("id")->value()));
 		}
 	}
 
@@ -64,19 +69,16 @@ Level* XMLParser::load_level(std::string path)
 				// Set the correct subx and suby
 				tile_entity->sprite_get().setTextureRect(sf::IntRect(subx, suby, 16, 16));
 
-				for (int solid : solids)
+				if (solids.find(gid) != solids.end())
 				{
-					if (gid == solid)
-					{
-						tile_entity->solid_set(true);
-						break;
-					}
+					tile_entity->solid_set(true);
 				}
 
 				level->tiles_real_add(tile_entity);
 				index++;
 			}
-		} else if (layer_name == "fairy")
+		}
+		else if (layer_name == "fairy")
 		{
 			index = 0;
 			for (rapidxml::xml_node<> *tile = node->first_node("data")->first_node("tile"); tile; tile = tile->next_sibling())
@@ -93,21 +95,53 @@ Level* XMLParser::load_level(std::string path)
 
 				// Set the correct subx and suby
 				tile_entity->sprite_get().setTextureRect(sf::IntRect(subx, suby, 16, 16));
-				
-				for (int solid : solids)
+
+				if (solids.find(gid) != solids.end())
 				{
-					if (gid == solid)
-					{
-						tile_entity->solid_set(true);
-						break;
-					}
+					tile_entity->solid_set(true);
 				}
 
 				level->tiles_fairy_add(tile_entity);
 				index++;
 			}
 		}
+	}  
+#pragma endregion
+
+#pragma region Entities Parser
+	rapidxml::xml_node<> *objgroup = map->first_node("objectgroup");
+	if (objgroup != nullptr)
+	{
+		for (rapidxml::xml_node<> *object = objgroup->first_node("object"); object; object = object->next_sibling())
+		{
+			int x = atoi(object->first_attribute("x")->value()) / 16;
+			int y = atoi(object->first_attribute("y")->value()) / 16;
+
+			bool real = std::string("real").compare(object->first_attribute("type")->value()) == 0;
+			std::cout << real << std::endl;
+			std::string name = object->first_attribute("name")->value();
+
+			if (name == "imp")
+			{
+				level->entities_add(new Imp(Ressource::getInstance().texture_get((int)TextureName::IMP), level, x, y), real);
+			}
+			else if (name == "spitter")
+			{
+				level->entities_add(new Spitter(Ressource::getInstance().texture_get((int)TextureName::SPITTER), level, x, y), real);
+			}
+			else if(name == "player")
+			{
+				// WARNING : multiplié par 3 !!!
+				level->player_get()->location_set(x * 16 * 3, y * 16 * 3);
+			}
+		}
 	}
+	else
+	{
+		std::cout << "No entities found on this map !" << std::endl;
+	}
+
+#pragma endregion
 
 	return level;
 }

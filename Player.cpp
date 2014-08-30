@@ -200,7 +200,7 @@ sf::View& Player::view_get()
 
 int Player::life_get()
 {
-	return life;
+ 	return life;
 }
 int Player::max_life_get()
 {
