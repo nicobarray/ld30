@@ -54,9 +54,6 @@ GameEngine::GameEngine(void)
 	scenes.push_back(new Game());
 	scenes.push_back(new EndScreen());
 
-	// Test room (debug only)
-	scenes.push_back(new TestRoom(res.texture_get((int)TILESET1)));
-
 	for (int i = 0; i < (int) sf::Keyboard::KeyCount; ++i)
 		pressed_keys.push_back(false);
 }

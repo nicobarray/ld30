@@ -40,8 +40,6 @@ void Player::update()
 		int xx = move_x;
 		int yy = move_y;
 
-		bool as_moved_this_update = false;
-
 		if (sf::Joystick::isConnected(0))
 		{
 			if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X) > 25)

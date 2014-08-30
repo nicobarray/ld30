@@ -2,9 +2,9 @@
 
 #include "Scene.h"
 #include "Ressource.h"
-#include "Levels.h"
 #include "AllEntities.h"
 #include "Gui.h"
+#include "XMLParser.h"
 
 enum LevelName
 {

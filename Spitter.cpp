@@ -19,7 +19,7 @@ void Spitter::update()
 
 	if (!dead && anim != DEATH && anim != SWITCHING)
 	{
-		for (Entity* tile : parent->ground_get())
+		for (Entity* tile : parent->tiles_current_get())
 		{
 			if (tile->solid_get() && box.intersects(tile->location_get()))
 			{
@@ -39,7 +39,7 @@ void Spitter::update()
 			float x2 = x;
 			float y2 = y;
 
-			for (Entity* e : parent->items_get())
+			for (Entity* e : parent->entities_get())
 			{
 				if (dynamic_cast<Player*> (e))
 				{

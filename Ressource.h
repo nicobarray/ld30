@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-enum tex_id
+enum TextureName
 {
 	TILESET1 = 0,
 	TILESET2,

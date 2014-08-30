@@ -9,7 +9,6 @@
 
 #include "Scene.h"
 #include "Ressource.h"
-#include "TestRoom.h"
 #include "MenuLevel.h"
 #include "MenuMain.h"
 #include "EndScreen.h"

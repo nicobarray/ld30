@@ -19,7 +19,7 @@ void Imp::update()
 
 	if (!dead && anim != DEATH && anim != SWITCHING)
 	{
-		for (Entity* tile : parent->ground_get())
+		for (Entity* tile : parent->tiles_current_get())
 		{
 			if (tile->solid_get() && box.intersects(tile->location_get()))
 			{
@@ -35,7 +35,7 @@ void Imp::update()
 			float y2 = y;
 
 			if (parent)
-				for (Entity* e : parent->items_get())
+				for (Entity* e : parent->entities_get())
 				{
 					//std::cout << "Checking item at " << e->location_get().left << ";" << e->location_get().top << "\n";
 					if (dynamic_cast<Player*> (e))

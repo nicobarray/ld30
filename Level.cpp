@@ -1,135 +1,71 @@
 #include "Level.h"
+#include "XMLParser.h"
 
-Level::Level(std::string file_name, sf::Texture& real_world, sf::Texture& fairy_world)
-	: real_ground()
-	, fairy_ground()
-	, items()
-	, real_world(real_world)
-	, fairy_world(fairy_world)
-	, width(0)
-	, height(0)
+Level::Level()
+	: tiles_real()
+	, tiles_fairy()
+	, entities()
+	, texture_real(Ressource::getInstance().texture_get((int)TextureName::TILESET1))
+	, texture_fairy(Ressource::getInstance().texture_get((int)TextureName::TILESET2))
+	, map_width(0)
+	, map_height(0)
+	, in_the_real_world(true)
+	, player(nullptr)
+{
+}
+
+Level::Level(std::string file_name, const sf::Texture& real_world, const sf::Texture& fairy_world)
+	: tiles_real()
+	, tiles_fairy()
+	, entities()
+	, texture_real(real_world)
+	, texture_fairy(fairy_world)
+	, map_width(0)
+	, map_height(0)
 	, in_the_real_world(true)
 	, player(nullptr)
 {
 	// Read the xml file @ fileName and create the level from it
-
-#pragma region XML loader
-
-	using boost::property_tree::ptree;
-	ptree pt;
-
-	try
-	{
-		read_xml(file_name, pt);
-	}
-	catch (...)
-	{
-		std::cout << "Error while parsing : " << file_name;
-	}
-
-	width = pt.get<int>("map.<xmlattr>.width");
-	height = pt.get<int>("map.<xmlattr>.height");
-
-	std::vector<int> real_tiles;
-	std::vector<int> real_solids;
-	std::vector<int> fairy_tiles;
-	std::vector<int> fairy_solids;
-
-	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.realground.data"))
-	{
-		real_tiles.push_back(v.second.get<int>("<xmlattr>.gid"));
-	}
-	
-	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.realsolid.data"))
-	{
-		real_solids.push_back(v.second.get<int>("<xmlattr>.gid"));
-	}
-	
-	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairyground.data"))
-	{
-		fairy_tiles.push_back(v.second.get<int>("<xmlattr>.gid") - 108);
-	}
-	
-	BOOST_FOREACH(ptree::value_type &v, pt.get_child("map.fairysolid.data"))
-	{
-		fairy_solids.push_back(v.second.get<int>("<xmlattr>.gid"));
-	}
-	
-
-#pragma endregion
-	for (int j = 0; j < height; j++)
-	{
-		for (int i = 0; i < width; i++)
-		{
-			Entity* real_tile = new Prop(real_world, i, j, 16, 16, false);
-			Entity* fairy_tile = new Prop(fairy_world, i, j, 16, 16, false);
-			int index = i + j * width;
-
-			int real_sub_index = real_tiles.at(index);
-			int fairy_sub_index = fairy_tiles.at(index);
-
-			real_tile->sprite_get().setTextureRect(sf::IntRect(((real_sub_index - 1) % 9) * 16, ((real_sub_index - 1) / 9) * 16, 16, 16));
-			real_tile->solid_set(real_solids.at(index));
-
-			fairy_tile->sprite_get().setTextureRect(sf::IntRect(((fairy_sub_index - 1) % 9) * 16, ((fairy_sub_index - 1) / 9) * 16, 16, 16));
-			fairy_tile->solid_set(fairy_solids.at(index));
-
-			real_ground.push_back(real_tile);
-			fairy_ground.push_back(fairy_tile);
-		}
-	}
-
-	std::cout << "Done with : " << file_name << "\n";
+	// XMLParser::load_level(file_name);
 }
 
 Level::~Level(void)
 {
-	for(Entity* var : items)
-		delete var;
+	entities.clear();
+	tiles_real.clear();
+	tiles_fairy.clear();
 }
 
 void Level::update()
 {
-	for(Entity* var : items)
+	for(Entity* var : entities)
 	{
 		if (var->real_get() == in_the_real_world)
 			var->update();
 	}
-	for(Entity* var : items)
+	for(Entity* var : entities)
 	{
-		var->update(in_the_real_world ? real_ground : fairy_ground, items);
+		var->update(in_the_real_world ? tiles_real : tiles_fairy, entities);
 	}
 }
 
 void Level::draw(sf::RenderWindow& window)
 {
-	for(Entity* var : in_the_real_world ? real_ground : fairy_ground)
+	for(Entity* var : in_the_real_world ? tiles_real : tiles_fairy)
 		var->draw(window);
 
-	std::sort(items.begin(), items.end(), compare);
+	std::sort(entities.begin(), entities.end(), compare);
 
-	for(Entity* var : items)
+	for(Entity* var : entities)
 	{
 		if (var->real_get() == in_the_real_world)
 			var->draw(window);
 	}
 }
 
-void Level::addRealEntity(Entity* e)
-{
-	items.push_back(e);
-}
+// GETTERS & SETTERS
 
-void Level::addFairyEntity(Entity* e)
-{
-	e->real_set(false);
-	items.push_back(e);
-}
-
-void Level::clearEntity()
-{
-	items.clear();
-}
+// In_the_real_world boolean
 
 void Level::in_the_real_world_set(bool b)
 {
@@ -143,23 +79,53 @@ bool Level::in_the_real_world_get()
 	return in_the_real_world;
 }
 
-std::vector<Entity*>& Level::ground_real_get()
+// Tiles
+
+std::vector<Entity*>& Level::tiles_real_get()
 {
-	return real_ground;
-}
-std::vector<Entity*>& Level::ground_fairy_get()
-{
-	return fairy_ground;
-}
-std::vector<Entity*>& Level::ground_get()
-{
-	return in_the_real_world ? real_ground : fairy_ground;
+	return tiles_real;
 }
 
-std::vector<Entity*>& Level::items_get()
+void Level::tiles_real_add(Entity* e)
 {
-	return items;
+	tiles_real.push_back(e);
 }
+
+std::vector<Entity*>& Level::tiles_fairy_get()
+{
+	return tiles_fairy;
+}
+
+void Level::tiles_fairy_add(Entity* e)
+{
+	tiles_fairy.push_back(e);
+}
+
+std::vector<Entity*>& Level::tiles_current_get()
+{
+	return in_the_real_world ? tiles_real_get() : tiles_fairy_get();
+}
+
+// Entities
+
+std::vector<Entity*>& Level::entities_get()
+{
+	return entities;
+}
+
+void Level::entities_real_add(Entity* e)
+{
+	e->real_set(true);
+	entities.push_back(e);
+}
+
+void Level::entities_fairy_add(Entity* e)
+{
+	e->real_set(false);
+	entities.push_back(e);
+}
+
+// Player
 
 Player* Level::player_get()
 {
@@ -169,4 +135,26 @@ Player* Level::player_get()
 void Level::player_set(Player* p)
 {
 	player = p;
+}
+
+// Map size
+
+void Level::map_width_set(int i)
+{
+	map_width = i;
+}
+
+void Level::map_height_set(int i)
+{
+	map_height = i;
+}
+
+int Level::map_width_get()
+{
+	return map_width;
+}
+
+int Level::map_height_get()
+{
+	return map_height;
 }
